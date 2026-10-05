@@ -489,3 +489,5 @@ body{background:transparent}
 .nav.scrolled:not(.solid){background:rgba(22,22,58,.18);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(255,255,255,.12)}
 .nav.solid .talk{background:var(--ink);color:#fff}
 .portrait img{height:100%}
+/* objetivos táctiles cómodos */
+@media(pointer:coarse){.lang button{min-height:40px;min-width:44px}.nav .name{padding:8px 0}}
