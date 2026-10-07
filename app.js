@@ -522,6 +522,9 @@ const GUIDE_AGENT_ID = 'agent_2401m4by69x4e54v5h02b7tqsa6v';
   setState('idle');
 })();
 
+/* animación breve del logo al cargar */
+if (!reduce){ const lg = $('.logo'); lg?.classList.add('intro'); setTimeout(() => lg?.classList.remove('intro'), 2800) }
+
 /* ---------------- arranque ---------------- */
 $$('[data-set-lang]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.setLang === L())));
 renderIndex(); renderChips();
