@@ -122,17 +122,8 @@ function voiceField(canvas, opts = {}){
 const heroField = voiceField($('#voice'), {energy:.35, gap:24});
 voiceField($('#voice2'), {energy:.25, gap:30});
 
-/* estado del agente en el hero + barras */
-const bars = $$('.state .bars b');
-let speaking = false;
-(function eq(){
-  bars.forEach((b, i) => b.style.height = (speaking ? 4 + Math.random() * 10 : 3 + (Math.sin(Date.now()/300 + i) + 1) * 1.5) + 'px');
-  if (!reduce) setTimeout(eq, 110);
-})();
+/* el campo de voz se intensifica mientras aparece el titular */
 function setSpeaking(on){
-  speaking = on;
-  const k = on ? UI.speaking : UI.listening;
-  $('.st-txt').innerHTML = `<span lang="es">${k.es}</span><span lang="en">${k.en}</span>`;
   heroField.target = on ? 1 : .35;
 }
 
