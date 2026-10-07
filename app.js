@@ -496,13 +496,14 @@ const GUIDE_AGENT_ID = 'agent_2401m4by69x4e54v5h02b7tqsa6v';
         agentId: GUIDE_AGENT_ID, connectionType:'webrtc',
         dynamicVariables:{idioma:L(), saludo:SAY[L()]},
         clientTools: tools,
-        onConnect: () => { box.classList.add('on'); av.fire('wave'); setState('listening'); pulse() },
-        onDisconnect: () => stop(true),
-        onError: e => { console.error(e); stop(true) },
+        onStatusChange: s => console.info('Nikkita status', s),
+        onConnect: () => { window.__nkT = Date.now(); box.classList.add('on'); av.fire('wave'); setState('listening'); pulse() },
+        onDisconnect: d => { const why = d?.message || d?.reason || ''; console.warn('Nikkita disconnect', d); const short = Date.now() - (window.__nkT || 0) < 6000; stop(true); if (short){ cap.textContent = (L() === 'es' ? 'Se cerró la conexión: ' : 'Connection closed: ') + (why || 'sin motivo'); box.classList.add('on'); setTimeout(() => { if (!conv) box.classList.remove('on') }, 12000) } },
+        onError: (e, ctx) => { console.error('Nikkita error', e, ctx); cap.textContent = 'Error: ' + (e?.message || e); },
         onModeChange: m => setState(m?.mode === 'speaking' ? 'speaking' : 'listening'),
         onMessage: ev => { const txt = ev?.message || ev?.text; if (!txt) return; if (ev.source === 'ai' || ev.role === 'agent') cap.textContent = txt; else { av.think = true; av.refresh() } }
       });
-    }catch(e){ console.error(e); conv = null; setState('idle'); cap.textContent = L() === 'es' ? 'No pude conectar. Revisa el permiso del micrófono.' : 'Couldn’t connect. Check microphone permission.'; box.classList.add('on'); setTimeout(() => { if (!conv) box.classList.remove('on') }, 4000) }
+    }catch(e){ console.error(e); conv = null; setState('idle'); cap.textContent = (L() === 'es' ? 'No pude conectar: ' : 'Couldn’t connect: ') + (e?.message || e); box.classList.add('on'); setTimeout(() => { if (!conv) box.classList.remove('on') }, 12000) }
   }
   async function stop(silent){
     const c = conv; conv = null; cancelAnimationFrame(raf); orb.style.transform = ''; av.set('level', 0);
