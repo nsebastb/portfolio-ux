@@ -243,7 +243,7 @@ html[data-lang="en"] [lang="es"]:not(html){display:none!important}
 .index{list-style:none;margin:0;padding:0;border-top:1.5px solid var(--ink)}
 .row{border-bottom:1px solid var(--line-strong)}
 .row button{all:unset;box-sizing:border-box;width:100%;cursor:pointer;display:grid;
-  grid-template-columns:70px minmax(0,1fr) minmax(0,.7fr) 120px 44px;gap:20px;align-items:center;padding:26px 6px;position:relative}
+  grid-template-columns:70px minmax(0,1fr) minmax(0,.6fr) max-content 44px;gap:20px;align-items:center;padding:26px 6px;position:relative}
 .row button:focus-visible{outline:3px solid var(--cobalt);outline-offset:-3px}
 .row .num{font-size:15px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
 .row .t{font-size:clamp(24px,3.2vw,44px);font-weight:700;letter-spacing:-.008em;line-height:1;
@@ -627,3 +627,4 @@ body{font-variation-settings:"wdth" 100}h1,h2,h3,h4,.h-xl,.h-l,.hero h1,.contact
 .nk[data-emo="point"] .browL{transform:translateY(-4px)}
 @media(prefers-reduced-motion:reduce){.nk *{animation:none!important}.nikkita.pointing{transform:none}}
 .voice-note{font-size:13px;color:#C9CAE6;flex-basis:100%;order:3}
+.row .kind{white-space:nowrap;text-align:center;justify-self:end;line-height:1.2;padding:7px 14px}
