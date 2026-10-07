@@ -529,7 +529,7 @@ h1,h2,h3,.cs-hero h2{text-wrap:balance}
 @media(max-width:860px){.demos.mixed{grid-template-columns:1fr;justify-items:center}.demos.mixed .browser{width:100%}}
 body{font-variation-settings:"wdth" 100}h1,h2,h3,h4,.h-xl,.h-l,.hero h1,.contact h2,.cs-hero h2{font-variation-settings:"wdth" 100,"opsz" 48}
 /* ============================================================
-   AGENTE GUÍA (Nova)
+   AGENTE GUÍA (Nikkita)
    ============================================================ */
 .guide{position:fixed;right:clamp(12px,2.5vw,28px);bottom:clamp(12px,2.5vw,28px);z-index:85;display:flex;flex-direction:column;align-items:flex-end;gap:10px;max-width:min(380px,calc(100vw - 24px))}
 .guide[hidden]{display:none}
@@ -548,3 +548,12 @@ body{font-variation-settings:"wdth" 100}h1,h2,h3,h4,.h-xl,.h-l,.hero h1,.contact
 .guide.on .guide-cap:not(:empty){display:block}
 .guide[data-state="speaking"] .guide-btn{background:var(--cobalt)}
 @media(max-width:520px){.guide-btn{padding:8px 16px 8px 8px;font-size:14px}}
+/* avatar Rive de Nikkita */
+.nikkita{width:150px;height:150px;margin-right:-6px;transition:transform .7s var(--ease);pointer-events:none;filter:drop-shadow(0 16px 24px rgba(22,22,58,.35))}
+.nikkita[hidden]{display:none}
+.nikkita canvas{width:100%;height:100%;display:block}
+.nikkita.pointing{transform:translate(-24px,calc(-50vh + 200px)) scale(1.1)}
+.guide.has-avatar .g-orb{display:none}
+.guide.has-avatar .guide-btn{padding-left:20px}
+@media(max-width:520px){.nikkita{width:104px;height:104px}.nikkita.pointing{transform:translate(-8px,calc(-40vh + 140px))}}
+@media(prefers-reduced-motion:reduce){.nikkita.pointing{transform:none}}
