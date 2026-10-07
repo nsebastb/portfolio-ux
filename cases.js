@@ -82,7 +82,7 @@ window.CASES = [
     [{es:"Registra",en:"Records"},{es:"Compromiso de pago guardado en vivo.",en:"Payment commitment saved live."},"registrar_gestion"],
     [{es:"Cierra",en:"Closes"},{es:"Motivo de no pago y NPS de la experiencia.",en:"Reason for non-payment and experience NPS."},"NPS"]
   ],
-  videos:[["assets/pago-1.mp4","assets/pago-1-poster.jpg"],["assets/pago-2.mp4","assets/pago-2-poster.jpg"]],
+  videos:[["assets/pago-1.mp4","assets/pago-1-poster.jpg"],["assets/pago-2.mp4","assets/pago-2-poster.jpg",{es:"Panel de acuerdos que el agente registra en vivo",en:"Dashboard of agreements the agent records live"}]],
   tilesTitle:{es:"Por qué importa",en:"Why it matters"},
   tiles:[
     [{es:"Una conversación, no un menú",en:"A conversation, not a menu"},{es:"La renegociación se siente como ayuda, no como presión.",en:"Renegotiation feels like help, not pressure."}],

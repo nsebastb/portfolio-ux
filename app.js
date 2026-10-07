@@ -347,7 +347,13 @@ function renderCase(id, scrollTop = true){
   <div class="cs-stats">${c.stats.map(([v, l]) => `<div class="cs-stat"><b>${esc(v)}</b><span>${esc(t(l))}</span></div>`).join('')}</div>
   <section class="cs-sec"><h3>${t(UI.challenge)}</h3><div class="cs-two"><div><p>${esc(t(c.challenge))}</p><p>${esc(t(c.answer))}</p></div><p class="voice-quote">${esc(t(c.quote))}</p></div></section>
   <section class="cs-sec"><h3>${t(c.kind === 'research' ? UI.process : UI.steps)}</h3><ol class="steps">${c.steps.map(([a, b, tag]) => `<li><div><h4>${esc(t(a))}</h4><p>${esc(t(b))}</p></div>${tag ? `<code>${esc(tag)}</code>` : '<span></span>'}</li>`).join('')}</ol></section>`;
-  if (c.videos) h += `<section class="cs-sec"><h3>${t(UI.demo)}</h3><div class="demos">${c.videos.map(([s, p]) => `<div class="phone"><video src="${s}" poster="${p}" controls playsinline preload="none"></video></div>`).join('')}</div><p class="cap">${t(UI.sound)}</p></section>`;
+  if (c.videos){
+    const phones = c.videos.filter(v => !v[2]), webs = c.videos.filter(v => v[2]);
+    h += `<section class="cs-sec"><h3>${t(UI.demo)}</h3><div class="demos${webs.length ? ' mixed' : ''}">`
+      + phones.map(([s, p]) => `<figure class="phone-wrap"><div class="phone"><video src="${s}" poster="${p}" controls playsinline preload="none"></video></div><figcaption class="cap">${t(UI.sound)}</figcaption></figure>`).join('')
+      + webs.map(([s, p, lab]) => `<figure class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span class="url">${esc(t(lab))}</span></div><video src="${s}" poster="${p}" autoplay muted loop playsinline preload="metadata" data-ambient aria-label="${esc(t(lab))}"></video></figure>`).join('')
+      + `</div></section>`;
+  }
   if (c.live) h += `<section class="cs-sec"><h3>${t(UI.live)}</h3><div class="stage" style="max-width:820px;margin:0 auto"><img class="logo" src="assets/ntt-logo.png" alt="NTT DATA"><div class="shadow"></div><div class="mascot"><img src="assets/clarito.webp" alt="Clarito"></div></div><div class="hero-cta" style="justify-content:center"><button class="btn btn-red" type="button" data-open-live>${t(UI.talk)}</button></div></section>`;
   if (c.shots) h += `<section class="cs-sec"><h3>${t(UI.design)}</h3><div class="shots${c.shots.length > 1 ? ' three' : ''}">${c.shots.map(s => `<img src="${s}" alt="${esc(t(c.title))}" loading="lazy">`).join('')}</div></section>`;
   if (c.bars) h += `<section class="cs-sec"><h3>${t(UI.friction)}</h3><div class="fbars">${c.bars.map(([l, v, lab]) => `<div class="bar"><span>${esc(t(l))}</span><span class="tr"><i style="--v:${v}"></i></span><b>${esc(t(lab))}</b></div>`).join('')}</div></section>`;
@@ -389,7 +395,7 @@ document.addEventListener('click', e => {
   if (e.target.closest('[data-close-live]')) closeLive();
 });
 /* pausar otros videos */
-document.addEventListener('play', e => $$('video').forEach(v => v !== e.target && v.pause()), true);
+document.addEventListener('play', e => { if (e.target.hasAttribute('data-ambient')) return; $$('video:not([data-ambient])').forEach(v => v !== e.target && v.pause()) }, true);
 
 /* ---------------- Clarito en vivo ---------------- */
 const live = $('#live'), frame = $('iframe', live);
