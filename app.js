@@ -493,7 +493,7 @@ const GUIDE_AGENT_ID = 'agent_2401m4by69x4e54v5h02b7tqsa6v';
     try{
       sdk = sdk || (await import('https://esm.sh/@elevenlabs/client')).Conversation;
       conv = await sdk.startSession({
-        agentId: GUIDE_AGENT_ID, connectionType:'webrtc',
+        agentId: GUIDE_AGENT_ID, connectionType:'websocket',
         dynamicVariables:{idioma:L(), saludo:SAY[L()]},
         clientTools: tools,
         onStatusChange: s => console.info('Nikkita status', s),
