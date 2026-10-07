@@ -548,18 +548,81 @@ body{font-variation-settings:"wdth" 100}h1,h2,h3,h4,.h-xl,.h-l,.hero h1,.contact
 .guide.on .guide-cap:not(:empty){display:block}
 .guide[data-state="speaking"] .guide-btn{background:var(--cobalt)}
 @media(max-width:520px){.guide-btn{padding:8px 16px 8px 8px;font-size:14px}}
-/* avatar de Nikkita (tres poses) */
-.nikkita{--lvl:0;--look:0;width:150px;height:150px;margin-right:-8px;pointer-events:none;transition:transform .8s var(--ease);
-  filter:drop-shadow(0 14px 18px rgba(22,22,58,.32))}
+/* ============================================================
+   NIKKITA · avatar vectorial animado
+   ============================================================ */
+.nikkita{--lvl:0;width:130px;margin-right:-6px;pointer-events:none;transition:transform .8s var(--ease);filter:drop-shadow(0 14px 18px rgba(22,22,58,.3))}
 .nikkita[hidden]{display:none}
-.nk-body{position:relative;width:100%;height:100%;transform-origin:50% 100%;animation:nk-float 3.6s ease-in-out infinite;
-  transform:rotate(calc(var(--look) * 4deg))}
-.nk-body img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .28s ease,transform .45s var(--ease);transform:scale(.96)}
-.nikkita[data-pose="idle"] .nk-idle,.nikkita[data-pose="think"] .nk-think,.nikkita[data-pose="wave"] .nk-wave{opacity:1;transform:scale(1)}
-.guide[data-state="speaking"] .nk-body{animation:none;transform:translateY(calc(var(--lvl) * -10px)) scaleY(calc(1 + var(--lvl) * .05)) rotate(calc(var(--look) * 4deg))}
-@keyframes nk-float{50%{translate:0 -6px}}
-.nikkita.pointing{transform:translate(-28px,calc(-50vh + 200px)) scale(1.12)}
+.nikkita.pointing{transform:translate(-28px,calc(-50vh + 200px)) scale(1.1)}
 .guide.has-avatar .g-orb{display:none}
 .guide.has-avatar .guide-btn{padding-left:20px}
-@media(max-width:520px){.nikkita{width:108px;height:108px}.nikkita.pointing{transform:translate(-8px,calc(-38vh + 140px))}}
-@media(prefers-reduced-motion:reduce){.nk-body{animation:none}.nikkita.pointing{transform:none}}
+@media(max-width:520px){.nikkita{width:96px}.nikkita.pointing{transform:translate(-8px,calc(-38vh + 140px))}}
+
+.nk{width:100%;height:auto;overflow:visible;display:block}
+.nk *{transform-box:fill-box}
+.nk .ring{transform-box:view-box;stroke:#5A505C;stroke-width:2.4;opacity:.85}
+.nk .all{transform-origin:50% 100%;animation:nk-breathe 3.6s ease-in-out infinite}
+.nk .head{transform-origin:50% 90%;transition:transform .5s cubic-bezier(.2,.7,.1,1)}
+.nk .bun{transform-origin:50% 100%;animation:nk-bun 4.2s ease-in-out infinite}
+.nk .pupils{transition:transform .25s ease-out}
+.nk .eyes{transform-origin:50% 50%;transition:transform .3s,opacity .2s}
+.nk .eyes.blink{animation:nk-blink .16s ease-in-out}
+.nk .brow{transform-origin:50% 50%;transition:transform .35s ease}
+.nk .mouth .m{opacity:0;transition:opacity .15s}
+.nk .m-talk{transform-origin:50% 25%;transform:scaleY(calc(.22 + var(--lvl) * 1.05)) scaleX(calc(.9 + var(--lvl) * .2))}
+.nk .armL,.nk .armR{transition:transform .55s cubic-bezier(.3,1.4,.5,1)}
+.nk .armL{transform-origin:85% 6%}
+.nk .armR{transform-origin:15% 6%}
+.nk .bubble{opacity:0;transform:scale(.6);transform-origin:0% 100%;transition:.35s cubic-bezier(.3,1.4,.5,1)}
+.nk .blush{opacity:0;transition:opacity .4s}
+.nk .happyEyes{opacity:0;transition:opacity .2s}
+@keyframes nk-breathe{50%{transform:translateY(-4px) scaleY(1.01)}}
+@keyframes nk-bun{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
+@keyframes nk-blink{50%{transform:scaleY(.08)}}
+@keyframes nk-wave{0%,100%{transform:rotate(-150deg)}50%{transform:rotate(-120deg)}}
+@keyframes nk-nod{0%,100%{transform:rotate(-6deg) translateY(0)}50%{transform:rotate(-6deg) translateY(3px)}}
+@keyframes nk-bounce{0%,100%{transform:translateY(0)}40%{transform:translateY(-12px)}}
+@keyframes nk-gest{0%,100%{transform:rotate(16deg)}50%{transform:rotate(28deg)}}
+@keyframes nk-dots{0%,100%{opacity:.3}50%{opacity:1}}
+.nk[data-emo="neutral"] .m-smile{opacity:1}
+.nk[data-emo="listen"] .head{animation:nk-nod 1.6s ease-in-out infinite}
+.nk[data-emo="listen"] .m-soft{opacity:1}
+.nk[data-emo="listen"] .brow{transform:translateY(-3px)}
+.nk[data-emo="think"] .head{transform:rotate(7deg)}
+.nk[data-emo="think"] .browR{transform:translateY(-6px) rotate(-8deg)}
+.nk[data-emo="think"] .m-flat{opacity:1}
+.nk[data-emo="think"] .armR{transform:rotate(138deg)}
+.nk[data-emo="think"] .bubble{opacity:1;transform:none}
+.nk[data-emo="think"] .bubble .d{animation:nk-dots 1.2s infinite}
+.nk[data-emo="think"] .bubble .d:nth-child(5){animation-delay:.2s}.nk[data-emo="think"] .bubble .d:nth-child(6){animation-delay:.4s}
+.nk[data-emo="talk"] .m-talk{opacity:1}
+.nk[data-emo="talk"] .armL{animation:nk-gest 1.8s ease-in-out infinite}
+.nk[data-emo="talk"] .brow{transform:translateY(calc(var(--lvl) * -3px))}
+.nk[data-emo="happy"] .all{animation:nk-bounce .9s ease-in-out infinite}
+.nk[data-emo="happy"] .eyes{opacity:0}
+.nk[data-emo="happy"] .happyEyes{opacity:1}
+.nk[data-emo="happy"] .blush{opacity:.55}
+.nk[data-emo="happy"] .m-big{opacity:1}
+.nk[data-emo="happy"] .brow{transform:translateY(-5px)}
+.nk[data-emo="happy"] .armL{transform:rotate(40deg)}.nk[data-emo="happy"] .armR{transform:rotate(-40deg)}
+.nk[data-emo="wow"] .eyes{transform:scale(1.18)}
+.nk[data-emo="wow"] .brow{transform:translateY(-9px)}
+.nk[data-emo="wow"] .m-o{opacity:1}
+.nk[data-emo="wow"] .head{transform:translateY(-4px)}
+.nk[data-emo="wow"] .armL{transform:rotate(25deg)}.nk[data-emo="wow"] .armR{transform:rotate(-25deg)}
+.nk[data-emo="empathy"] .head{transform:rotate(-8deg)}
+.nk[data-emo="empathy"] .browL{transform:rotate(14deg) translateY(-2px)}
+.nk[data-emo="empathy"] .browR{transform:rotate(-14deg) translateY(-2px)}
+.nk[data-emo="empathy"] .m-soft{opacity:1}
+.nk[data-emo="empathy"] .blush{opacity:.35}
+.nk[data-emo="empathy"] .armR{transform:rotate(58deg)}
+.nk[data-emo="empathy"] .eyes{transform:scaleY(.86)}
+.nk[data-emo="wave"] .armR{animation:nk-wave .6s ease-in-out infinite}
+.nk[data-emo="wave"] .m-big{opacity:1}
+.nk[data-emo="wave"] .blush{opacity:.45}
+.nk[data-emo="wave"] .head{transform:rotate(-5deg)}
+.nk[data-emo="point"] .armL{transform:rotate(78deg)}
+.nk[data-emo="point"] .head{transform:rotate(-9deg) translateX(-3px)}
+.nk[data-emo="point"] .m-smile{opacity:1}
+.nk[data-emo="point"] .browL{transform:translateY(-4px)}
+@media(prefers-reduced-motion:reduce){.nk *{animation:none!important}.nikkita.pointing{transform:none}}

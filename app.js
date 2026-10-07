@@ -459,15 +459,18 @@ const GUIDE_AGENT_ID = 'agent_2401m4by69x4e54v5h02b7tqsa6v';
   box.hidden = false;
   const btn = $('.guide-btn', box), end = $('.guide-end', box), cap = $('.guide-cap', box), orb = $('.g-orb', box);
   let conv = null, sdk = null, raf;
-  /* avatar de Nikkita: tres poses (quieta, pensando, saludando) animadas por estado y volumen */
+  /* avatar vectorial de Nikkita (nikkita.js): la emoción sigue el estado de la conversación */
   const av = {el:$('.nikkita', box), hold:null, think:false};
-  av.refresh = () => { const s = box.dataset.state; av.el.dataset.pose = av.hold || ((s === 'connecting' || (av.think && s !== 'speaking')) ? 'think' : 'idle') };
-  av.set = (k, v) => { if (k === 'level') av.el.style.setProperty('--lvl', (v / 100).toFixed(3)); if (k === 'speaking' && v) av.think = false; av.refresh() };
-  av.fire = k => { if (k !== 'wave') return; av.hold = 'wave'; av.refresh(); clearTimeout(av.th); av.th = setTimeout(() => { av.hold = null; av.refresh() }, 2400) };
-  av.point = () => { av.el.classList.add('pointing'); av.fire('wave'); clearTimeout(av.tp); av.tp = setTimeout(() => av.el.classList.remove('pointing'), 2600) };
-  av.el.hidden = false; box.classList.add('has-avatar');
-  if (finePointer && !reduce) addEventListener('pointermove', e => { const r = av.el.getBoundingClientRect();
-    av.el.style.setProperty('--look', Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / 500)).toFixed(2)) }, {passive:true});
+  av.nk = window.NikkitaAvatar ? NikkitaAvatar.mount(av.el) : null;
+  av.refresh = () => { if (!av.nk) return; const s = box.dataset.state;
+    av.nk.emo(av.hold || (s === 'connecting' ? 'think' : s === 'speaking' ? 'talk' : av.think ? 'think' : s === 'listening' ? 'listen' : 'neutral')) };
+  av.mood = (e, ms) => { av.hold = e; av.refresh(); clearTimeout(av.th); av.th = setTimeout(() => { av.hold = null; av.refresh() }, ms) };
+  av.set = (k, v) => { if (k === 'level'){ av.nk?.level(v / 100); return } if (k === 'speaking' && v) av.think = false; av.refresh() };
+  av.fire = k => { if (k === 'wave') av.mood('wave', 2400) };
+  av.point = () => { av.el.classList.add('pointing'); av.mood('point', 2600); clearTimeout(av.tp); av.tp = setTimeout(() => av.el.classList.remove('pointing'), 2600) };
+  if (av.nk){ av.el.hidden = false; box.classList.add('has-avatar') }
+  if (av.nk && finePointer && !reduce) addEventListener('pointermove', e => { const r = av.el.getBoundingClientRect();
+    av.nk.look((e.clientX - (r.left + r.width / 2)) / 400, (e.clientY - (r.top + r.height * .33)) / 400) }, {passive:true});
   const SAY = {es:'¡Hola! Soy Nikkita, la guía de este portfolio. ¿Qué te gustaría conocer de Nicole?', en:'Hi! I’m Nikkita, this portfolio’s guide. What would you like to know about Nicole?'};
   const SECTIONS = {inicio:'#top', sobre_mi:'#about', competencias:'#skills', clarito:'#clarito', metodo:'#method', emociones:'#play', casos:'#work', experiencia:'#xp', contacto:'#contact'};
   const go = sel => { if (dlg.classList.contains('open')) closeCase(); setTimeout(() => { $(sel)?.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'}); av.point() }, 120) };
@@ -477,6 +480,7 @@ const GUIDE_AGENT_ID = 'agent_2401m4by69x4e54v5h02b7tqsa6v';
     cerrar_caso: () => { if (dlg.classList.contains('open')) closeCase(); return 'Caso cerrado' },
     filtrar_casos: ({tipo}) => { const f = {todos:'all', voz:'voice', research:'research'}[tipo] || 'all'; go('#work'); setTimeout(() => $(`[data-filter="${f}"]`)?.click(), 700); return 'Lista filtrada: ' + tipo },
     probar_emocion: ({emocion}) => { const i = EMO_PLAY.findIndex(e => e.k === emocion); if (i < 0) return 'Emoción no encontrada'; go('#play'); setTimeout(() => showEmo(i), 700); return 'Mostrando la respuesta para: ' + t(EMO_PLAY[i].e) },
+    mostrar_emocion: ({emocion}) => { const e = {feliz:'happy', sorprendida:'wow', empatica:'empathy', pensativa:'think'}[emocion]; if (!e) return 'Emoción no válida'; av.mood(e, 3500); return 'Mostrando emoción ' + emocion },
     cambiar_idioma: ({idioma}) => { if (idioma !== 'es' && idioma !== 'en') return 'Idioma no válido'; setLang(idioma); return 'Idioma cambiado a ' + idioma }
   };
   const setState = s => { box.dataset.state = s; av.set('speaking', s === 'speaking'); av.set('listening', s === 'listening'); $('.g-lbl', box).innerHTML = {
