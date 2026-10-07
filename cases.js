@@ -196,6 +196,39 @@ window.CASES = [
   drivers:[{es:"Claridad",en:"Clarity"},{es:"Confianza",en:"Trust"},{es:"Transparencia",en:"Transparency"},{es:"Control",en:"Control"},{es:"Acompañamiento",en:"Support"}]
 },
 {
+  id:"portabilidad", kind:"research", type:{es:"UX Research · Journey",en:"UX Research · Journey"},
+  sector:{es:"Telco · tienda online",en:"Telco · online store"}, year:"2026",
+  title:{es:"Portabilidad: dónde se rompe la compra",en:"Number portability: where the purchase breaks"},
+  short:{es:"Journey AS-IS de 6 etapas cruzando funnel, tNPS, voz del cliente y benchmark.",en:"6-stage AS-IS journey crossing funnel, tNPS, voice of customer and benchmark."},
+  line:{es:"«Los bloqueos aparecen cuando el cliente ya avanzó gran parte de la compra.»",en:"“The blockers appear once the customer has already gone through most of the purchase.”"},
+  lead:{es:"Research de la experiencia de portabilidad (cambiarse de operador conservando el número) en la tienda online de un operador, para dos productos: equipo y chip. El objetivo: entender en qué etapa y por qué se pierde la compra, y priorizar qué mejorar.",
+        en:"Research on the number-portability experience (switching carrier while keeping your number) in an operator’s online store, for two products: device and SIM. The goal: understand at which stage and why purchases are lost, and prioritise what to improve."},
+  role:{es:"UX Research, análisis de journey y datos",en:"UX Research, journey and data analysis"},
+  stats:[["6",{es:"Etapas del journey mapeadas",en:"Journey stages mapped"}],["2",{es:"Flujos analizados: equipo y chip",en:"Flows analysed: device and SIM"}],["4",{es:"Fuentes cruzadas por etapa",en:"Sources crossed per stage"}],["Matriz",{es:"Impacto × esfuerzo para priorizar",en:"Impact × effort to prioritise"}]],
+  challenge:{es:"La portabilidad combina una compra digital con una gestión posterior: llamada de confirmación, evaluación y entrega. El reto era ver el journey completo, no solo la web, y separar las fricciones reales de los cambios de medición u operación que también movían los números.",en:"Portability combines a digital purchase with a follow-up process: confirmation call, evaluation and delivery. The challenge was to see the whole journey, not just the website, and to separate real friction from measurement or operational changes that also moved the numbers."},
+  quote:{es:"El cliente configura su compra antes de saber si su número y las condiciones realmente aplican.",en:"Customers configure their purchase before knowing whether their number and conditions actually qualify."},
+  answer:{es:"Mapeé el journey en seis etapas y, en cada una, crucé la evidencia del funnel, las encuestas tNPS, los verbatims de clientes y un benchmark de otros operadores. Validé las lecturas con los equipos de Growth y Operación.",en:"I mapped the journey in six stages and, for each one, crossed funnel evidence, tNPS surveys, customer verbatims and a benchmark of other operators. I validated the readings with the Growth and Operations teams."},
+  steps:[
+    [{es:"Journey AS-IS",en:"AS-IS journey"},{es:"Seis etapas: exploración, elección, compra online, atención telefónica, evaluación y entrega.",en:"Six stages: exploration, choice, online purchase, phone follow-up, evaluation and delivery."},"journey"],
+    [{es:"Benchmark",en:"Benchmark"},{es:"Cómo resuelven otros operadores, locales e internacionales, la validación de dirección, cobertura y requisitos.",en:"How other local and international operators handle address, coverage and eligibility checks."},"benchmark"],
+    [{es:"Análisis tNPS y voz del cliente",en:"tNPS and voice of customer"},{es:"Por qué, dónde y cuánto cuesta la fricción, leído en detractores y verbatims.",en:"Why, where and how much friction costs, read through detractors and verbatims."},"tNPS"],
+    [{es:"Lectura del funnel",en:"Funnel reading"},{es:"Qué pasó detrás de cada movimiento del periodo, separando fricción real de cambios de medición.",en:"What was behind each movement in the period, separating real friction from measurement changes."},"funnel"],
+    [{es:"Diagnóstico por etapa",en:"Diagnosis by stage"},{es:"Voz del cliente, funnel, motivos, fricciones web y hallazgos en una misma matriz.",en:"Voice of customer, funnel, reasons, web friction and findings in one matrix."},"insights"],
+    [{es:"Recomendaciones",en:"Recommendations"},{es:"Mejoras concretas por etapa, priorizadas con una matriz de impacto y esfuerzo.",en:"Concrete improvements per stage, prioritised with an impact-effort matrix."},"roadmap"]
+  ],
+  drivers:[{es:"Funnel",en:"Funnel"},{es:"Encuestas tNPS",en:"tNPS surveys"},{es:"Voz del cliente",en:"Voice of customer"},{es:"Benchmark",en:"Benchmark"},{es:"Growth y Operación",en:"Growth & Operations"}],
+  driversTitle:{es:"Fuentes que crucé en cada etapa",en:"Sources I crossed at each stage"},
+  tilesTitle:{es:"Hallazgos y propuestas",en:"Findings and proposals"},
+  tiles:[
+    [{es:"Validar antes, no después",en:"Validate first, not last"},{es:"Requisitos conocidos se revisaban al final. Propuse un pre-validador del número y las condiciones antes de elegir equipo o plan.",en:"Known requirements were checked at the end. I proposed a pre-check of the number and conditions before choosing a device or plan."}],
+    [{es:"El cierre se rompe al final",en:"The close breaks at the end"},{es:"Dirección, cobertura, entrega y pago aparecían en el tramo final. Recomendé resolverlos antes del checkout.",en:"Address, coverage, delivery and payment appeared at the very end. I recommended resolving them before checkout."}],
+    [{es:"Silencio después del «éxito»",en:"Silence after “success”"},{es:"Tras confirmar, el cliente quedaba sin información. Propuse un tracker con estados claros y avisos proactivos.",en:"After confirming, customers were left without updates. I proposed a tracker with clear states and proactive notifications."}],
+    [{es:"Microcopy que cumple",en:"Microcopy that delivers"},{es:"Alinear lo que la web promete (tiempos, confirmaciones) con lo que el proceso realmente hace.",en:"Align what the site promises (timing, confirmations) with what the process actually does."}],
+    [{es:"Un solo lenguaje",en:"One language"},{es:"Un mismo término, un mismo número de pedido y un mismo canal de contacto en todo el flujo.",en:"One term, one order number and one contact channel across the whole flow."}],
+    [{es:"No toda caída es pérdida",en:"Not every drop is a loss"},{es:"Parte de las bajas se explicaban por cambios de medición u operación: separar ruido de fricción real.",en:"Part of the drops came from measurement or operational changes: separating noise from real friction."}]
+  ]
+},
+{
   id:"catering", kind:"research", type:{es:"UX Research · Mobile",en:"UX Research · Mobile"},
   sector:{es:"Bodas · app móvil",en:"Weddings · mobile app"}, year:"",
   title:{es:"App de catering de bodas",en:"Wedding catering app"},

@@ -12,7 +12,7 @@ const t = o => (o && typeof o === 'object') ? (o[L()] ?? o.es) : (o ?? '');
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
 const TONES = {clarito:'#EE2A1F', telco:'#2B2FE0', pago:'#0B8A7A', energy:'#B85C00', salud:'#0A78AE',
-  'research-telco':'#4B3FD1', catering:'#C2386F', veridik:'#6B3FE0'};
+  'research-telco':'#4B3FD1', portabilidad:'#9A2E5E', catering:'#C2386F', veridik:'#6B3FE0'};
 const UI = {
   role:{es:'Mi rol',en:'My role'}, sector:{es:'Sector',en:'Sector'}, year:{es:'Año',en:'Year'}, tools:{es:'Herramientas',en:'Tools'},
   glance:{es:'En resumen',en:'At a glance'}, challenge:{es:'El reto',en:'The challenge'}, steps:{es:'El flujo, paso a paso',en:'The flow, step by step'},
@@ -358,7 +358,7 @@ function renderCase(id, scrollTop = true){
   if (c.shots) h += `<section class="cs-sec"><h3>${t(UI.design)}</h3><div class="shots${c.shots.length > 1 ? ' three' : ''}">${c.shots.map(s => `<img src="${s}" alt="${esc(t(c.title))}" loading="lazy">`).join('')}</div></section>`;
   if (c.bars) h += `<section class="cs-sec"><h3>${t(UI.friction)}</h3><div class="fbars">${c.bars.map(([l, v, lab]) => `<div class="bar"><span>${esc(t(l))}</span><span class="tr"><i style="--v:${v}"></i></span><b>${esc(t(lab))}</b></div>`).join('')}</div></section>`;
   if (c.emo) h += `<section class="cs-sec"><h3>${t(UI.emo)}</h3><div class="emo">${c.emo.map(([w, tn, s]) => `<div><span class="when">${esc(t(w))}</span><span class="tone">${esc(t(tn))}</span><q>${esc(t(s))}</q></div>`).join('')}</div></section>`;
-  if (c.drivers) h += `<section class="cs-sec"><h3>${t(UI.drivers)}</h3><div class="toolbox">${c.drivers.map(d => `<span class="k" style="background:var(--tone);font-size:16px;padding:10px 18px">${esc(t(d))}</span>`).join('')}</div></section>`;
+  if (c.drivers) h += `<section class="cs-sec"><h3>${t(c.driversTitle || UI.drivers)}</h3><div class="toolbox">${c.drivers.map(d => `<span class="k" style="background:var(--tone);font-size:16px;padding:10px 18px">${esc(t(d))}</span>`).join('')}</div></section>`;
   h += `<section class="cs-sec"><h3>${esc(t(c.tilesTitle))}</h3><div class="tiles">${c.tiles.map(([a, b]) => `<div><h4>${esc(t(a))}</h4><p>${t(b)}</p></div>`).join('')}</div></section>
   <nav class="cs-next"><button type="button" data-go="${prev.id}"><span>${t(UI.prev)}</span><b>${esc(t(prev.title))}</b></button>
   <button class="nx" type="button" data-go="${next.id}"><span>${t(UI.next)}</span><b>${esc(t(next.title))}</b></button></nav>`;
