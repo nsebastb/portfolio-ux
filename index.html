@@ -67,11 +67,11 @@
           <a class="btn btn-line" href="#work" data-magnetic><span lang="es">Ver casos</span><span lang="en">See work</span></a>
         </div>
       </div>
-      <div class="transcript" aria-label="Resumen">
-        <div><time>00:01</time><span><b lang="es">5 agentes de voz</b><b lang="en">5 voice agents</b> <span lang="es">diseñados y construidos en telco, banca, energía, salud y retail</span><span lang="en">designed and built for telco, banking, energy, healthcare and retail</span></span></div>
-        <div><time>00:04</time><span><b lang="es">3+ años</b><b lang="en">3+ years</b> <span lang="es">conversando con usuarios reales, antes del diseño, en soporte</span><span lang="en">talking to real users in support, before design</span></span></div>
-        <div><time>00:07</time><span><b>Lima, Perú</b> <span lang="es">· disponible en remoto</span><span lang="en">· open to remote</span></span></div>
-      </div>
+      <dl class="transcript">
+        <div><dt><span lang="es">Agentes</span><span lang="en">Agents</span></dt><dd><b lang="es">5 agentes de voz</b><b lang="en">5 voice agents</b> <span lang="es">diseñados y construidos para telco, banca, energía, salud y retail</span><span lang="en">designed and built for telco, banking, energy, healthcare and retail</span></dd></div>
+        <div><dt>Stack</dt><dd><b>ElevenLabs, n8n, Twilio</b> <span lang="es">· prompts, flujos multinodo e integraciones</span><span lang="en">· prompts, multi-node flows and integrations</span></dd></div>
+        <div><dt><span lang="es">Ubicación</span><span lang="en">Location</span></dt><dd><b>Lima, Perú</b> <span lang="es">· disponible en remoto</span><span lang="en">· open to remote</span></dd></div>
+      </dl>
     </div>
   </div>
 </header>
@@ -242,13 +242,17 @@
     <div class="play" id="play">
       <div>
         <h3><span lang="es">Prueba una matriz de emociones.</span><span lang="en">Try an emotion matrix.</span></h3>
-        <p class="muted"><span lang="es">Elige cómo llega el cliente y mira cómo responde el agente. Las frases son reales, de mis agentes de telco, energía y salud.</span><span lang="en">Choose how the customer arrives and see how the agent responds. The lines are real, from my telco, energy and healthcare agents.</span></p>
+        <p class="muted"><span lang="es">Elige cómo llega el cliente y escucha cómo responde el agente. Las frases son reales, de mis agentes de telco, energía y salud.</span><span lang="en">Choose how the customer arrives and hear how the agent responds. The lines are real, from my telco, energy and healthcare agents.</span></p>
         <div class="chips" role="group" aria-label="Situación del cliente / Customer situation"></div>
       </div>
       <div class="console" aria-live="polite">
         <div class="who"><span><span lang="es">El cliente</span><span lang="en">The customer</span> <b class="emo-e"></b></span><span class="emo-src"></span></div>
         <canvas id="emoWave" aria-hidden="true"></canvas>
         <p class="line"><span class="emo-say"></span><span class="caret" aria-hidden="true"></span></p>
+        <div class="voice-row">
+          <button class="listen" type="button" data-state="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-play" d="M8 5v14l11-7z"/><path class="i-stop" d="M7 7h10v10H7z"/></svg><span class="lbl">Escuchar</span></button>
+          <span class="voice-meta"><span lang="es">Tono:</span><span lang="en">Tone:</span> <b class="emo-tone"></b> · <span lang="es">tag de voz</span><span lang="en">voice tag</span> <code class="emo-tag"></code></span>
+        </div>
         <div class="meters">
           <div class="meter"><span><span lang="es">Energía</span><span lang="en">Energy</span></span><i><b data-m="energy"></b></i></div>
           <div class="meter"><span><span lang="es">Ritmo</span><span lang="en">Pace</span></span><i><b data-m="speed"></b></i></div>

@@ -190,29 +190,65 @@ if (window.gsap && window.ScrollTrigger && !reduce){
   gsap.from('.contact h2', {yPercent:40, opacity:0, duration:1.1, ease:'power4.out', scrollTrigger:{trigger:'.contact h2', start:'top 90%'}});
 }
 
-/* ---------------- simulador de emociones ---------------- */
+/* ---------------- simulador de emociones (con voz real) ---------------- */
 const chipsBox = $('.chips');
 let emoIdx = 0, emoState = {energy:.5, speed:1, warmth:.7}, typer;
+const voice = new Audio(); voice.preload = 'none';
+let actx, analyser, freq, playing = false;
+const listenBtn = $('.listen');
+let hasVoice = false;
+fetch('assets/voz/greet-es.mp3', {method:'HEAD'}).then(r => { hasVoice = r.ok; listenBtn.hidden = !r.ok }).catch(() => { listenBtn.hidden = true });
+function setListen(state){
+  listenBtn.dataset.state = state;
+  listenBtn.querySelector('.lbl').textContent = t({play:{es:'Escuchar',en:'Listen'}, stop:{es:'Detener',en:'Stop'}, na:{es:'Audio no disponible',en:'Audio unavailable'}}[state]);
+  listenBtn.disabled = state === 'na';
+}
+function audioGraph(){
+  if (actx) return;
+  try{
+    actx = new (window.AudioContext || window.webkitAudioContext)();
+    const src = actx.createMediaElementSource(voice);
+    analyser = actx.createAnalyser(); analyser.fftSize = 256; analyser.smoothingTimeConstant = .72;
+    src.connect(analyser); analyser.connect(actx.destination);
+    freq = new Uint8Array(analyser.frequencyBinCount);
+  }catch(e){ actx = null }
+}
+function typeLine(txt, ms){
+  const say = $('.emo-say'); clearInterval(typer);
+  if (reduce){ say.textContent = txt; return }
+  say.textContent = ''; let k = 0;
+  typer = setInterval(() => { say.textContent = txt.slice(0, ++k); if (k >= txt.length) clearInterval(typer) }, ms);
+}
+function play(){
+  const e = EMO_PLAY[emoIdx];
+  audioGraph(); if (actx && actx.state === 'suspended') actx.resume();
+  voice.src = `assets/voz/${e.k}-${L()}.mp3`;
+  voice.currentTime = 0;
+  voice.play().then(() => { playing = true; setListen('stop') }).catch(() => { playing = false; setListen('na') });
+}
+voice.addEventListener('loadedmetadata', () => { const txt = t(EMO_PLAY[emoIdx].say); if (isFinite(voice.duration)) typeLine(txt, Math.max(18, voice.duration * 900 / txt.length)) });
+voice.addEventListener('ended', () => { playing = false; setListen('play') });
+voice.addEventListener('error', () => { playing = false; setListen('na') });
+listenBtn.addEventListener('click', () => { if (playing){ voice.pause(); playing = false; setListen('play') } else play() });
 function renderChips(){
   chipsBox.innerHTML = EMO_PLAY.map((e, i) => `<button type="button" aria-pressed="${i === emoIdx}" data-i="${i}">${esc(t(e.e))}</button>`).join('');
   showEmo(emoIdx, true);
 }
-chipsBox.addEventListener('click', e => { const b = e.target.closest('button'); if (b) showEmo(+b.dataset.i) });
+chipsBox.addEventListener('click', e => { const b = e.target.closest('button'); if (b){ showEmo(+b.dataset.i); if (hasVoice) play() } });
 function showEmo(i, instant){
   emoIdx = i; const e = EMO_PLAY[i];
   $$('button', chipsBox).forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.i === i)));
   $('.emo-e').textContent = t(e.e).toLowerCase();
   $('.emo-src').textContent = `${t(UI.from)} ${t(UI.srcName[e.src])}`;
+  $('.emo-tag').textContent = e.tag;
+  $('.emo-tone').textContent = t(e.tone);
   emoState = {energy:e.energy, speed:e.speed, warmth:e.warmth};
   $$('[data-m]').forEach(m => m.style.width = Math.round((m.dataset.m === 'speed' ? e.speed / 1.5 : e[m.dataset.m]) * 100) + '%');
-  const say = $('.emo-say'), txt = t(e.say);
-  clearInterval(typer);
-  if (instant || reduce){ say.textContent = txt; return }
-  say.textContent = ''; let k = 0;
-  typer = setInterval(() => { say.textContent = txt.slice(0, ++k); if (k >= txt.length) clearInterval(typer) }, 38 / e.speed);
+  if (instant){ $('.emo-say').textContent = t(e.say); voice.pause(); playing = false; setListen('play'); return }
+  typeLine(t(e.say), 38 / e.speed);
 }
 (function emoWave(){
-  const c = $('#emoWave'), ctx = c.getContext('2d'); let time = 0, cur = {energy:.5, speed:1, warmth:.7}, vis = false;
+  const c = $('#emoWave'), ctx = c.getContext('2d'); let time = 0, cur = {energy:.5, speed:1, warmth:.7}, vis = false, lvl = 0;
   new IntersectionObserver(([en]) => { vis = en.isIntersecting; if (vis) loop() }).observe(c);
   function loop(){
     if (!vis) return;
@@ -220,20 +256,26 @@ function showEmo(i, instant){
     if (c.width !== w * dpr){ c.width = w * dpr; c.height = h * dpr }
     ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,w,h);
     for (const k in cur) cur[k] += (emoState[k] - cur[k]) * .05;
-    const n = Math.floor(w / 7);
+    const live = playing && analyser;
+    if (live) analyser.getByteFrequencyData(freq);
+    lvl += ((live ? 1 : 0) - lvl) * .08;
+    const n = Math.floor(w / 7), mid = (n - 1) / 2;
     for (let i = 0; i < n; i++){
-      const x = i * 7 + 3, p = i / n;
-      const env = Math.sin(p * Math.PI);
+      const x = i * 7 + 3, p = i / n, env = Math.sin(p * Math.PI);
       const v = (Math.sin(i * .35 + time * 4 * cur.speed) * .5 + .5) * (Math.sin(i * .11 - time * 2.3 * cur.speed) * .5 + .5);
-      const bh = Math.max(3, env * h * .9 * cur.energy * (.25 + v));
-      const warm = cur.warmth;
-      ctx.fillStyle = `rgba(${Math.round(255)},${Math.round(255 - warm * 70)},${Math.round(255 - warm * 120)},${.35 + v * .65})`;
+      const idle = env * h * .9 * cur.energy * (.25 + v) * (1 - lvl * .85);
+      let real = 0;
+      if (live){ const bin = Math.min(freq.length - 1, Math.floor(Math.abs(i - mid) / mid * 70) + 2); real = (freq[bin] / 255) * h * .95 * (.35 + env * .65) }
+      const bh = Math.max(3, idle + real * lvl);
+      const warm = cur.warmth, a = live ? .45 + (freq[Math.min(freq.length - 1, Math.floor(Math.abs(i - mid) / mid * 70) + 2)] / 255) * .55 : .35 + v * .65;
+      ctx.fillStyle = `rgba(255,${Math.round(255 - warm * 70)},${Math.round(255 - warm * 120)},${a})`;
       ctx.beginPath(); ctx.roundRect ? ctx.roundRect(x - 2, h/2 - bh/2, 4, bh, 2) : ctx.rect(x - 2, h/2 - bh/2, 4, bh); ctx.fill();
     }
     time += reduce ? 0 : .016;
-    if (!reduce) requestAnimationFrame(loop);
+    requestAnimationFrame(loop);
   }
 })();
+
 
 /* ---------------- índice de casos ---------------- */
 const indexEl = $('#index'), peek = $('.peek');

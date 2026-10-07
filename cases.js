@@ -256,10 +256,10 @@ window.CASES = [
 
 /* Situaciones del simulador de emociones (líneas reales de los casos) */
 window.EMO_PLAY = [
-  {k:"greet",  e:{es:"Saluda",en:"Greets"},          tone:{es:"Amable, energía moderada",en:"Friendly, moderate energy"}, say:{es:"¡Hola! Soy tu asesor por hoy…",en:"Hi! I’m your advisor today…"}, src:"telco", energy:.55, speed:1, warmth:.7},
-  {k:"confused",e:{es:"Está confundido",en:"Is confused"}, tone:{es:"Paciente, paso a paso",en:"Patient, step by step"}, say:{es:"Tranqui, lo vemos paso a paso.",en:"No worries, let’s go step by step."}, src:"telco", energy:.3, speed:.6, warmth:.85},
-  {k:"angry",  e:{es:"Está molesto",en:"Is upset"},       tone:{es:"Calma, contención",en:"Calm, containment"}, say:{es:"Te entiendo. Lo revisamos juntos.",en:"I understand. Let’s check it together."}, src:"telco", energy:.22, speed:.45, warmth:.95},
-  {k:"urgent", e:{es:"Tiene una emergencia",en:"Has an emergency"}, tone:{es:"Empática, deriva ya",en:"Empathetic, hand off now"}, say:{es:"Un momento, te comunico con un ejecutivo.",en:"One moment, I’m connecting you with an agent."}, src:"energy", energy:.7, speed:1.5, warmth:.6},
-  {k:"buy",    e:{es:"Quiere comprar",en:"Wants to buy"}, tone:{es:"Seguridad, cierre",en:"Confidence, closing"}, say:{es:"Perfecto, voy a registrar tus datos.",en:"Perfect, I’ll register your details."}, src:"telco", energy:.8, speed:1.15, warmth:.65},
-  {k:"bye",    e:{es:"Se despide",en:"Says goodbye"},    tone:{es:"Cálido, breve",en:"Warm, brief"}, say:{es:"Gracias por confiar en nosotros.",en:"Thank you for trusting us."}, src:"salud", energy:.4, speed:.8, warmth:.9}
+  {k:"greet",   tag:"[cheerfully]", e:{es:"Saluda",en:"Greets"},          tone:{es:"Amable, energía moderada",en:"Friendly, moderate energy"}, say:{es:"¡Hola! Soy tu asesor por hoy…",en:"Hi! I’m your advisor today…"}, src:"telco", energy:.55, speed:1, warmth:.7},
+  {k:"confused", tag:"[calmly]",e:{es:"Está confundido",en:"Is confused"}, tone:{es:"Paciente, paso a paso",en:"Patient, step by step"}, say:{es:"Tranqui, lo vemos paso a paso.",en:"No worries, let’s go step by step."}, src:"telco", energy:.3, speed:.6, warmth:.85},
+  {k:"angry",   tag:"[empathetic]", e:{es:"Está molesto",en:"Is upset"},       tone:{es:"Calma, contención",en:"Calm, containment"}, say:{es:"Te entiendo. Lo revisamos juntos.",en:"I understand. Let’s check it together."}, src:"telco", energy:.22, speed:.45, warmth:.95},
+  {k:"urgent",  tag:"[serious]", e:{es:"Tiene una emergencia",en:"Has an emergency"}, tone:{es:"Empática, deriva ya",en:"Empathetic, hand off now"}, say:{es:"Un momento, te comunico con un ejecutivo.",en:"One moment, I’m connecting you with an agent."}, src:"energy", energy:.7, speed:1.5, warmth:.6},
+  {k:"buy",     tag:"[confident]", e:{es:"Quiere comprar",en:"Wants to buy"}, tone:{es:"Seguridad, cierre",en:"Confidence, closing"}, say:{es:"Perfecto, voy a registrar tus datos.",en:"Perfect, I’ll register your details."}, src:"telco", energy:.8, speed:1.15, warmth:.65},
+  {k:"bye",     tag:"[warmly]", e:{es:"Se despide",en:"Says goodbye"},    tone:{es:"Cálido, breve",en:"Warm, brief"}, say:{es:"Gracias por confiar en nosotros.",en:"Thank you for trusting us."}, src:"salud", energy:.4, speed:.8, warmth:.9}
 ];

@@ -494,3 +494,22 @@ body{background:transparent}
 .nav .name{white-space:nowrap}
 @media(max-width:420px){.nav .name{font-size:16px}.nav .wrap{gap:12px}}
 h1,h2,h3,.cs-hero h2{text-wrap:balance}
+/* voz real en el simulador */
+.voice-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.listen{display:inline-flex;align-items:center;gap:9px;border:0;border-radius:999px;padding:11px 18px 11px 14px;background:#fff;color:var(--ink);font-weight:600;font-size:15px;transition:transform .25s var(--ease),opacity .25s}
+.listen:hover{transform:translateY(-2px)}
+.listen svg{width:18px;height:18px;fill:currentColor}
+.listen .i-stop{display:none}
+.listen[data-state="stop"] .i-play{display:none}
+.listen[data-state="stop"] .i-stop{display:block}
+.listen:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.voice-meta{font-size:14px;color:#C9CAE6}
+.voice-meta b{color:#fff;font-weight:600}
+.voice-meta code{background:rgba(255,255,255,.12);color:#fff}
+/* datos clave del hero (sin marcas de tiempo) */
+.transcript{margin:0}
+.transcript div{grid-template-columns:96px 1fr;gap:14px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.14)}
+.transcript div:last-child{border-bottom:0}
+.transcript dt{font-size:13px;color:#BFC2FF;padding-top:2px}
+.transcript dd{margin:0}
+.listen[hidden]{display:none}
