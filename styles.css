@@ -626,3 +626,4 @@ body{font-variation-settings:"wdth" 100}h1,h2,h3,h4,.h-xl,.h-l,.hero h1,.contact
 .nk[data-emo="point"] .m-smile{opacity:1}
 .nk[data-emo="point"] .browL{transform:translateY(-4px)}
 @media(prefers-reduced-motion:reduce){.nk *{animation:none!important}.nikkita.pointing{transform:none}}
+.voice-note{font-size:13px;color:#C9CAE6;flex-basis:100%;order:3}

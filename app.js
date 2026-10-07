@@ -210,17 +210,19 @@ function typeLine(txt, ms){
   say.textContent = ''; let k = 0;
   typer = setInterval(() => { say.textContent = txt.slice(0, ++k); if (k >= txt.length) clearInterval(typer) }, ms);
 }
+// Suena UNA sola vez por clic; cambiar de emoción corta la anterior. Los audios son los originales en español.
 function play(){
   const e = EMO_PLAY[emoIdx];
   audioGraph(); if (actx && actx.state === 'suspended') actx.resume();
-  voice.src = `assets/voz/${e.k}-${L()}.mp3`;
+  voice.pause(); voice.loop = false;
+  voice.src = `assets/voz/${e.k}-es.mp3`;
   voice.currentTime = 0;
   voice.play().then(() => { playing = true; setListen('stop') }).catch(() => { playing = false; setListen('na') });
 }
 voice.addEventListener('loadedmetadata', () => { const txt = t(EMO_PLAY[emoIdx].say); if (isFinite(voice.duration)) typeLine(txt, Math.max(18, voice.duration * 900 / txt.length)) });
 voice.addEventListener('ended', () => { playing = false; setListen('play') });
 voice.addEventListener('error', () => { playing = false; setListen('na') });
-listenBtn.addEventListener('click', () => { if (playing){ voice.pause(); playing = false; setListen('play') } else play() });
+listenBtn.addEventListener('click', () => { if (playing){ voice.pause(); playing = false; setListen('play'); clearInterval(typer); $('.emo-say').textContent = t(EMO_PLAY[emoIdx].say) } else play() });
 function renderChips(){
   chipsBox.innerHTML = EMO_PLAY.map((e, i) => `<button type="button" aria-pressed="${i === emoIdx}" data-i="${i}">${esc(t(e.e))}</button>`).join('');
   showEmo(emoIdx, true);
