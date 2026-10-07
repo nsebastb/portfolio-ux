@@ -401,6 +401,7 @@ document.addEventListener('play', e => { if (e.target.hasAttribute('data-ambient
 const live = $('#live'), frame = $('iframe', live);
 let liveFocus = null;
 function openLive(){
+  window.dispatchEvent(new Event('nova-stop'));
   liveFocus = document.activeElement;
   if (!frame.src) frame.src = frame.dataset.src;
   live.hidden = false; live.classList.add('open'); document.body.style.overflow = 'hidden';
@@ -449,6 +450,61 @@ if (finePointer && !reduce){
   });
   $('#clarito .stage').addEventListener('click', openLive);
 }
+
+/* ---------------- agente guía (ElevenLabs) ---------------- */
+// Pega aquí el Agent ID del agente público de ElevenLabs. Vacío = el botón no aparece.
+const GUIDE_AGENT_ID = '';
+(function guide(){
+  const box = $('.guide'); if (!GUIDE_AGENT_ID || !box) return;
+  box.hidden = false;
+  const btn = $('.guide-btn', box), end = $('.guide-end', box), cap = $('.guide-cap', box), orb = $('.g-orb', box);
+  let conv = null, sdk = null, raf;
+  const SAY = {es:'¡Hola! Soy Nova, la guía de este portfolio. ¿Qué te gustaría conocer de Nicole?', en:'Hi! I’m Nova, this portfolio’s guide. What would you like to know about Nicole?'};
+  const SECTIONS = {inicio:'#top', sobre_mi:'#about', competencias:'#skills', clarito:'#clarito', metodo:'#method', emociones:'#play', casos:'#work', experiencia:'#xp', contacto:'#contact'};
+  const go = sel => { if (dlg.classList.contains('open')) closeCase(); setTimeout(() => $(sel)?.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'}), 120) };
+  const tools = {
+    ir_a_seccion: ({seccion}) => { const s = SECTIONS[seccion]; if (!s) return 'Sección no encontrada'; go(s); return 'Mostrando la sección ' + seccion },
+    abrir_caso: ({caso}) => { if (!caseById(caso)) return 'Caso no encontrado'; if (live.classList.contains('open')) closeLive(); if (dlg.classList.contains('open')){ renderCase(caso); history.replaceState(null,'','#caso-' + caso) } else openCase(caso); return 'Caso abierto: ' + t(caseById(caso).title) },
+    cerrar_caso: () => { if (dlg.classList.contains('open')) closeCase(); return 'Caso cerrado' },
+    filtrar_casos: ({tipo}) => { const f = {todos:'all', voz:'voice', research:'research'}[tipo] || 'all'; go('#work'); setTimeout(() => $(`[data-filter="${f}"]`)?.click(), 700); return 'Lista filtrada: ' + tipo },
+    probar_emocion: ({emocion}) => { const i = EMO_PLAY.findIndex(e => e.k === emocion); if (i < 0) return 'Emoción no encontrada'; go('#play'); setTimeout(() => showEmo(i), 700); return 'Mostrando la respuesta para: ' + t(EMO_PLAY[i].e) },
+    cambiar_idioma: ({idioma}) => { if (idioma !== 'es' && idioma !== 'en') return 'Idioma no válido'; setLang(idioma); return 'Idioma cambiado a ' + idioma }
+  };
+  const setState = s => { box.dataset.state = s; $('.g-lbl', box).innerHTML = {
+    idle:'<span lang="es">Pregúntale a Nova</span><span lang="en">Ask Nova</span>',
+    connecting:'<span lang="es">Conectando…</span><span lang="en">Connecting…</span>',
+    listening:'<span lang="es">Te escucho</span><span lang="en">Listening</span>',
+    speaking:'<span lang="es">Nova está hablando</span><span lang="en">Nova is speaking</span>'}[s] };
+  function pulse(){ let v = 0; try{ v = Math.max(conv?.getOutputVolume?.() || 0, (conv?.getInputVolume?.() || 0) * .6) }catch(e){}
+    orb.style.transform = `scale(${1 + Math.min(.6, v * 1.4)})`; raf = requestAnimationFrame(pulse) }
+  async function start(){
+    if (conv) return;
+    if (live.classList.contains('open')) closeLive();
+    setState('connecting');
+    try{
+      sdk = sdk || (await import('https://esm.sh/@elevenlabs/client')).Conversation;
+      conv = await sdk.startSession({
+        agentId: GUIDE_AGENT_ID, connectionType:'webrtc',
+        dynamicVariables:{idioma:L(), saludo:SAY[L()]},
+        clientTools: tools,
+        onConnect: () => { box.classList.add('on'); setState('listening'); pulse() },
+        onDisconnect: () => stop(true),
+        onError: e => { console.error(e); stop(true) },
+        onModeChange: m => setState(m?.mode === 'speaking' ? 'speaking' : 'listening'),
+        onMessage: ev => { const txt = ev?.message || ev?.text; if (txt && (ev.source === 'ai' || ev.role === 'agent')) cap.textContent = txt }
+      });
+    }catch(e){ console.error(e); conv = null; setState('idle'); cap.textContent = L() === 'es' ? 'No pude conectar. Revisa el permiso del micrófono.' : 'Couldn’t connect. Check microphone permission.'; box.classList.add('on'); setTimeout(() => { if (!conv) box.classList.remove('on') }, 4000) }
+  }
+  async function stop(silent){
+    const c = conv; conv = null; cancelAnimationFrame(raf); orb.style.transform = '';
+    if (c && !silent){ try{ await c.endSession() }catch(e){} }
+    box.classList.remove('on'); cap.textContent = ''; setState('idle');
+  }
+  btn.addEventListener('click', () => conv ? null : start());
+  addEventListener('nova-stop', () => { if (conv) stop(false) });
+  end.addEventListener('click', () => stop(false));
+  setState('idle');
+})();
 
 /* ---------------- arranque ---------------- */
 $$('[data-set-lang]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.setLang === L())));
