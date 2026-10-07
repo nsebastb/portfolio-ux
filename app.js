@@ -453,7 +453,7 @@ if (finePointer && !reduce){
 
 /* ---------------- agente guía (ElevenLabs) ---------------- */
 // Pega aquí el Agent ID del agente público de ElevenLabs. Vacío = el botón no aparece.
-const GUIDE_AGENT_ID = '';
+const GUIDE_AGENT_ID = 'agent_2401m4by69x4e54v5h02b7tqsa6v';
 (function guide(){
   const box = $('.guide'); if (!GUIDE_AGENT_ID || !box) return;
   box.hidden = false;
