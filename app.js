@@ -459,23 +459,15 @@ const GUIDE_AGENT_ID = '';
   box.hidden = false;
   const btn = $('.guide-btn', box), end = $('.guide-end', box), cap = $('.guide-cap', box), orb = $('.g-orb', box);
   let conv = null, sdk = null, raf;
-  /* avatar Rive (assets/nikkita.riv); si no existe, queda el orbe */
-  const av = {inp:{}, ok:false, el:$('.nikkita', box)};
-  av.set = (k, v) => { const i = av.inp[k]; if (i) i.value = v };
-  av.fire = k => { const i = av.inp[k]; if (i && i.fire) i.fire() };
-  av.point = () => { if (!av.ok) return; av.el.classList.add('pointing'); av.fire('point'); clearTimeout(av.tp); av.tp = setTimeout(() => av.el.classList.remove('pointing'), 2600) };
-  fetch('assets/nikkita.riv', {method:'HEAD'}).then(r => { if (!r.ok) return;
-    const s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/@rive-app/canvas@2/rive.js';
-    s.onload = () => {
-      const canvas = $('canvas', av.el);
-      const r = new rive.Rive({src:'assets/nikkita.riv', canvas, artboard:'Nikkita', stateMachines:'Nikkita', autoplay:true,
-        layout:new rive.Layout({fit:rive.Fit.Contain, alignment:rive.Alignment.Center}),
-        onLoad:() => { r.resizeDrawingSurfaceToCanvas(); (r.stateMachineInputs('Nikkita') || []).forEach(i => av.inp[i.name] = i);
-          av.ok = true; av.el.hidden = false; box.classList.add('has-avatar') }});
-      addEventListener('pointermove', e => { av.set('lookX', Math.round((e.clientX / innerWidth - .5) * 200)); av.set('lookY', Math.round((e.clientY / innerHeight - .5) * 200)) }, {passive:true});
-    };
-    document.head.appendChild(s);
-  }).catch(() => {});
+  /* avatar de Nikkita: tres poses (quieta, pensando, saludando) animadas por estado y volumen */
+  const av = {el:$('.nikkita', box), hold:null, think:false};
+  av.refresh = () => { const s = box.dataset.state; av.el.dataset.pose = av.hold || ((s === 'connecting' || (av.think && s !== 'speaking')) ? 'think' : 'idle') };
+  av.set = (k, v) => { if (k === 'level') av.el.style.setProperty('--lvl', (v / 100).toFixed(3)); if (k === 'speaking' && v) av.think = false; av.refresh() };
+  av.fire = k => { if (k !== 'wave') return; av.hold = 'wave'; av.refresh(); clearTimeout(av.th); av.th = setTimeout(() => { av.hold = null; av.refresh() }, 2400) };
+  av.point = () => { av.el.classList.add('pointing'); av.fire('wave'); clearTimeout(av.tp); av.tp = setTimeout(() => av.el.classList.remove('pointing'), 2600) };
+  av.el.hidden = false; box.classList.add('has-avatar');
+  if (finePointer && !reduce) addEventListener('pointermove', e => { const r = av.el.getBoundingClientRect();
+    av.el.style.setProperty('--look', Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / 500)).toFixed(2)) }, {passive:true});
   const SAY = {es:'¡Hola! Soy Nikkita, la guía de este portfolio. ¿Qué te gustaría conocer de Nicole?', en:'Hi! I’m Nikkita, this portfolio’s guide. What would you like to know about Nicole?'};
   const SECTIONS = {inicio:'#top', sobre_mi:'#about', competencias:'#skills', clarito:'#clarito', metodo:'#method', emociones:'#play', casos:'#work', experiencia:'#xp', contacto:'#contact'};
   const go = sel => { if (dlg.classList.contains('open')) closeCase(); setTimeout(() => { $(sel)?.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'}); av.point() }, 120) };
@@ -508,7 +500,7 @@ const GUIDE_AGENT_ID = '';
         onDisconnect: () => stop(true),
         onError: e => { console.error(e); stop(true) },
         onModeChange: m => setState(m?.mode === 'speaking' ? 'speaking' : 'listening'),
-        onMessage: ev => { const txt = ev?.message || ev?.text; if (txt && (ev.source === 'ai' || ev.role === 'agent')) cap.textContent = txt }
+        onMessage: ev => { const txt = ev?.message || ev?.text; if (!txt) return; if (ev.source === 'ai' || ev.role === 'agent') cap.textContent = txt; else { av.think = true; av.refresh() } }
       });
     }catch(e){ console.error(e); conv = null; setState('idle'); cap.textContent = L() === 'es' ? 'No pude conectar. Revisa el permiso del micrófono.' : 'Couldn’t connect. Check microphone permission.'; box.classList.add('on'); setTimeout(() => { if (!conv) box.classList.remove('on') }, 4000) }
   }

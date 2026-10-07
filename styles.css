@@ -548,12 +548,18 @@ body{font-variation-settings:"wdth" 100}h1,h2,h3,h4,.h-xl,.h-l,.hero h1,.contact
 .guide.on .guide-cap:not(:empty){display:block}
 .guide[data-state="speaking"] .guide-btn{background:var(--cobalt)}
 @media(max-width:520px){.guide-btn{padding:8px 16px 8px 8px;font-size:14px}}
-/* avatar Rive de Nikkita */
-.nikkita{width:150px;height:150px;margin-right:-6px;transition:transform .7s var(--ease);pointer-events:none;filter:drop-shadow(0 16px 24px rgba(22,22,58,.35))}
+/* avatar de Nikkita (tres poses) */
+.nikkita{--lvl:0;--look:0;width:150px;height:150px;margin-right:-8px;pointer-events:none;transition:transform .8s var(--ease);
+  filter:drop-shadow(0 14px 18px rgba(22,22,58,.32))}
 .nikkita[hidden]{display:none}
-.nikkita canvas{width:100%;height:100%;display:block}
-.nikkita.pointing{transform:translate(-24px,calc(-50vh + 200px)) scale(1.1)}
+.nk-body{position:relative;width:100%;height:100%;transform-origin:50% 100%;animation:nk-float 3.6s ease-in-out infinite;
+  transform:rotate(calc(var(--look) * 4deg))}
+.nk-body img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .28s ease,transform .45s var(--ease);transform:scale(.96)}
+.nikkita[data-pose="idle"] .nk-idle,.nikkita[data-pose="think"] .nk-think,.nikkita[data-pose="wave"] .nk-wave{opacity:1;transform:scale(1)}
+.guide[data-state="speaking"] .nk-body{animation:none;transform:translateY(calc(var(--lvl) * -10px)) scaleY(calc(1 + var(--lvl) * .05)) rotate(calc(var(--look) * 4deg))}
+@keyframes nk-float{50%{translate:0 -6px}}
+.nikkita.pointing{transform:translate(-28px,calc(-50vh + 200px)) scale(1.12)}
 .guide.has-avatar .g-orb{display:none}
 .guide.has-avatar .guide-btn{padding-left:20px}
-@media(max-width:520px){.nikkita{width:104px;height:104px}.nikkita.pointing{transform:translate(-8px,calc(-40vh + 140px))}}
-@media(prefers-reduced-motion:reduce){.nikkita.pointing{transform:none}}
+@media(max-width:520px){.nikkita{width:108px;height:108px}.nikkita.pointing{transform:translate(-8px,calc(-38vh + 140px))}}
+@media(prefers-reduced-motion:reduce){.nk-body{animation:none}.nikkita.pointing{transform:none}}
