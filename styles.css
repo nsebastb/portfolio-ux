@@ -655,3 +655,17 @@ body{font-variation-settings:"wdth" 100}h1,h2,h3,h4,.h-xl,.h-l,.hero h1,.contact
 @keyframes name-line{from{transform:scaleX(0)}}
 .hero h1{margin-top:12px}
 @media(prefers-reduced-motion:reduce){.hero-name b::after{animation:none}}
+/* logo: nombre completo en serif cursiva */
+.logo .wm{gap:6px}
+.logo .wm em{font-family:var(--f-voice);font-style:italic;font-size:23px;letter-spacing:-.005em;opacity:1}
+.logo .wm .n1{font-weight:500}
+.logo .wm em:not(.n1){font-weight:400;opacity:.85}
+@media(max-width:420px){.logo .wm em{font-size:19px}}
+
+/* botón de Nikkita: se adapta a la sección como los demás botones */
+.guide-btn{transition:transform .25s var(--ease),background .35s,color .35s,box-shadow .35s}
+html[data-sec="dark"] .guide-btn{background:#fff;color:var(--cobalt);box-shadow:0 18px 40px -16px rgba(0,0,0,.45)}
+html[data-sec="dark"] .guide-end{background:#fff;color:var(--cobalt)}
+html[data-sec="dark"] .guide[data-state="speaking"] .guide-btn{background:#fff;color:var(--cobalt);box-shadow:0 0 0 3px rgba(255,255,255,.45),0 18px 40px -16px rgba(0,0,0,.45)}
+html[data-sec="light"] .guide-btn,html:not([data-sec]) .guide-btn{background:var(--ink);color:#fff}
+.guide-btn:hover{box-shadow:0 22px 44px -16px rgba(22,22,58,.6)}
