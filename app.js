@@ -266,7 +266,7 @@ $$('[data-filter]').forEach(b => b.addEventListener('click', () => {
 /* tono del caso sobre el fondo + vista previa flotante */
 function caseById(id){ return CASES.find(c => c.id === id) }
 function peekHTML(c){
-  if (c.id === 'clarito') return `<img src="assets/clarito-store.jpg" alt=""><img src="assets/clarito.webp" alt="" style="position:absolute;inset:auto 0 0 25%;width:50%;height:auto;mix-blend-mode:multiply">`;
+  if (c.id === 'clarito') return `<img src="assets/clarito-store.jpg" alt=""><img src="assets/clarito.webp" alt="" style="position:absolute;inset:auto 0 0 25%;width:50%;height:auto">`;
   if (c.videos) return `<img src="${c.videos[0][1]}" alt="" style="opacity:.25"><div class="wave">${'<b></b>'.repeat(14)}</div>`;
   if (c.shots) return `<img src="${c.shots[c.shots.length > 1 ? 1 : 0]}" alt="" style="object-fit:contain;background:#fff">`;
   return `<div class="wave" style="font-size:44px;font-weight:800;color:#fff;letter-spacing:-.04em">AS-IS → TO-BE</div>`;
