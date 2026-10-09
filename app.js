@@ -21,7 +21,7 @@ const UI = {
   emo:{es:'Matriz de emociones',en:'Emotion matrix'}, emoPart:{es:'Fragmento de la matriz de emociones',en:'Excerpt from the emotion matrix'},
   problem:{es:'El problema',en:'The problem'}, scope:{es:'Alcance de la demo',en:'Demo scope'}, decisions:{es:'Decisiones de diseño',en:'Design decisions'},
   decision:{es:'Decisión clave',en:'Key decision'}, result:{es:'Resultado',en:'Outcome'}, out:{es:'Qué quedó fuera del piloto',en:'What stayed out of the pilot'},
-  learned:{es:'Lo que aprendí',en:'What I learned'}, design:{es:'Diseño',en:'Design'}, friction:{es:'Fricción detectada en el testing',en:'Friction found in testing'},
+  learned:{es:'Lo que aprendí',en:'What I learned'}, screens:{es:'Así se ve',en:'What it looks like'}, design:{es:'Diseño',en:'Design'}, friction:{es:'Fricción detectada en el testing',en:'Friction found in testing'},
   drivers:{es:'Cinco drivers que habilitan avanzar',en:'Five drivers that unlock progress'},
   prev:{es:'Anterior',en:'Previous'}, next:{es:'Siguiente',en:'Next'}, live:{es:'Pruébalo en vivo',en:'Try it live'},
   talk:{es:'Hablar con Clarito',en:'Talk to Clarito'}, speaking:{es:'hablando',en:'speaking'}, listening:{es:'escuchando',en:'listening'},
@@ -54,6 +54,17 @@ const secIO = new IntersectionObserver(es => {
   });
 }, {rootMargin:'-50% 0px -50% 0px'});
 $$('[data-amb]').forEach(s => secIO.observe(s));
+
+/* menú móvil: reemplaza los enlaces y el micrófono de la barra en pantallas chicas */
+const menuBtn = $('.menu-btn'), mnav = $('#mnav');
+function setMenu(open){
+  menuBtn.setAttribute('aria-expanded', String(open)); mnav.hidden = !open;
+  nav.classList.toggle('menu-open', open); root.classList.toggle('menu-open', open);
+}
+menuBtn.addEventListener('click', () => setMenu(mnav.hidden));
+mnav.addEventListener('click', e => { if (e.target.closest('a, button')) setMenu(false) });
+addEventListener('keydown', e => { if (e.key === 'Escape' && !mnav.hidden){ setMenu(false); menuBtn.focus() } });
+matchMedia('(min-width:901px)').addEventListener('change', e => { if (e.matches) setMenu(false) });
 
 /* progreso de lectura */
 const prog = $('.progress');
@@ -348,8 +359,7 @@ function renderCase(id, scrollTop = true){
   if (c.challenge) h += sec(t(UI.challenge), `<div class="cs-two"><div><p>${esc(t(c.challenge))}</p><p>${esc(t(c.answer))}</p></div><p class="voice-quote">${esc(t(c.quote))}</p></div>`);
   if (c.problem) h += sec(t(UI.problem), `<div class="cs-two"><p>${esc(t(c.problem))}</p><div class="cs-scope"><h4>${t(UI.scope)}</h4><p>${esc(t(c.scope))}</p></div></div>`);
   if (c.decision) h += sec(t(UI.decision), `<p class="voice-quote">${esc(t(c.decision))}</p>`);
-  if (c.decisions) h += sec(t(UI.decisions), tiles(c.decisions));
-  if (c.steps) h += sec(t(c.kind === 'research' ? UI.process : UI.steps), `<ol class="steps">${c.steps.map(([a, b, tag]) => `<li><div><h4>${esc(t(a))}</h4><p>${esc(t(b))}</p></div>${tag ? `<code>${esc(tag)}</code>` : '<span></span>'}</li>`).join('')}</ol>`);
+  if (c.steps) h += sec(t(c.stepsTitle || (c.kind === 'research' ? UI.process : UI.steps)), `<ol class="steps">${c.steps.map(([a, b, tag]) => `<li><div><h4>${esc(t(a))}</h4><p>${esc(t(b))}</p></div>${tag ? `<code>${esc(tag)}</code>` : '<span></span>'}</li>`).join('')}</ol>`);
   if (c.videos){
     const phones = c.videos.filter(v => !v[2]), webs = c.videos.filter(v => v[2]);
     h += `<section class="cs-sec"><h3>${t(UI.demo)}</h3><div class="demos${webs.length ? ' mixed' : ''}">`
@@ -357,11 +367,15 @@ function renderCase(id, scrollTop = true){
       + webs.map(([s, p, lab]) => `<figure class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span class="url">${esc(t(lab))}</span></div><video src="${s}" poster="${p}" autoplay muted loop playsinline preload="metadata" data-ambient aria-label="${esc(t(lab))}"></video></figure>`).join('')
       + `</div></section>`;
   }
+  if (c.decisions) h += sec(t(UI.decisions), tiles(c.decisions));
+  if (c.gallery) h += sec(t(UI.screens), `<div class="demos mixed">${c.gallery.map(([src, cap, kind]) => kind === 'phone'
+    ? `<figure class="phone-wrap"><div class="phone"><img src="${src}" alt="${esc(t(cap))}" loading="lazy"></div><figcaption class="cap">${esc(t(cap))}</figcaption></figure>`
+    : `<figure class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span class="url">${esc(t(cap))}</span></div><img src="${src}" alt="${esc(t(cap))}" loading="lazy"></figure>`).join('')}</div>`);
   if (c.live) h += `<section class="cs-sec"><h3>${t(UI.live)}</h3><div class="stage" style="max-width:820px;margin:0 auto"><img class="logo" src="assets/ntt-logo.png" alt="NTT DATA"><div class="shadow"></div><div class="mascot"><img src="assets/clarito.webp" alt="Clarito"></div></div><div class="hero-cta" style="justify-content:center"><button class="btn btn-red" type="button" data-open-live>${t(UI.talk)}</button></div></section>`;
   if (c.shots) h += `<section class="cs-sec"><h3>${t(UI.design)}</h3><div class="shots${c.shots.length > 1 ? ' three' : ''}">${c.shots.map(s => `<img src="${s}" alt="${esc(t(c.title))}" loading="lazy">`).join('')}</div></section>`;
   if (c.bars) h += `<section class="cs-sec"><h3>${t(UI.friction)}</h3><div class="fbars">${c.bars.map(([l, v, lab]) => `<div class="bar"><span>${esc(t(l))}</span><span class="tr"><i style="--v:${v}"></i></span><b>${esc(t(lab))}</b></div>`).join('')}</div></section>`;
   if (c.emo) h += sec(t(c.decisions ? UI.emoPart : UI.emo), `<div class="emo">${c.emo.map(([w, tn, s]) => `<div><span class="when">${esc(t(w))}</span><span class="tone">${esc(t(tn))}</span><q>${esc(t(s))}</q></div>`).join('')}</div>`);
-  if (c.pilot) h += sec(t(c.pilot.title), `<p class="cs-intro">${esc(t(c.pilot.intro))}</p>${tiles(c.pilot.items)}`);
+  (c.blocks || []).forEach(b => h += sec(t(b.title), `${b.intro ? `<p class="cs-intro">${esc(t(b.intro))}</p>` : ''}${tiles(b.items)}`));
   if (c.result) h += sec(t(UI.result), `<p class="cs-intro">${esc(t(c.result))}</p>`);
   if (c.out) h += sec(t(UI.out), `<p class="cs-intro">${esc(t(c.out))}</p>`);
   if (c.learned) h += sec(t(UI.learned), `<p class="voice-quote">${esc(t(c.learned))}</p>`);
