@@ -1,183 +1,212 @@
 /* Contenido de los casos de estudio · ES / EN
-   Los datos y cifras provienen del portfolio original; no se añadieron métricas nuevas. */
+   Clientes anonimizados (banco, clínica, empresa eléctrica), salvo Claro. Sin cifras internas ni nombres de personas o sistemas.
+   group: voice | research | more · sin group = no aparece en el índice (Clarito tiene su propia sección). */
 window.CASES = [
 {
-  id:"clarito", kind:"red", type:{es:"Voz en vivo · Retail",en:"Live voice · Retail"},
-  sector:{es:"Retail telco · tienda",en:"Telco retail · store"}, year:"2026",
-  title:{es:"Clarito, asesor de voz en tienda",en:"Clarito, an in-store voice advisor"},
-  short:{es:"Un personaje que conversa por voz y muestra la conversación en texto.",en:"A character that talks by voice and shows the conversation as text."},
-  line:{es:"«Hola, soy Clarito. Pulsa el botón para hablar conmigo.»",en:"“Hi, I’m Clarito. Press the button to talk to me.”"},
-  lead:{es:"Un agente de voz con cuerpo y personalidad propia, pensado para la experiencia de una tienda de telecomunicaciones: el cliente pulsa un botón y conversa con él, sin menús ni formularios.",
-        en:"A voice agent with its own body and personality, designed for a telecom store experience: the customer presses one button and talks to it, no menus or forms."},
-  role:{es:"Diseño conversacional, personaje y experiencia web",en:"Conversational design, character and web experience"},
-  stats:[["1",{es:"Botón para empezar a conversar",en:"Button to start talking"}],["Voz",{es:"Conversación en tiempo real",en:"Real-time conversation"}],["Texto",{es:"Transcripción visible en pantalla",en:"Visible on-screen transcript"}],["En vivo",{es:"Demo pública que puedes probar",en:"Public demo you can try"}]],
-  challenge:{es:"En tienda, el cliente quiere orientación rápida y sin presión. Un chatbot de texto se siente frío; un vendedor no siempre está disponible.",en:"In store, customers want quick guidance without pressure. A text chatbot feels cold; a salesperson isn’t always available."},
-  quote:{es:"Si la IA tiene cara y voz, conversar con ella debe sentirse tan natural como hablar con alguien de la tienda.",en:"If the AI has a face and a voice, talking to it should feel as natural as talking to someone in the store."},
-  answer:{es:"Diseñé a Clarito como un personaje cercano: una mascota que saluda, escucha y responde por voz, con la conversación también en texto para quien prefiera leer.",en:"I designed Clarito as an approachable character: a mascot that greets, listens and answers by voice, with the conversation also shown as text for those who prefer reading."},
-  steps:[
-    [{es:"Personaje",en:"Character"},{es:"Una mascota con identidad propia que hace la IA cercana.",en:"A mascot with its own identity that makes the AI approachable."},"persona"],
-    [{es:"Entrada en un gesto",en:"One-gesture entry"},{es:"Un solo botón: «Hablar con Clarito».",en:"A single button: “Talk to Clarito”."},"UI"],
-    [{es:"Conversación por voz",en:"Voice conversation"},{es:"Agente conversacional de voz en tiempo real.",en:"Real-time conversational voice agent."},"ElevenLabs"],
-    [{es:"Transcripción",en:"Transcript"},{es:"La conversación queda visible en texto, accesible para todos.",en:"The conversation stays visible as text, accessible to everyone."},"a11y"]
+  id:"banca", kind:"voice", group:"voice", type:{es:"Agente de voz · PoV",en:"Voice agent · PoV"},
+  topic:{es:"Acceso a la app y fraude",en:"App access and fraud"},
+  sector:{es:"Banca",en:"Banking"}, year:"2026",
+  title:{es:"Agente de voz para acceso a la app y gestiones frecuentes",en:"Voice agent for app access and everyday requests"},
+  short:{es:"Entiende qué falla, guía paso a paso y deriva cuando la seguridad lo exige.",en:"Works out what is failing, guides step by step and hands over when security requires it."},
+  line:{es:"«Por tu seguridad, nunca te voy a pedir tu clave ni los códigos que te lleguen.»",en:"“For your security, I will never ask for your password or the codes you receive.”"},
+  lead:{es:"Un agente que atiende a clientes que no pueden entrar a su app bancaria: entiende qué falla, los guía paso a paso y deriva cuando la seguridad lo exige.",
+        en:"A voice agent for customers locked out of their banking app: it works out what is failing, guides them step by step and hands over when security requires it."},
+  context:{es:"Prueba de valor (PoV) presentada a un banco",en:"Proof of value (PoV) presented to a bank"},
+  role:{es:"Diseño conversacional completo y construcción del demo, de principio a fin y por mi cuenta",en:"End-to-end conversational design and demo build, on my own"},
+  problem:{es:"Quien llama porque no puede entrar a su app suele estar apurado, preocupado por un posible fraude y sin poder resolverlo solo. Cada tipo de falla pide una conversación distinta, y un agente que responde igual a todas termina frustrando.",
+           en:"People who call because they can’t get into their app are usually in a hurry, worried about possible fraud and unable to fix it alone. Each type of failure needs a different conversation, and an agent that answers them all the same way ends up frustrating people."},
+  scope:{es:"Nos centramos en los tres tipos de falla de acceso más frecuentes: validación biométrica, códigos de verificación y bloqueo de contraseña. Después amplié el agente a fraude y gestiones frecuentes: movimientos no reconocidos, pérdida o robo de tarjeta, cambio de correo, actualización de datos, estado de cuenta, pagos de servicios, reclamos, pólizas y deudas.",
+         en:"We focused on the three most common access failures: biometric validation, verification codes and password lockout. I then extended the agent to fraud and everyday requests: unrecognised transactions, lost or stolen cards, email change, personal data updates, account statements, bill payments, complaints, insurance policies and debts."},
+  decisions:[
+    [{es:"Diagnosticar antes de guiar",en:"Diagnose before guiding"},{es:"Una sola pregunta para ubicar la falla (¿rostro, código o contraseña?), porque cada una tiene un camino distinto.",en:"A single question to locate the failure (face, code or password?), because each one has its own path."}],
+    [{es:"La seguridad no se negocia",en:"Security is non-negotiable"},{es:"El agente nunca pide claves, PIN ni códigos recibidos por SMS o correo, y lo dice en voz alta.",en:"The agent never asks for passwords, PINs or codes received by SMS or email, and says so out loud."}],
+    [{es:"Derivar solo cuando no hay otra forma de autenticar",en:"Hand over only when there’s no other way to authenticate"},{es:"El agente resuelve la validación por sí mismo y pasa a un asesor únicamente si el cliente no puede autenticarse por ningún otro medio.",en:"The agent handles validation itself and passes to an advisor only if the customer can’t authenticate any other way."}],
+    [{es:"El fraude cambia el orden",en:"Fraud changes the order"},{es:"Ante un movimiento no reconocido o una tarjeta perdida, primero se contiene la situación y después se recoge el detalle.",en:"With an unrecognised transaction or a lost card, the situation is contained first and the details gathered after."}],
+    [{es:"Derivar con contexto",en:"Hand over with context"},{es:"El asesor recibe un resumen; el cliente no repite su historia.",en:"The advisor gets a summary; the customer doesn’t repeat their story."}]
   ],
-  live:true,
-  tilesTitle:{es:"Decisiones de diseño",en:"Design decisions"},
-  tiles:[
-    [{es:"Un personaje, no un widget",en:"A character, not a widget"},{es:"La mascota da cara a la IA y baja la barrera para empezar a hablar.",en:"The mascot gives the AI a face and lowers the barrier to start talking."}],
-    [{es:"Voz + texto",en:"Voice + text"},{es:"Hablar es lo natural; leer la transcripción da control y accesibilidad.",en:"Speaking is natural; reading the transcript gives control and accessibility."}],
-    [{es:"Contexto de tienda",en:"Store context"},{es:"El entorno visual sitúa al cliente donde ocurre la decisión de compra.",en:"The visual setting places the customer where the buying decision happens."}]
-  ]
+  emo:[
+    [{es:"Cliente no puede entrar",en:"Customer can’t log in"},{es:"Calmar y ubicar la falla",en:"Calm and locate the failure"},{es:"Te ayudo con eso. ¿Qué te aparece al entrar: la validación de tu rostro, un código o tu contraseña?",en:"I’ll help you with that. What do you see when you log in: face validation, a code or your password?"}],
+    [{es:"Falla la biometría",en:"Biometrics fail"},{es:"Guiar sin culpar",en:"Guide without blaming"},{es:"A veces la cámara no reconoce bien el rostro. Probemos un par de cosas antes de seguir.",en:"Sometimes the camera doesn’t recognise faces well. Let’s try a couple of things before moving on."}],
+    [{es:"Dato sensible",en:"Sensitive data"},{es:"Firme y clara",en:"Firm and clear"},{es:"Por tu seguridad, nunca te voy a pedir tu clave ni los códigos que te lleguen.",en:"For your security, I will never ask for your password or the codes you receive."}],
+    [{es:"Posible fraude",en:"Possible fraud"},{es:"Serena y rápida",en:"Calm and quick"},{es:"Vamos a proteger tu cuenta ahora. Cuéntame qué movimiento no reconoces.",en:"Let’s protect your account now. Tell me which transaction you don’t recognise."}],
+    [{es:"Derivación",en:"Handover"},{es:"Cierre con contexto",en:"Close with context"},{es:"Te paso con un asesor y ya le cuento lo que me dijiste, no tendrás que repetirlo.",en:"I’ll pass you to an advisor and tell them what you told me, so you won’t have to repeat it."}]
+  ],
+  learned:{es:"En un banco, la confianza se construye con lo que el agente se niega a pedir. Y cada falla merece su propio camino: un flujo genérico para todo termina frustrando justo a quien más apurado está.",
+           en:"In a bank, trust is built on what the agent refuses to ask for. And every failure deserves its own path: one generic flow for everything ends up frustrating exactly the person in the biggest hurry."}
 },
 {
-  id:"telco", kind:"voice", type:{es:"Agente de voz",en:"Voice agent"},
-  sector:{es:"Telecomunicaciones",en:"Telecommunications"}, year:"2026",
-  title:{es:"Atención y ventas por voz",en:"Voice customer care & sales"},
-  short:{es:"Un asesor que recomienda, valida y prepara el cierre sin sonar a robot.",en:"An advisor that recommends, validates and sets up the close without sounding robotic."},
-  line:{es:"«De informar a empatizar.»",en:"“From informing to empathising.”"},
-  lead:{es:"Un asesor comercial de voz para un operador de telecomunicaciones que recomienda, valida y prepara el cierre.",en:"A voice sales advisor for a telecom operator that recommends, validates and prepares the close."},
+  id:"salud", kind:"voice", group:"voice", type:{es:"Agente de voz · Demo",en:"Voice agent · Demo"},
+  topic:{es:"Triaje de urgencias y citas",en:"Emergency triage and appointments"},
+  sector:{es:"Salud",en:"Healthcare"}, year:"2026",
+  title:{es:"Agente de voz para servicios de salud",en:"Voice agent for healthcare services"},
+  short:{es:"De una cita de laboratorio a una posible urgencia: sabe cuándo dejar de agendar para empezar a cuidar.",en:"From lab appointments to possible emergencies: it knows when to stop scheduling and start caring."},
+  line:{es:"«Sabe cuándo dejar de agendar para empezar a cuidar.»",en:"“It knows when to stop scheduling and start caring.”"},
+  lead:{es:"Un agente que atiende desde una cita de laboratorio hasta una posible urgencia, y que sabe cuándo dejar de agendar para empezar a cuidar.",
+        en:"A voice agent that handles everything from lab appointments to possible emergencies, and knows when to stop scheduling and start caring."},
+  context:{es:"Demo presentada a una clínica",en:"Demo presented to a clinic"},
+  role:{es:"Diseño conversacional completo y construcción, de principio a fin y por mi cuenta",en:"End-to-end conversational design and build, on my own"},
+  problem:{es:"En una misma línea llaman personas que quieren un estacionamiento y otras que se sienten mal. El agente tiene que distinguirlas sin hacer esperar a nadie y sin dar la impresión de que un trámite importa más que una persona.",
+           en:"The same line gets calls from people who want a parking spot and from people who feel unwell. The agent has to tell them apart without making anyone wait, and without suggesting that a procedure matters more than a person."},
+  scope:{es:"Triaje de urgencias, citas, imágenes, laboratorio, terapias, costos y pagos, recojo de medicina y estacionamiento.",
+         en:"Emergency triage, appointments, imaging, lab tests, therapy, costs and payments, medicine pickup and parking."},
+  decisions:[
+    [{es:"Escuchar la urgencia en todo momento",en:"Listen for urgency at all times"},{es:"Si aparece una señal de riesgo, el agente suspende el trámite y pasa al triaje.",en:"If a risk signal appears, the agent pauses the request and moves to triage."}],
+    [{es:"No diagnostica ni aconseja",en:"It doesn’t diagnose or advise"},{es:"Orienta y deriva a quien corresponda.",en:"It guides and refers to the right person."}],
+    [{es:"Partir del proceso que ya existía",en:"Start from the existing process"},{es:"Para imágenes y laboratorio llevé al agente las reglas de agendamiento que la clínica ya usaba en su app: la orden tiene fecha de vencimiento, una orden vencida no se agenda, algunos exámenes requieren validación previa y se derivan, y las órdenes virtuales se atienden en una sola sede.",en:"For imaging and lab tests I brought into the agent the booking rules the clinic already used in its app: orders have an expiry date, an expired order can’t be booked, some tests need prior validation and are referred, and virtual orders are handled at a single location."}],
+    [{es:"De pantalla a voz",en:"From screen to voice"},{es:"En la app el paciente ve un calendario completo; por voz, el agente ofrece dos o tres horarios y confirma antes de reservar.",en:"In the app the patient sees a full calendar; by voice, the agent offers two or three slots and confirms before booking."}],
+    [{es:"El tono cambia según la situación",en:"Tone changes with the situation"},{es:"Más cálido en terapias y salud, más ágil en citas y estacionamiento.",en:"Warmer for therapy and health, quicker for appointments and parking."}],
+    [{es:"Confirmar antes de cerrar",en:"Confirm before closing"},{es:"Repite especialidad, día, hora y sede para evitar errores en las citas.",en:"Repeats specialty, day, time and location to avoid booking mistakes."}],
+    [{es:"Muchas gestiones, un solo método",en:"Many requests, one method"},{es:"Escuchar → identificar → resolver → confirmar → cerrar.",en:"Listen → identify → resolve → confirm → close."}]
+  ],
+  videos:[["assets/salud.mp4","assets/salud-poster.jpg"]],
+  emo:[
+    [{es:"Posible urgencia",en:"Possible emergency"},{es:"Serena, directa",en:"Calm, direct"},{es:"Eso suena importante. Te hago unas preguntas rápidas para ver cómo ayudarte.",en:"That sounds important. Let me ask you a few quick questions to see how I can help."}],
+    [{es:"Cita",en:"Appointment"},{es:"Ágil y precisa",en:"Quick and precise"},{es:"Listo. Te confirmo: [especialidad], el [día] a las [hora], en [sede]. ¿Está bien?",en:"Done. Let me confirm: [specialty], on [day] at [time], at [location]. Is that right?"}],
+    [{es:"Orden vencida",en:"Expired order"},{es:"Clara, con salida",en:"Clear, with a way forward"},{es:"Esa orden ya venció, así que no puedo agendarla. Te indico cómo renovarla.",en:"That order has expired, so I can’t book it. I’ll tell you how to renew it."}],
+    [{es:"Costos",en:"Costs"},{es:"Clara y honesta",en:"Clear and honest"},{es:"Te cuento lo que sé y, si necesitas el monto exacto, te indico cómo confirmarlo.",en:"I’ll tell you what I know and, if you need the exact amount, how to confirm it."}]
+  ],
+  result:{es:"Tras la demo, la clínica pidió ampliar el caso de laboratorio e imágenes. Para hacerlo, tomé como base el flujo de agendamiento que ya usaban en su app y llevé sus reglas a la conversación.",
+          en:"After the demo, the clinic asked to extend the lab and imaging use case. To do it, I took the booking flow they already used in their app as a base and brought its rules into the conversation."},
+  learned:{es:"En salud, el diseño más importante es el de la transición: el momento en que el agente deja de ser administrativo y pasa a cuidar. Y no hace falta inventar las reglas: muchas ya existen en los canales del cliente, el trabajo es traducirlas a una conversación.",
+           en:"In healthcare, the most important design is the transition: the moment the agent stops being administrative and starts caring. And there’s no need to invent the rules: many already exist in the client’s channels; the work is translating them into a conversation."}
+},
+{
+  id:"energy", kind:"voice", group:"voice", type:{es:"Agente de voz · Piloto",en:"Voice agent · Pilot"},
+  topic:{es:"Interrupciones de servicio",en:"Service outages"},
+  sector:{es:"Energía",en:"Energy"}, year:"2026",
+  title:{es:"Agente de voz para interrupciones de servicio",en:"Voice agent for service outages"},
+  short:{es:"Identifica al cliente, evita reportes duplicados y deriva cuando hay riesgo. Avanzó a una propuesta de piloto.",en:"Identifies the customer, avoids duplicate reports and hands over when there’s risk. It moved on to a pilot proposal."},
+  line:{es:"«Cambia quién ejecuta el protocolo, no el protocolo.»",en:"“What changes is who runs the protocol, not the protocol.”"},
+  lead:{es:"Un agente que atiende en lenguaje natural a clientes con cortes de energía: los identifica, consulta si ya existe un reporte, registra el caso y deriva a una persona cuando hay riesgo o reclamo.",
+        en:"A voice agent that handles power-outage calls in natural language: it identifies the customer, checks for an existing report, logs the case and hands over to a person when there is risk or a complaint."},
+  context:{es:"Demo presentada a una empresa eléctrica, seguida de una propuesta de piloto",en:"Demo presented to an electricity company, followed by a pilot proposal"},
+  role:{es:"Diseño completo (flujo, matriz de emociones, tono, prompt, herramientas, métricas y dashboard), construcción y propuesta de piloto, de principio a fin y por mi cuenta",en:"Full design (flow, emotion matrix, tone, prompt, tools, metrics and dashboard), build and pilot proposal, end to end and on my own"},
+  problem:{es:"El cliente espera, repite sus datos y lo transfieren. El menú de opciones contiene el volumen de llamadas, pero no resuelve, y quien llama por un corte suele estar molesto o preocupado.",
+           en:"Customers wait, repeat their details and get transferred. The phone menu contains call volume but doesn’t resolve anything, and people calling about an outage are usually upset or worried."},
+  scope:{es:"Triaje de emergencias, agenda de casos, información de facturación, pagos y consumos, copia de recibo y cambio de titular.",
+         en:"Emergency triage, case logging, billing information, payments and usage, bill copies and change of account holder."},
+  decisions:[
+    [{es:"Un solo flujo para todas las gestiones",en:"One flow for every request"},{es:"Cambia la gestión, no el método.",en:"The request changes, not the method."}],
+    [{es:"La emoción se diseña por situación",en:"Emotion is designed per situation"},{es:"Cada momento tiene intención, frase y tag de voz, y el tag nunca contamina lo que se le dice al cliente.",en:"Each moment has an intent, a line and a voice tag, and the tag never leaks into what the customer hears."}],
+    [{es:"Lo sensible va en reglas",en:"Sensitive steps live in rules"},{es:"La identidad se valida antes de registrar un trámite y el agente solo informa datos de la fuente oficial.",en:"Identity is validated before any request is logged, and the agent only reports data from the official source."}],
+    [{es:"El riesgo cambia el orden",en:"Risk changes the order"},{es:"Si detecta peligro, primero da la instrucción de seguridad y después pide dirección y contacto.",en:"If it detects danger, it gives the safety instruction first and asks for address and contact details after."}],
+    [{es:"Sin duplicar",en:"No duplicates"},{es:"Antes de registrar, consulta si ya existe un reporte por el mismo motivo.",en:"Before logging, it checks whether a report already exists for the same issue."}],
+    [{es:"Preguntar ante la duda",en:"Ask when in doubt"},{es:"Si el pedido puede significar dos cosas, el agente pregunta en vez de adivinar: «¿Quieres saber cuánto debes o necesitas una copia del recibo?»",en:"If a request could mean two things, the agent asks instead of guessing: “Do you want to know how much you owe, or do you need a copy of your bill?”"}]
+  ],
+  videos:[["assets/energy.mp4","assets/energy-poster.jpg"]],
+  emo:[
+    [{es:"Saludo",en:"Greeting"},{es:"Cálida y ágil",en:"Warm and quick"},{es:"Hola, soy [nombre]. ¿En qué te puedo ayudar con tu servicio hoy?",en:"Hi, I’m [name]. How can I help you with your service today?"}],
+    [{es:"Cliente molesto por un monto",en:"Customer upset about an amount"},{es:"Contención, sin discutir",en:"Containment, no arguing"},{es:"Entiendo. Si crees que hay un error, te comunico con un asesor para revisarlo en detalle.",en:"I understand. If you think there’s an error, I’ll connect you with an advisor to review it in detail."}],
+    [{es:"Riesgo",en:"Risk"},{es:"Serena, urgencia contenida",en:"Calm, contained urgency"},{es:"Tu caso es urgente. Te comunico con un especialista; mantente lejos de la zona.",en:"Your case is urgent. I’m connecting you with a specialist; stay away from the area."}],
+    [{es:"Despedida",en:"Goodbye"},{es:"Cálida, con próximo paso",en:"Warm, with a next step"},{es:"Listo, quedó registrado. Si necesitas algo más, aquí estoy.",en:"Done, it’s logged. If you need anything else, I’m here."}]
+  ],
+  pilot:{
+    title:{es:"Después de la demo: la propuesta de piloto",en:"After the demo: the pilot proposal"},
+    intro:{es:"El cliente validó el enfoque y preguntó cómo se integraría el agente a sus sistemas. Respondí con una propuesta de piloto centrada en la falta de suministro, con dos caminos.",
+           en:"The client validated the approach and asked how the agent would integrate with their systems. I answered with a pilot proposal focused on loss of supply, with two paths."},
+    items:[
+      [{es:"Piloto controlado",en:"Controlled pilot"},{es:"Valida la conversación, la voz y el protocolo sin tocar los sistemas del cliente: cada atención queda registrada y un asesor la ingresa después.",en:"Validates the conversation, the voice and the protocol without touching the client’s systems: every call is recorded and an advisor enters it afterwards."}],
+      [{es:"Piloto integrado",en:"Integrated pilot"},{es:"El agente registra la orden directamente en el sistema comercial durante la llamada.",en:"The agent logs the order directly in the commercial system during the call."}],
+      [{es:"Su protocolo, hecho conversación",en:"Their protocol, turned into conversation"},{es:"Los ocho pasos que hoy sigue el asesor son los pasos del agente. Cambia quién los ejecuta, no el protocolo.",en:"The eight steps advisors follow today are the agent’s steps. What changes is who runs them, not the protocol."}],
+      [{es:"Priorizar",en:"Prioritise"},{es:"De dieciséis flujos identificados, cuatro entran al piloto: los que más llamadas absorben en un corte masivo y los que protegen a un cliente en riesgo. El resto queda en la hoja de ruta.",en:"Of sixteen flows identified, four go into the pilot: those that absorb the most calls in a mass outage and those that protect a customer at risk. The rest stays on the roadmap."}],
+      [{es:"Reglas claras de transferencia",en:"Clear transfer rules"},{es:"Riesgo de vida, de inmediato y con prioridad. Cliente no identificado tras dos intentos. Si no entiende tras dos reformulaciones, transfiere en vez de insistir. Si el cliente pide un asesor, siempre. Y siempre con contexto: quién llama, qué reportó y en qué paso quedó.",en:"Risk to life: immediately and with priority. Customer not identified after two attempts. If it still doesn’t understand after two rephrasings, it transfers instead of insisting. If the customer asks for an advisor, always. And always with context: who is calling, what they reported and which step they reached."}],
+      [{es:"Cómo se mediría",en:"How it would be measured"},{es:"Resolución sin asesor, derivaciones con contexto, duplicados evitados y duración de la llamada, con el chatbot de texto del cliente como referencia.",en:"Resolution without an advisor, handovers with context, duplicates avoided and call duration, using the client’s text chatbot as a baseline."}]
+    ]
+  },
+  result:{es:"Las preguntas del cliente se centraron en la integración con sus sistemas. En el agente, el único cambio que pidió fue la voz, que sonaba con un leve acento argentino.",
+          en:"The client’s questions focused on integration with their systems. For the agent itself, the only change they asked for was the voice, which had a slight Argentine accent."},
+  out:{es:"Trámites comerciales, consultas de recibo y llamadas salientes: quedan en la hoja de ruta.",
+       en:"Commercial requests, bill queries and outbound calls: they stay on the roadmap."},
+  learned:{es:"Una buena demo abre la conversación que importa: cómo se conecta el agente con lo que el cliente ya tiene. Diseñar también es decidir qué probar primero y con cuánta integración.",
+           en:"A good demo opens the conversation that matters: how the agent connects with what the client already has. Design is also deciding what to test first, and with how much integration."}
+},
+{
+  id:"telco", kind:"voice", group:"voice", brief:true, type:{es:"Agente de voz · Ventas",en:"Voice agent · Sales"},
+  topic:{es:"Venta de planes y equipos",en:"Plan and device sales"},
+  sector:{es:"Claro · Telecomunicaciones",en:"Claro · Telecommunications"}, year:"2026",
+  title:{es:"Agente de voz para venta de planes y equipos",en:"Voice agent for plan and device sales"},
+  short:{es:"Ayuda a elegir plan hogar, equipo o accesorios. Con versión agnóstica de marca y en portugués.",en:"Helps choose home plans, devices or accessories. With brand-agnostic and Portuguese versions."},
+  line:{es:"«La misma lógica conversacional, para otros operadores e idiomas.»",en:"“The same conversational logic, for other operators and languages.”"},
+  lead:{es:"Un asesor de ventas por voz que ayuda a elegir plan hogar, equipo o accesorios y programa el retiro o la entrega. Diseñé también una versión agnóstica de marca y una versión en portugués para mostrar que la misma lógica conversacional se adapta a otros operadores e idiomas.",
+        en:"A voice sales assistant that helps choose home plans, devices or accessories and schedules pickup or delivery. I also designed a brand-agnostic version and a Portuguese version to show that the same conversational logic adapts to other operators and languages."},
   role:{es:"Diseño conversacional + build (ElevenLabs, n8n)",en:"Conversational design + build (ElevenLabs, n8n)"},
-  stats:[["24/7",{es:"Atención comercial por voz",en:"Voice sales coverage"}],["<100 ms",{es:"Respuesta de voz natural",en:"Natural voice response"}],["1",{es:"Asesor que escala sin saturarse",en:"Advisor that scales without overload"}],["6",{es:"Estados emocionales diseñados",en:"Designed emotional states"}]],
-  challenge:{es:"En atención telefónica los bots suenan planos y los asesores se saturan con preguntas repetitivas. El cliente llega con dudas y, sin guía, posterga la compra.",en:"On the phone, bots sound flat and human advisors get swamped by repetitive questions. Customers arrive with doubts and, without guidance, postpone the purchase."},
-  quote:{es:"En una llamada, la confianza no depende solo de lo que dices, sino de cómo lo dices.",en:"On a call, trust depends not only on what you say, but on how you say it."},
-  answer:{es:"El reto: convertir una atención operativa en una experiencia guiada, humana y a escala.",en:"The challenge: turn an operational service into a guided, human experience at scale."},
+  decision:{es:"Recomendar el plan según el consumo y el presupuesto del cliente, y validar cobertura y datos antes de avanzar al cierre.",
+            en:"Recommend the plan based on the customer’s usage and budget, and validate coverage and details before moving to the close."},
   steps:[
     [{es:"Escucha activa",en:"Active listening"},{es:"Capta la necesidad en lenguaje natural, sin menús ni tonos.",en:"Captures the need in natural language, no menus or tones."},"intención"],
     [{es:"Recomienda",en:"Recommends"},{es:"Sugiere el plan según consumo y presupuesto, con lenguaje simple.",en:"Suggests a plan based on usage and budget, in plain language."},"consultar_plan"],
     [{es:"Valida",en:"Validates"},{es:"Confirma cobertura y datos del cliente antes de avanzar.",en:"Confirms coverage and customer data before moving on."},"n8n"],
-    [{es:"Prepara el cierre",en:"Sets up the close"},{es:"Registra la intención de compra y agenda el siguiente paso.",en:"Logs purchase intent and schedules the next step."},"registrar_gestion"],
+    [{es:"Programa la entrega",en:"Schedules delivery"},{es:"Registra la compra y agenda el retiro o la entrega.",en:"Logs the purchase and schedules pickup or delivery."},"registrar_gestion"],
     [{es:"Cierra con calidez",en:"Warm close"},{es:"Despedida breve y NPS de la experiencia.",en:"Short goodbye and experience NPS."},"NPS"]
   ],
-  videos:[["assets/telco.mp4","assets/telco-poster.jpg"]],
-  emo:[
-    [{es:"Saludo inicial",en:"Greeting"},{es:"Amable, energía moderada",en:"Friendly, moderate energy"},{es:"¡Hola! Soy tu asesor por hoy…",en:"Hi! I’m your advisor today…"}],
-    [{es:"Cliente confundido",en:"Confused customer"},{es:"Paciente, paso a paso",en:"Patient, step by step"},{es:"Tranqui, lo vemos paso a paso.",en:"No worries, let’s go step by step."}],
-    [{es:"Precio atractivo",en:"Great price"},{es:"Entusiasmo breve",en:"Brief enthusiasm"},{es:"Está buenazo para lo que ofrece.",en:"That’s a great deal for what you get."}],
-    [{es:"Cliente molesto",en:"Upset customer"},{es:"Calma, contención",en:"Calm, containment"},{es:"Te entiendo. Lo revisamos juntos.",en:"I understand. Let’s check it together."}],
-    [{es:"Intención de compra",en:"Purchase intent"},{es:"Seguridad, cierre",en:"Confidence, closing"},{es:"Perfecto, voy a registrar tus datos.",en:"Perfect, I’ll register your details."}],
-    [{es:"Despedida",en:"Goodbye"},{es:"Cálido, breve",en:"Warm, brief"},{es:"Gracias por conversar conmigo.",en:"Thanks for talking with me."}]
-  ],
-  tilesTitle:{es:"Por qué importa",en:"Why it matters"},
-  tiles:[
-    [{es:"Confianza en la llamada",en:"Trust on the call"},{es:"El tono diseñado sostiene la conversación y reduce el abandono.",en:"The designed tone sustains the conversation and reduces drop-off."}],
-    [{es:"Escala sin saturar",en:"Scale without overload"},{es:"Un asesor de voz cubre picos que antes colapsaban al equipo.",en:"A voice advisor covers peaks that used to overwhelm the team."}],
-    [{es:"Experiencia guiada",en:"Guided experience"},{es:"De responder dudas a acompañar la decisión de compra.",en:"From answering questions to supporting the buying decision."}]
-  ]
+  videos:[["assets/telco.mp4","assets/telco-poster.jpg"]]
 },
 {
-  id:"pago", kind:"voice", type:{es:"Agente de voz",en:"Voice agent"},
-  sector:{es:"Banca · cobranzas",en:"Banking · collections"}, year:"2026",
-  title:{es:"Cobranza que cierra acuerdos",en:"Collections that close agreements"},
-  short:{es:"Un agente que escucha, empatiza y negocia. Un flujo para cuatro cobranzas.",en:"An agent that listens, empathises and negotiates. One flow for four collection types."},
-  line:{es:"«De perseguir deudas a cerrar acuerdos.»",en:"“From chasing debt to closing agreements.”"},
-  lead:{es:"Un agente de voz de cobranza y renegociación para banca, que escucha, empatiza y negocia.",en:"A collections and debt-renegotiation voice agent for banking that listens, empathises and negotiates."},
-  role:{es:"UX del journey + build del agente (ElevenLabs, n8n)",en:"Journey UX + agent build (ElevenLabs, n8n)"},
-  stats:[["4→1",{es:"Cuatro cobranzas, un solo flujo",en:"Four collection types, one flow"}],["24/7",{es:"Cobranza empática y a escala",en:"Empathetic collections at scale"}],["<100 ms",{es:"Voz natural en tiempo real",en:"Natural real-time voice"}],["NPS",{es:"Medido en cada cierre",en:"Measured at every close"}]],
-  challenge:{es:"La cobranza vivía en cuatro flujos cerrados (preventiva, recordatorio, vencida y castigo). Pocas llamadas terminaban en promesa de pago y el cliente en mora se sentía presionado, no ayudado.",en:"Collections lived in four rigid flows (preventive, reminder, overdue and write-off). Few calls ended in a payment promise, and customers in arrears felt pressured, not helped."},
-  quote:{es:"Renegociar una deuda es una conversación, no un menú.",en:"Renegotiating debt is a conversation, not a menu."},
-  answer:{es:"Diseñé un solo flujo conversacional para las cuatro cobranzas: solo cambia la deuda que presenta y las ofertas que puede hacer.",en:"I designed a single conversational flow for all four: only the debt presented and the offers available change."},
+  id:"pago", kind:"voice", group:"voice", brief:true, type:{es:"Agente de voz · Cobranza",en:"Voice agent · Collections"},
+  topic:{es:"Negociación de deudas",en:"Debt negotiation"},
+  sector:{es:"Cobranza",en:"Collections"}, year:"2026",
+  title:{es:"Agente de voz para cobranza",en:"Voice agent for collections"},
+  short:{es:"Negocia el pago de forma escalonada y registra el acuerdo, sin presionar al cliente.",en:"Negotiates repayment in steps and records the agreement, without pressuring the customer."},
+  line:{es:"«El reto no es cobrar, sino hacerlo sin presionar al cliente.»",en:"“The challenge isn’t collecting, it’s doing it without pressuring the customer.”"},
+  lead:{es:"Un agente que negocia el pago de una deuda de forma escalonada y registra el acuerdo. El reto no es cobrar, sino hacerlo sin presionar al cliente. Las ofertas que puede hacer están definidas; el agente no las inventa.",
+        en:"A voice agent that negotiates debt repayment in installments and records the agreement, firm but never pressuring. The offers it can make are predefined; the agent doesn’t make them up."},
+  role:{es:"Diseño conversacional + build (ElevenLabs, n8n)",en:"Conversational design + build (ElevenLabs, n8n)"},
+  decision:{es:"Un solo flujo para las cuatro etapas de cobranza (preventiva, recordatorio, vencida y castigo): solo cambian la deuda que presenta y las ofertas que puede hacer.",
+            en:"A single flow for the four collection stages (preventive, reminder, overdue and write-off): only the debt presented and the offers available change."},
   steps:[
     [{es:"Identifica",en:"Identifies"},{es:"Valida al titular antes de hablar de la deuda.",en:"Verifies the account holder before discussing the debt."},"validar_identidad"],
     [{es:"Presenta",en:"Presents"},{es:"Producto, monto y días de mora, con claridad.",en:"Product, amount and days overdue, clearly."},""],
-    [{es:"Negocia",en:"Negotiates"},{es:"Escalera de ofertas: hoy, cuotas, descuento.",en:"Offer ladder: today, instalments, discount."},"ofertas"],
+    [{es:"Negocia",en:"Negotiates"},{es:"Escalera de ofertas definidas: hoy, cuotas, descuento.",en:"Ladder of predefined offers: today, instalments, discount."},"ofertas"],
     [{es:"Registra",en:"Records"},{es:"Compromiso de pago guardado en vivo.",en:"Payment commitment saved live."},"registrar_gestion"],
     [{es:"Cierra",en:"Closes"},{es:"Motivo de no pago y NPS de la experiencia.",en:"Reason for non-payment and experience NPS."},"NPS"]
   ],
-  videos:[["assets/pago-1.mp4","assets/pago-1-poster.jpg"],["assets/pago-2.mp4","assets/pago-2-poster.jpg",{es:"Panel de acuerdos que el agente registra en vivo",en:"Dashboard of agreements the agent records live"}]],
-  tilesTitle:{es:"Por qué importa",en:"Why it matters"},
-  tiles:[
-    [{es:"Una conversación, no un menú",en:"A conversation, not a menu"},{es:"La renegociación se siente como ayuda, no como presión.",en:"Renegotiation feels like help, not pressure."}],
-    [{es:"Cada llamada, un dato",en:"Every call, a data point"},{es:"Motivo de no pago y NPS capturados para mejorar la estrategia.",en:"Non-payment reason and NPS captured to improve strategy."}],
-    [{es:"Empatía a escala",en:"Empathy at scale"},{es:"Cuatro cobranzas atendidas 24/7 con un solo diseño.",en:"Four collection types handled 24/7 with one design."}]
-  ]
+  videos:[["assets/pago-1.mp4","assets/pago-1-poster.jpg"],["assets/pago-2.mp4","assets/pago-2-poster.jpg",{es:"Panel de acuerdos que el agente registra en vivo",en:"Dashboard of agreements the agent records live"}]]
 },
 {
-  id:"energy", kind:"voice", type:{es:"Agente de voz",en:"Voice agent"},
-  sector:{es:"Energía · atención comercial",en:"Energy · customer service"}, year:"2026",
-  title:{es:"Atención comercial eléctrica",en:"Electricity customer service"},
-  short:{es:"Luma resuelve cinco gestiones en la misma llamada, sin menús ni colas.",en:"Luma resolves five requests in the same call, with no menus or queues."},
-  line:{es:"«De menús y colas a resolver en la llamada.»",en:"“From menus and queues to solving it on the call.”"},
-  lead:{es:"Luma, el agente de voz para una empresa eléctrica, entiende la intención, valida el suministro y ejecuta la gestión.",en:"Luma, the voice agent for an electricity company, understands intent, validates the supply account and carries out the request."},
-  role:{es:"Diseño del flujo + build del agente (ElevenLabs, n8n)",en:"Flow design + agent build (ElevenLabs, n8n)"},
-  stats:[["5",{es:"Gestiones en una sola llamada",en:"Requests in a single call"}],["0",{es:"Menús de IVR",en:"IVR menus"}],["24/7",{es:"Autoservicio por voz",en:"Voice self-service"}],["1",{es:"Derivación segura ante riesgo",en:"Safe handoff when at risk"}]],
-  challenge:{es:"El sector atiende por IVR y colas: el cliente espera, repite y lo transfieren. Se contiene volumen, pero la gestión sigue sin resolverse dentro de la llamada.",en:"The sector relies on IVRs and queues: customers wait, repeat themselves and get transferred. Volume is contained, but the request still isn’t solved within the call."},
-  quote:{es:"Un solo flujo para cinco gestiones: cambia lo que resuelve, no el método.",en:"One flow for five requests: what it solves changes, not the method."},
-  answer:{es:"Diseñé un único flujo conversacional para las cinco gestiones comerciales; la emergencia o el reclamo va directo a un asesor humano.",en:"I designed a single conversational flow for the five service requests; emergencies or complaints go straight to a human advisor."},
+  id:"portabilidad", kind:"research", group:"research", type:{es:"UX Research · Journey",en:"UX Research · Journey"},
+  sector:{es:"Claro · tienda online",en:"Claro · online store"}, year:"2026",
+  title:{es:"Portabilidad: dónde se rompe la compra",en:"Number portability: where the purchase breaks"},
+  short:{es:"El cliente configuraba su compra antes de saber si su número aplicaba. Propuse validarlo al inicio.",en:"Customers configured their purchase before knowing if their number qualified. I proposed validating it first."},
+  line:{es:"«Los bloqueos aparecen cuando el cliente ya avanzó gran parte de la compra.»",en:"“The blockers appear once the customer has already gone through most of the purchase.”"},
+  lead:{es:"Research de la experiencia de portabilidad (cambiarse de operador conservando el número) en la tienda online de un operador, para dos productos: equipo y chip. El objetivo: entender en qué etapa y por qué se pierde la compra, y priorizar qué mejorar.",
+        en:"Research on the number-portability experience (switching carrier while keeping your number) in an operator’s online store, for two products: device and SIM. The goal: understand at which stage and why purchases are lost, and prioritise what to improve."},
+  role:{es:"UX Research, análisis de journey y datos",en:"UX Research, journey and data analysis"},
+  stats:[["6",{es:"Etapas del journey mapeadas",en:"Journey stages mapped"}],["2",{es:"Flujos analizados: equipo y chip",en:"Flows analysed: device and SIM"}],["4",{es:"Fuentes cruzadas por etapa",en:"Sources crossed per stage"}],["Matriz",{es:"Impacto × esfuerzo para priorizar",en:"Impact × effort to prioritise"}]],
+  challenge:{es:"La portabilidad combina una compra digital con una gestión posterior: llamada de confirmación, evaluación y entrega. El reto era ver el journey completo, no solo la web, y separar las fricciones reales de los cambios de medición u operación que también movían los números.",en:"Portability combines a digital purchase with a follow-up process: confirmation call, evaluation and delivery. The challenge was to see the whole journey, not just the website, and to separate real friction from measurement or operational changes that also moved the numbers."},
+  quote:{es:"El cliente configura su compra antes de saber si su número y las condiciones realmente aplican.",en:"Customers configure their purchase before knowing whether their number and conditions actually qualify."},
+  answer:{es:"Mapeé el journey de portabilidad en seis etapas (exploración, elección, compra online, llamada de confirmación, evaluación y entrega) y, en cada una, crucé el funnel, las encuestas tNPS, los comentarios de clientes y un benchmark de otros operadores. Validé las lecturas con Growth y Operación y prioricé las mejoras con una matriz de impacto y esfuerzo.",en:"I mapped the portability journey in six stages (exploration, choice, online purchase, confirmation call, evaluation and delivery) and, at each one, crossed the funnel, tNPS surveys, customer comments and a benchmark of other operators. I validated the readings with Growth and Operations and prioritised improvements with an impact-effort matrix."},
   steps:[
-    [{es:"Escucha",en:"Listens"},{es:"Capta la intención en lenguaje natural, sin menús.",en:"Captures intent in natural language, no menus."},"intención"],
-    [{es:"Identifica",en:"Identifies"},{es:"Valida el suministro con el N.º de cliente.",en:"Validates the supply with the customer number."},"consultar_cliente"],
-    [{es:"Resuelve",en:"Resolves"},{es:"Ejecuta una de las cinco gestiones con sus herramientas.",en:"Runs one of the five requests with its tools."},"n8n"],
-    [{es:"Confirma",en:"Confirms"},{es:"Solo datos de la fuente oficial; DNI si es cambio de titular.",en:"Only data from the official source; ID if it’s a change of holder."},"validación"],
-    [{es:"Cierra",en:"Closes"},{es:"NPS y «¿necesitas algo más?».",en:"NPS and “anything else?”."},"NPS"]
+    [{es:"Journey AS-IS",en:"AS-IS journey"},{es:"Seis etapas: exploración, elección, compra online, atención telefónica, evaluación y entrega.",en:"Six stages: exploration, choice, online purchase, phone follow-up, evaluation and delivery."},"journey"],
+    [{es:"Benchmark",en:"Benchmark"},{es:"Cómo resuelven otros operadores, locales e internacionales, la validación de dirección, cobertura y requisitos.",en:"How other local and international operators handle address, coverage and eligibility checks."},"benchmark"],
+    [{es:"Análisis tNPS y voz del cliente",en:"tNPS and voice of customer"},{es:"Por qué, dónde y cuánto cuesta la fricción, leído en detractores y verbatims.",en:"Why, where and how much friction costs, read through detractors and verbatims."},"tNPS"],
+    [{es:"Lectura del funnel",en:"Funnel reading"},{es:"Qué pasó detrás de cada movimiento del periodo, separando fricción real de cambios de medición.",en:"What was behind each movement in the period, separating real friction from measurement changes."},"funnel"],
+    [{es:"Diagnóstico por etapa",en:"Diagnosis by stage"},{es:"Voz del cliente, funnel, motivos, fricciones web y hallazgos en una misma matriz.",en:"Voice of customer, funnel, reasons, web friction and findings in one matrix."},"insights"],
+    [{es:"Recomendaciones",en:"Recommendations"},{es:"Mejoras concretas por etapa, priorizadas con una matriz de impacto y esfuerzo.",en:"Concrete improvements per stage, prioritised with an impact-effort matrix."},"roadmap"]
   ],
-  videos:[["assets/energy.mp4","assets/energy-poster.jpg"]],
-  emo:[
-    [{es:"Saludo inicial",en:"Greeting"},{es:"Cálida, ágil",en:"Warm, quick"},{es:"Hola, soy Luma, de NTT Energy. ¿En qué te ayudo hoy?",en:"Hi, I’m Luma from NTT Energy. How can I help today?"}],
-    [{es:"Cliente confundido",en:"Confused customer"},{es:"Paciente, una pregunta",en:"Patient, one question"},{es:"¿Quieres saber cuánto debes, o una copia del recibo?",en:"Do you want to know what you owe, or a copy of the bill?"}],
-    [{es:"Cambio de titular",en:"Change of holder"},{es:"Pedagógica, seguridad",en:"Explanatory, secure"},{es:"Es un trámite importante: valido tu identidad paso a paso.",en:"It’s an important process: I’ll verify your identity step by step."}],
-    [{es:"Insiste en el monto",en:"Disputes the amount"},{es:"Contención, sin discutir",en:"Containment, no arguing"},{es:"Entiendo. Si crees que hay un error, te comunico con un asesor.",en:"I understand. If you think there’s an error, I’ll connect you with an advisor."}],
-    [{es:"Emergencia",en:"Emergency"},{es:"Empática, deriva ya",en:"Empathetic, hand off now"},{es:"Un momento, te comunico con un ejecutivo.",en:"One moment, I’m connecting you with an agent."}],
-    [{es:"Despedida",en:"Goodbye"},{es:"Cálida, cierre claro",en:"Warm, clear close"},{es:"Gracias por llamar a NTT Energy.",en:"Thanks for calling NTT Energy."}]
-  ],
-  tilesTitle:{es:"Qué resuelve el agente",en:"What the agent resolves"},
+  drivers:[{es:"Funnel",en:"Funnel"},{es:"Encuestas tNPS",en:"tNPS surveys"},{es:"Voz del cliente",en:"Voice of customer"},{es:"Benchmark",en:"Benchmark"},{es:"Growth y Operación",en:"Growth & Operations"}],
+  driversTitle:{es:"Fuentes que crucé en cada etapa",en:"Sources I crossed at each stage"},
+  tilesTitle:{es:"Hallazgos y propuestas",en:"Findings and proposals"},
   tiles:[
-    [{es:"Cortes y averías",en:"Outages"},{es:"Identifica el suministro y consulta el caso: si no existe lo crea, si existe informa su estado.",en:"Identifies the supply and checks the case: creates it if new, reports status if it exists."}],
-    [{es:"Consultas de cuenta",en:"Account queries"},{es:"Monto y vencimiento, consumo y próxima lectura, o canales oficiales de pago.",en:"Amount and due date, usage and next reading, or official payment channels."}],
-    [{es:"Pagos",en:"Payments"},{es:"Informa el importe y guía a la app, la web o el banco.",en:"States the amount and guides to the app, website or bank."}],
-    [{es:"Copia de recibo",en:"Bill copy"},{es:"Confirma periodo y correo, y dispara <code>enviar_copia_recibo</code>.",en:"Confirms period and email, then triggers <code>enviar_copia_recibo</code>."}],
-    [{es:"Cambio de titular",en:"Change of holder"},{es:"Valida DNI, captura al nuevo titular y registra con <code>registrar_cambio_titular</code>.",en:"Validates ID, captures the new holder and records it with <code>registrar_cambio_titular</code>."}],
-    [{es:"Riesgo crítico",en:"Critical risk"},{es:"Detecta el peligro en el triaje, prioriza la seguridad y transfiere a un especialista.",en:"Detects danger during triage, prioritises safety and transfers to a specialist."}]
+    [{es:"Hallazgo principal: validar al inicio",en:"Key finding: validate first"},{es:"El cliente configuraba su compra antes de saber si su número y sus condiciones aplicaban. Propuse validar el número al inicio, antes de elegir equipo o plan.",en:"Customers configured their purchase before knowing whether their number and conditions qualified. I proposed validating the number first, before choosing a device or plan."}],
+    [{es:"El cierre se rompe al final",en:"The close breaks at the end"},{es:"Dirección, cobertura, entrega y pago aparecían en el tramo final. Recomendé resolverlos antes del checkout.",en:"Address, coverage, delivery and payment appeared at the very end. I recommended resolving them before checkout."}],
+    [{es:"Silencio después del «éxito»",en:"Silence after “success”"},{es:"Tras confirmar, el cliente quedaba sin información. Propuse un tracker con estados claros y avisos proactivos.",en:"After confirming, customers were left without updates. I proposed a tracker with clear states and proactive notifications."}],
+    [{es:"Microcopy que cumple",en:"Microcopy that delivers"},{es:"Alinear lo que la web promete (tiempos, confirmaciones) con lo que el proceso realmente hace.",en:"Align what the site promises (timing, confirmations) with what the process actually does."}],
+    [{es:"Un solo lenguaje",en:"One language"},{es:"Un mismo término, un mismo número de pedido y un mismo canal de contacto en todo el flujo.",en:"One term, one order number and one contact channel across the whole flow."}],
+    [{es:"No toda caída es pérdida",en:"Not every drop is a loss"},{es:"Parte de los movimientos se explicaba por cambios de medición u operación, y había que separarlos de la fricción real.",en:"Part of the movements came from measurement or operational changes, and had to be separated from real friction."}]
   ]
 },
 {
-  id:"salud", kind:"voice", type:{es:"Agente de voz",en:"Voice agent"},
-  sector:{es:"Salud · atención al paciente",en:"Healthcare · patient care"}, year:"2026",
-  title:{es:"Línea de atención al paciente",en:"Patient service line"},
-  short:{es:"Identifica, pide consentimiento y ejecuta, con la seguridad en lógica dura.",en:"Identifies, asks for consent and acts, with safety in hard logic."},
-  line:{es:"«De recepcionar a agendar.»",en:"“From answering calls to booking.”"},
-  lead:{es:"Un agente de voz para salud que identifica al paciente, pide consentimiento y ejecuta la gestión, con la seguridad en lógica dura, trazable nodo a nodo.",en:"A healthcare voice agent that identifies the patient, asks for consent and completes the request, with safety in hard logic, traceable node by node."},
-  role:{es:"Flujo determinístico + prompts (ElevenLabs, n8n)",en:"Deterministic flow + prompts (ElevenLabs, n8n)"},
-  stats:[["7",{es:"Rutas de servicio",en:"Service routes"}],["24/7",{es:"Atención al paciente",en:"Patient care"}],["2",{es:"Pasos de seguridad previos",en:"Prior safety steps"}],["100%",{es:"Trazable nodo a nodo",en:"Traceable node by node"}]],
-  challenge:{es:"El objetivo: entender la intención, validar identidad y ejecutar la acción en la misma llamada, 24/7. Pero en salud la seguridad no puede depender del criterio del modelo.",en:"The goal: understand intent, verify identity and act within the same call, 24/7. But in healthcare, safety can’t depend on the model’s judgement."},
-  quote:{es:"Sin identificar al paciente ni obtener su consentimiento, no se resuelve ningún trámite.",en:"No request is handled without identifying the patient and getting their consent."},
-  answer:{es:"Diseñé un flujo determinístico donde la seguridad vive en lógica dura: siete rutas de servicio sobre un mismo patrón auditable.",en:"I designed a deterministic flow where safety lives in hard logic: seven service routes on one auditable pattern."},
-  steps:[
-    [{es:"Encuadre e identificación",en:"Framing & identification"},{es:"Saluda e identifica al paciente por su documento.",en:"Greets and identifies the patient by ID document."},"identificar_paciente"],
-    [{es:"Consentimiento",en:"Consent"},{es:"Pide permiso para usar los datos de la clínica y registra la respuesta.",en:"Asks permission to use clinic data and records the answer."},"privacidad"],
-    [{es:"Triaje de intención",en:"Intent triage"},{es:"Cita, costos, llegada, farmacia o bienestar; lo clínico va al médico.",en:"Appointments, costs, arrival, pharmacy or wellbeing; clinical questions go to a doctor."},"triaje"],
-    [{es:"Ruta de servicio",en:"Service route"},{es:"Agenda, cobra o coordina con la herramienta correspondiente.",en:"Books, charges or coordinates with the right tool."},"n8n"],
-    [{es:"Cierre y desenlace",en:"Close & outcome"},{es:"Resume la gestión y registra el desenlace.",en:"Summarises and records the outcome."},"registrar_gestion"]
-  ],
-  videos:[["assets/salud.mp4","assets/salud-poster.jpg"]],
-  emo:[
-    [{es:"Saludo inicial",en:"Greeting"},{es:"Amable, energía moderada",en:"Friendly, moderate energy"},{es:"¡Hola, te comunicaste con NTT Health! Soy Luma.",en:"Hi, you’ve reached NTT Health! I’m Luma."}],
-    [{es:"Cliente con urgencia",en:"Urgent caller"},{es:"Paciente, guiador",en:"Patient, guiding"},{es:"Tranquilo, te comunico con emergencias.",en:"Stay calm, I’m connecting you to emergency."}],
-    [{es:"Cliente confundido",en:"Confused caller"},{es:"Calma, sin alarmar",en:"Calm, not alarming"},{es:"Te lo explico nuevamente, con calma.",en:"Let me explain again, calmly."}],
-    [{es:"Cliente molesto",en:"Upset caller"},{es:"Calma, contención",en:"Calm, containment"},{es:"Te entiendo. Déjame buscar la forma de ayudarte.",en:"I understand. Let me find a way to help."}],
-    [{es:"Cita registrada",en:"Appointment booked"},{es:"Seguridad, cierre",en:"Confidence, closing"},{es:"Listo, tu cita quedó registrada con número.",en:"Done, your appointment is booked with a number."}],
-    [{es:"Despedida",en:"Goodbye"},{es:"Cálida, breve",en:"Warm, brief"},{es:"Gracias por confiar en nosotros.",en:"Thank you for trusting us."}]
-  ],
-  tilesTitle:{es:"Siete gestiones, un solo asistente",en:"Seven requests, one assistant"},
-  tiles:[
-    [{es:"Citas",en:"Appointments"},{es:"Agenda, reprograma o cancela: ofrece 2–3 horarios y confirma antes de reservar.",en:"Books, reschedules or cancels: offers 2–3 slots and confirms before booking."}],
-    [{es:"Costos y pago",en:"Costs & payment"},{es:"Explica costo y cobertura, informa reembolsos y cobra por QR, tarjeta o en sede.",en:"Explains cost and coverage, refunds, and charges by QR, card or on site."}],
-    [{es:"Llegada",en:"Arrival"},{es:"Confirma sede, da tiempo estimado y consultorio, separa estacionamiento.",en:"Confirms location, ETA and room, reserves parking."}],
-    [{es:"Farmacia y receta",en:"Pharmacy & prescription"},{es:"Valida receta y stock, coordina recojo o delivery y ofrece recordatorios.",en:"Validates prescription and stock, arranges pickup or delivery, offers reminders."}],
-    [{es:"Bienestar y terapia",en:"Wellbeing & therapy"},{es:"Consulta el programa o agenda; ante angustia, deriva a una persona.",en:"Checks the programme or books; in distress, hands off to a person."}],
-    [{es:"Imágenes y laboratorio",en:"Imaging & lab"},{es:"Agenda estudios y resuelve dudas de preparación validando la orden.",en:"Books tests and answers prep questions, validating the order."}]
-  ]
-},
-{
-  id:"research-telco", kind:"research", type:{es:"UX Research",en:"UX Research"},
-  sector:{es:"E-commerce telco · NTT DATA",en:"Telco e-commerce · NTT DATA"}, year:"2026",
-  title:{es:"De catálogo a asistente de decisión",en:"From catalogue to decision assistant"},
-  short:{es:"3 formas de decidir, 5 drivers y un journey AS-IS → TO-BE.",en:"3 ways of deciding, 5 drivers and an AS-IS → TO-BE journey."},
+  id:"research-telco", kind:"research", group:"research", type:{es:"UX Research",en:"UX Research"},
+  sector:{es:"Claro · e-commerce",en:"Claro · e-commerce"}, year:"2026",
+  title:{es:"E-commerce: de catálogo a asistente de decisión",en:"E-commerce: from catalogue to decision assistant"},
+  short:{es:"20 referentes, 4 expertos y 10 usuarios: tres formas de decidir y un journey AS-IS → TO-BE.",en:"20 benchmarks, 4 experts and 10 users: three ways of deciding and an AS-IS → TO-BE journey."},
   line:{es:"«El e-commerce world class no es el que más exhibe: es el que mejor acompaña la decisión.»",en:"“World-class e-commerce isn’t the one that shows the most: it’s the one that best supports the decision.”"},
-  lead:{es:"Research para llevar el canal digital de un operador de «mostrar oferta» a «ayudar a decidir, contratar y seguir la promesa», con claridad, confianza y control.",en:"Research to move an operator’s digital channel from “showing offers” to “helping people decide, buy and follow the promise”, with clarity, trust and control."},
+  lead:{es:"Research con 20 referentes, 4 expertos del canal asistido y 10 usuarios para llevar el canal digital de «mostrar oferta» a «ayudar a decidir, contratar y seguir la promesa». La síntesis se leyó en tres formas de decidir y terminó en un journey AS-IS → TO-BE.",en:"Research with 20 benchmarks, 4 assisted-channel experts and 10 users to move the digital channel from “showing offers” to “helping people decide, buy and follow the promise”. The synthesis was read as three ways of deciding and ended in an AS-IS → TO-BE journey."},
   role:{es:"UX Research, insights accionables",en:"UX Research, actionable insights"},
   stats:[["20",{es:"Referentes (desk research)",en:"Benchmarks (desk research)"}],["4",{es:"Expertos del canal",en:"Channel experts"}],["10",{es:"Usuarios escuchados",en:"Users interviewed"}],["3",{es:"Formas de decidir",en:"Ways of deciding"}]],
   challenge:{es:"En telco, comprar, instalar, activar, seguir y resolver son una sola promesa. Cuando la oferta no es clara, el usuario pierde confianza y compensa fuera del sitio: compara en otra web, consulta IA o busca un asesor.",en:"In telco, buying, installing, activating, tracking and resolving are a single promise. When the offer isn’t clear, users lose trust and compensate elsewhere: another site, AI, or an advisor."},
   quote:{es:"El reto no era vender online, sino construir una experiencia que ayude a decidir y cumpla lo prometido.",en:"The challenge wasn’t selling online, but building an experience that helps people decide and keeps its promise."},
-  answer:{es:"Este hallazgo conecta con mi trabajo conversacional: el usuario ya consulta IA para decidir; el canal debe acompañar esa conversación.",en:"This finding connects to my conversational work: users already ask AI to decide; the channel must support that conversation."},
+  answer:{es:"Conexión con lo conversacional: los usuarios ya consultan a la IA para decidir; el canal tiene que acompañar esa conversación.",en:"The conversational link: users already ask AI to help them decide; the channel has to support that conversation."},
   steps:[
     [{es:"Desk research",en:"Desk research"},{es:"20 referentes analizados para mapear buenas prácticas.",en:"20 benchmarks analysed to map best practices."},"benchmark"],
     [{es:"Entrevistas expertas",en:"Expert interviews"},{es:"4 expertos del canal asistido, a fondo.",en:"4 assisted-channel experts, in depth."},""],
@@ -196,40 +225,7 @@ window.CASES = [
   drivers:[{es:"Claridad",en:"Clarity"},{es:"Confianza",en:"Trust"},{es:"Transparencia",en:"Transparency"},{es:"Control",en:"Control"},{es:"Acompañamiento",en:"Support"}]
 },
 {
-  id:"portabilidad", kind:"research", type:{es:"UX Research · Journey",en:"UX Research · Journey"},
-  sector:{es:"Telco · tienda online",en:"Telco · online store"}, year:"2026",
-  title:{es:"Portabilidad: dónde se rompe la compra",en:"Number portability: where the purchase breaks"},
-  short:{es:"Journey AS-IS de 6 etapas cruzando funnel, tNPS, voz del cliente y benchmark.",en:"6-stage AS-IS journey crossing funnel, tNPS, voice of customer and benchmark."},
-  line:{es:"«Los bloqueos aparecen cuando el cliente ya avanzó gran parte de la compra.»",en:"“The blockers appear once the customer has already gone through most of the purchase.”"},
-  lead:{es:"Research de la experiencia de portabilidad (cambiarse de operador conservando el número) en la tienda online de un operador, para dos productos: equipo y chip. El objetivo: entender en qué etapa y por qué se pierde la compra, y priorizar qué mejorar.",
-        en:"Research on the number-portability experience (switching carrier while keeping your number) in an operator’s online store, for two products: device and SIM. The goal: understand at which stage and why purchases are lost, and prioritise what to improve."},
-  role:{es:"UX Research, análisis de journey y datos",en:"UX Research, journey and data analysis"},
-  stats:[["6",{es:"Etapas del journey mapeadas",en:"Journey stages mapped"}],["2",{es:"Flujos analizados: equipo y chip",en:"Flows analysed: device and SIM"}],["4",{es:"Fuentes cruzadas por etapa",en:"Sources crossed per stage"}],["Matriz",{es:"Impacto × esfuerzo para priorizar",en:"Impact × effort to prioritise"}]],
-  challenge:{es:"La portabilidad combina una compra digital con una gestión posterior: llamada de confirmación, evaluación y entrega. El reto era ver el journey completo, no solo la web, y separar las fricciones reales de los cambios de medición u operación que también movían los números.",en:"Portability combines a digital purchase with a follow-up process: confirmation call, evaluation and delivery. The challenge was to see the whole journey, not just the website, and to separate real friction from measurement or operational changes that also moved the numbers."},
-  quote:{es:"El cliente configura su compra antes de saber si su número y las condiciones realmente aplican.",en:"Customers configure their purchase before knowing whether their number and conditions actually qualify."},
-  answer:{es:"Mapeé el journey en seis etapas y, en cada una, crucé la evidencia del funnel, las encuestas tNPS, los verbatims de clientes y un benchmark de otros operadores. Validé las lecturas con los equipos de Growth y Operación.",en:"I mapped the journey in six stages and, for each one, crossed funnel evidence, tNPS surveys, customer verbatims and a benchmark of other operators. I validated the readings with the Growth and Operations teams."},
-  steps:[
-    [{es:"Journey AS-IS",en:"AS-IS journey"},{es:"Seis etapas: exploración, elección, compra online, atención telefónica, evaluación y entrega.",en:"Six stages: exploration, choice, online purchase, phone follow-up, evaluation and delivery."},"journey"],
-    [{es:"Benchmark",en:"Benchmark"},{es:"Cómo resuelven otros operadores, locales e internacionales, la validación de dirección, cobertura y requisitos.",en:"How other local and international operators handle address, coverage and eligibility checks."},"benchmark"],
-    [{es:"Análisis tNPS y voz del cliente",en:"tNPS and voice of customer"},{es:"Por qué, dónde y cuánto cuesta la fricción, leído en detractores y verbatims.",en:"Why, where and how much friction costs, read through detractors and verbatims."},"tNPS"],
-    [{es:"Lectura del funnel",en:"Funnel reading"},{es:"Qué pasó detrás de cada movimiento del periodo, separando fricción real de cambios de medición.",en:"What was behind each movement in the period, separating real friction from measurement changes."},"funnel"],
-    [{es:"Diagnóstico por etapa",en:"Diagnosis by stage"},{es:"Voz del cliente, funnel, motivos, fricciones web y hallazgos en una misma matriz.",en:"Voice of customer, funnel, reasons, web friction and findings in one matrix."},"insights"],
-    [{es:"Recomendaciones",en:"Recommendations"},{es:"Mejoras concretas por etapa, priorizadas con una matriz de impacto y esfuerzo.",en:"Concrete improvements per stage, prioritised with an impact-effort matrix."},"roadmap"]
-  ],
-  drivers:[{es:"Funnel",en:"Funnel"},{es:"Encuestas tNPS",en:"tNPS surveys"},{es:"Voz del cliente",en:"Voice of customer"},{es:"Benchmark",en:"Benchmark"},{es:"Growth y Operación",en:"Growth & Operations"}],
-  driversTitle:{es:"Fuentes que crucé en cada etapa",en:"Sources I crossed at each stage"},
-  tilesTitle:{es:"Hallazgos y propuestas",en:"Findings and proposals"},
-  tiles:[
-    [{es:"Validar antes, no después",en:"Validate first, not last"},{es:"Requisitos conocidos se revisaban al final. Propuse un pre-validador del número y las condiciones antes de elegir equipo o plan.",en:"Known requirements were checked at the end. I proposed a pre-check of the number and conditions before choosing a device or plan."}],
-    [{es:"El cierre se rompe al final",en:"The close breaks at the end"},{es:"Dirección, cobertura, entrega y pago aparecían en el tramo final. Recomendé resolverlos antes del checkout.",en:"Address, coverage, delivery and payment appeared at the very end. I recommended resolving them before checkout."}],
-    [{es:"Silencio después del «éxito»",en:"Silence after “success”"},{es:"Tras confirmar, el cliente quedaba sin información. Propuse un tracker con estados claros y avisos proactivos.",en:"After confirming, customers were left without updates. I proposed a tracker with clear states and proactive notifications."}],
-    [{es:"Microcopy que cumple",en:"Microcopy that delivers"},{es:"Alinear lo que la web promete (tiempos, confirmaciones) con lo que el proceso realmente hace.",en:"Align what the site promises (timing, confirmations) with what the process actually does."}],
-    [{es:"Un solo lenguaje",en:"One language"},{es:"Un mismo término, un mismo número de pedido y un mismo canal de contacto en todo el flujo.",en:"One term, one order number and one contact channel across the whole flow."}],
-    [{es:"No toda caída es pérdida",en:"Not every drop is a loss"},{es:"Parte de las bajas se explicaban por cambios de medición u operación: separar ruido de fricción real.",en:"Part of the drops came from measurement or operational changes: separating noise from real friction."}]
-  ]
-},
-{
-  id:"catering", kind:"research", type:{es:"UX Research · Mobile",en:"UX Research · Mobile"},
+  id:"catering", kind:"research", group:"more", type:{es:"UX Research · Mobile",en:"UX Research · Mobile"},
   sector:{es:"Bodas · app móvil",en:"Weddings · mobile app"}, year:"",
   title:{es:"App de catering de bodas",en:"Wedding catering app"},
   short:{es:"Elegir menú y proveedor sin perder horas comparando.",en:"Choosing menu and caterer without hours of comparing."},
@@ -258,7 +254,7 @@ window.CASES = [
   ]
 },
 {
-  id:"veridik", kind:"research", type:{es:"UX/UI · Mobile",en:"UX/UI · Mobile"},
+  id:"veridik", kind:"research", group:"more", type:{es:"UX/UI · Mobile",en:"UX/UI · Mobile"},
   sector:{es:"Empleo · producto",en:"Jobs · product"}, year:"",
   title:{es:"Veridik, la verdad sobre tu próximo empleo",en:"Veridik, the truth about your next job"},
   short:{es:"Reseñas reales de empresas y sueldos para decidir con datos.",en:"Real company reviews and salaries to decide with data."},
@@ -283,6 +279,33 @@ window.CASES = [
     [{es:"Ranking de empresas",en:"Company ranking"},{es:"Onboarding y home que ponen la reputación al frente.",en:"Onboarding and home that put reputation first."}],
     [{es:"Reseñas anónimas",en:"Anonymous reviews"},{es:"Calificación y publicación protegida, con moderación inteligente.",en:"Protected rating and posting, with smart moderation."}],
     [{es:"Comparador",en:"Comparator"},{es:"Sueldos, empleos y postulación, para decidir con datos.",en:"Salaries, jobs and applying, to decide with data."}]
+  ]
+},
+{
+  id:"clarito", kind:"red", type:{es:"Voz en vivo · Retail",en:"Live voice · Retail"},
+  sector:{es:"Retail telco · tienda",en:"Telco retail · store"}, year:"2026",
+  title:{es:"Clarito, asesor de voz en tienda",en:"Clarito, an in-store voice advisor"},
+  short:{es:"Un personaje que conversa por voz y muestra la conversación en texto.",en:"A character that talks by voice and shows the conversation as text."},
+  line:{es:"«Hola, soy Clarito. Pulsa el botón para hablar conmigo.»",en:"“Hi, I’m Clarito. Press the button to talk to me.”"},
+  lead:{es:"Un agente de voz con cuerpo y personalidad propia, pensado para la experiencia de una tienda de telecomunicaciones: el cliente pulsa un botón y conversa con él, sin menús ni formularios.",
+        en:"A voice agent with its own body and personality, designed for a telecom store experience: the customer presses one button and talks to it, no menus or forms."},
+  role:{es:"Diseño conversacional, personaje y experiencia web",en:"Conversational design, character and web experience"},
+  stats:[["1",{es:"Botón para empezar a conversar",en:"Button to start talking"}],["Voz",{es:"Conversación en tiempo real",en:"Real-time conversation"}],["Texto",{es:"Transcripción visible en pantalla",en:"Visible on-screen transcript"}],["En vivo",{es:"Demo pública que puedes probar",en:"Public demo you can try"}]],
+  challenge:{es:"En tienda, el cliente quiere orientación rápida y sin presión. Un chatbot de texto se siente frío; un vendedor no siempre está disponible.",en:"In store, customers want quick guidance without pressure. A text chatbot feels cold; a salesperson isn’t always available."},
+  quote:{es:"Si la IA tiene cara y voz, conversar con ella debe sentirse tan natural como hablar con alguien de la tienda.",en:"If the AI has a face and a voice, talking to it should feel as natural as talking to someone in the store."},
+  answer:{es:"Diseñé a Clarito como un personaje cercano: una mascota que saluda, escucha y responde por voz, con la conversación también en texto para quien prefiera leer.",en:"I designed Clarito as an approachable character: a mascot that greets, listens and answers by voice, with the conversation also shown as text for those who prefer reading."},
+  steps:[
+    [{es:"Personaje",en:"Character"},{es:"Una mascota con identidad propia que hace la IA cercana.",en:"A mascot with its own identity that makes the AI approachable."},"persona"],
+    [{es:"Entrada en un gesto",en:"One-gesture entry"},{es:"Un solo botón: «Hablar con Clarito».",en:"A single button: “Talk to Clarito”."},"UI"],
+    [{es:"Conversación por voz",en:"Voice conversation"},{es:"Agente conversacional de voz en tiempo real.",en:"Real-time conversational voice agent."},"ElevenLabs"],
+    [{es:"Transcripción",en:"Transcript"},{es:"La conversación queda visible en texto, accesible para todos.",en:"The conversation stays visible as text, accessible to everyone."},"a11y"]
+  ],
+  live:true,
+  tilesTitle:{es:"Decisiones de diseño",en:"Design decisions"},
+  tiles:[
+    [{es:"Un personaje, no un widget",en:"A character, not a widget"},{es:"La mascota da cara a la IA y baja la barrera para empezar a hablar.",en:"The mascot gives the AI a face and lowers the barrier to start talking."}],
+    [{es:"Voz + texto",en:"Voice + text"},{es:"Hablar es lo natural; leer la transcripción da control y accesibilidad.",en:"Speaking is natural; reading the transcript gives control and accessibility."}],
+    [{es:"Contexto de tienda",en:"Store context"},{es:"El entorno visual sitúa al cliente donde ocurre la decisión de compra.",en:"The visual setting places the customer where the buying decision happens."}]
   ]
 }
 ];

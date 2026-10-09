@@ -237,9 +237,8 @@ html[data-lang="en"] [lang="es"]:not(html){display:none!important}
    TRABAJO — índice
    ============================================================ */
 .work-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:34px}
-.filters{display:flex;gap:6px;background:var(--paper);padding:5px;border-radius:999px;box-shadow:0 1px 0 var(--line)}
-.filters button{border:0;background:transparent;padding:8px 16px;border-radius:999px;font-size:14.5px;font-weight:600;color:var(--ink-soft)}
-.filters button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.work-head p{max-width:46ch;margin:0;color:var(--ink-soft)}
+.work-head.sub{margin-top:clamp(64px,8vw,104px);scroll-margin-top:90px}
 .index{list-style:none;margin:0;padding:0;border-top:1.5px solid var(--ink)}
 .row{border-bottom:1px solid var(--line-strong)}
 .row button{all:unset;box-sizing:border-box;width:100%;cursor:pointer;display:grid;
@@ -669,3 +668,16 @@ html[data-sec="dark"] .guide-end{background:#fff;color:var(--cobalt)}
 html[data-sec="dark"] .guide[data-state="speaking"] .guide-btn{background:#fff;color:var(--cobalt);box-shadow:0 0 0 3px rgba(255,255,255,.45),0 18px 40px -16px rgba(0,0,0,.45)}
 html[data-sec="light"] .guide-btn,html:not([data-sec]) .guide-btn{background:var(--ink);color:#fff}
 .guide-btn:hover{box-shadow:0 22px 44px -16px rgba(22,22,58,.6)}
+
+/* contenido v2: práctica en el método, alcance, intro de sección y etiquetas de herramientas */
+.mstep .practice{margin-top:14px;font-size:14.5px;padding-top:12px;border-top:1px solid rgba(255,255,255,.14)}
+.mstep .practice b{font-weight:700;color:#fff}
+.mstep:nth-child(6) .practice{border-top-color:var(--line)}
+.mstep:nth-child(6) .practice b{color:var(--ink)}
+.cs-scope{background:var(--paper);border-radius:22px;padding:20px 22px}
+.cs-scope h4{font-size:16px;margin-bottom:8px;color:var(--tone)}
+.cs-scope p{font-size:16px;margin:0}
+.cs-intro{color:var(--ink-soft);font-size:17.5px;max-width:68ch;margin:0 0 22px}
+.cs-sec .cs-intro:last-child{margin-bottom:0}
+.tool-lbl{font-size:13px;font-weight:600;color:var(--ink-soft);margin:0 0 8px}
+.toolbox + .tool-lbl{margin-top:16px}
