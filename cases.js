@@ -80,7 +80,7 @@ window.CASES = [
   lead:{es:"Un agente que atiende en lenguaje natural a clientes con cortes de energía: los identifica, consulta si ya existe un reporte, registra el caso y deriva a una persona cuando hay riesgo o reclamo.",
         en:"A voice agent that handles power-outage calls in natural language: it identifies the customer, checks for an existing report, logs the case and hands over to a person when there is risk or a complaint."},
   context:{es:"Demo presentada a una empresa eléctrica, seguida de una propuesta de piloto",en:"Demo presented to an electricity company, followed by a pilot proposal"},
-  role:{es:"Diseño completo (flujo, matriz de emociones, tono, prompt, herramientas, métricas y dashboard) y construcción, de principio a fin y por mi cuenta",en:"Full design (flow, emotion matrix, tone, prompt, tools, metrics and dashboard) and build, end to end and on my own"},
+  role:{es:"Diseño completo (flujo, matriz de emociones, tono, prompt, herramientas, métricas y dashboard), construcción y propuesta de piloto, de principio a fin y por mi cuenta",en:"Full design (flow, emotion matrix, tone, prompt, tools, metrics and dashboard), build and pilot proposal, end to end and on my own"},
   problem:{es:"El cliente espera, repite sus datos y lo transfieren. El menú de opciones contiene el volumen de llamadas, pero no resuelve, y quien llama por un corte suele estar molesto o preocupado.",
            en:"Customers wait, repeat their details and get transferred. The phone menu contains call volume but doesn’t resolve anything, and people calling about an outage are usually upset or worried."},
   scope:{es:"Triaje de emergencias, agenda de casos, información de facturación, pagos y consumos, copia de recibo y cambio de titular.",
@@ -102,8 +102,8 @@ window.CASES = [
   ],
   pilot:{
     title:{es:"Después de la demo: la propuesta de piloto",en:"After the demo: the pilot proposal"},
-    intro:{es:"El cliente validó el enfoque y preguntó cómo se integraría el agente a sus sistemas. Respondimos con una propuesta de piloto centrada en la falta de suministro, con dos caminos.",
-           en:"The client validated the approach and asked how the agent would integrate with their systems. We answered with a pilot proposal focused on loss of supply, with two paths."},
+    intro:{es:"El cliente validó el enfoque y preguntó cómo se integraría el agente a sus sistemas. Respondí con una propuesta de piloto centrada en la falta de suministro, con dos caminos.",
+           en:"The client validated the approach and asked how the agent would integrate with their systems. I answered with a pilot proposal focused on loss of supply, with two paths."},
     items:[
       [{es:"Piloto controlado",en:"Controlled pilot"},{es:"Valida la conversación, la voz y el protocolo sin tocar los sistemas del cliente: cada atención queda registrada y un asesor la ingresa después.",en:"Validates the conversation, the voice and the protocol without touching the client’s systems: every call is recorded and an advisor enters it afterwards."}],
       [{es:"Piloto integrado",en:"Integrated pilot"},{es:"El agente registra la orden directamente en el sistema comercial durante la llamada.",en:"The agent logs the order directly in the commercial system during the call."}],
