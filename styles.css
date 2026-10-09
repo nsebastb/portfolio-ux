@@ -340,8 +340,9 @@ html[data-lang="en"] [lang="es"]:not(html){display:none!important}
 .cs-meta dd{margin:2px 0 0;font-weight:600;font-size:15.5px}
 @media(max-width:640px){.cs-meta{grid-template-columns:1fr}}
 .cs-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:14px}
-.cs-stat{background:var(--paper);border-radius:22px;padding:20px 20px 22px}
-.cs-stat b{display:block;font-size:clamp(28px,3vw,40px);letter-spacing:-.008em;line-height:1;color:var(--cobalt);font-weight:700}
+.cs-stat{background:var(--paper);border-radius:22px;padding:20px 20px 22px;container-type:inline-size;min-width:0}
+/* la cifra se ajusta al ancho de la ficha para que palabras largas («Comparador») no se salgan */
+.cs-stat b{display:block;font-size:clamp(20px,15cqi,40px);overflow-wrap:break-word;hyphens:auto;letter-spacing:-.008em;line-height:1;color:var(--cobalt);font-weight:700}
 .cs-stat span{display:block;font-size:14px;color:var(--ink-soft);margin-top:8px;line-height:1.35}
 @media(max-width:760px){.cs-stats{grid-template-columns:1fr 1fr}}
 .cs-sec{margin-top:clamp(56px,7vw,86px)}
