@@ -684,11 +684,12 @@ html[data-sec="light"] .guide-btn,html:not([data-sec]) .guide-btn{background:var
 .toolbox + .tool-lbl{margin-top:16px}
 
 /* Nikkita en móvil: plegada en un botón de chat, se despliega al tocarlo */
+/* botón de chat: mismo trato que los demás botones (tinta en claro, blanco en oscuro) con ondas de voz como el favicon */
 .guide-fab{display:none;width:56px;height:56px;border:0;border-radius:50%;place-items:center;background:var(--ink);color:#fff;
-  box-shadow:0 18px 40px -16px rgba(22,22,58,.6);transition:transform .25s var(--ease),background .35s,color .35s}
-.guide-fab svg{width:26px;height:26px}
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.14),0 14px 30px -12px rgba(22,22,58,.6);transition:transform .25s var(--ease),background .35s,color .35s,box-shadow .35s}
+.guide-fab svg{width:24px;height:24px}
 .guide-fab:active{transform:scale(.94)}
-html[data-sec="dark"] .guide-fab{background:#fff;color:var(--cobalt)}
+html[data-sec="dark"] .guide-fab{background:#fff;color:var(--cobalt);box-shadow:0 14px 30px -12px rgba(0,0,0,.45)}
 @media(max-width:640px){
   .guide:not(.open):not(.on) > :not(.guide-fab){display:none!important}
   .guide:not(.open):not(.on) .guide-fab{display:grid}
@@ -699,32 +700,53 @@ html[data-sec="dark"] .guide-fab{background:#fff;color:var(--cobalt)}
 /* menos aire entre nombre y apellido en el logo */
 .logo .wm{gap:3px}
 
-/* menú móvil: panel translúcido fuera de la barra (la barra usa backdrop-filter y encerraría un hijo fijo) */
-.menu-btn{display:none;width:44px;height:44px;flex:none;border:0;border-radius:50%;place-items:center;background:#fff;color:var(--cobalt);transition:background .35s,color .35s,box-shadow .35s}
-.menu-btn svg{width:22px;height:22px}
-.menu-btn path{transition:transform .35s var(--ease);transform-origin:12px 12px}
-.menu-btn[aria-expanded="true"] .m1{transform:translateY(4px) rotate(45deg)}
-.menu-btn[aria-expanded="true"] .m2{transform:translateY(-4px) rotate(-45deg)}
+/* ============================================================
+   MENÚ MÓVIL · pantalla completa de vidrio, sin tarjeta
+   (va fuera de la barra: su backdrop-filter encerraría un hijo fijo)
+   ============================================================ */
+.menu-btn{display:none;position:relative;width:44px;height:44px;flex:none;border:0;border-radius:50%;place-items:center;background:#fff;color:var(--cobalt);
+  transition:background .35s,color .35s,box-shadow .35s,transform .25s var(--ease)}
+.menu-btn:active{transform:scale(.94)}
 .nav.solid .menu-btn{background:var(--ink);color:#fff}
-.mnav{position:fixed;inset:0;z-index:59;padding:84px 16px 24px;overflow-y:auto;
-  background:rgba(16,16,44,.55);backdrop-filter:blur(24px) saturate(1.5);-webkit-backdrop-filter:blur(24px) saturate(1.5);
-  animation:mnavIn .35s var(--ease) both}
+.mb-lines{position:relative;display:block;width:18px;height:14px}
+.mb-lines i{position:absolute;right:0;height:2px;width:18px;border-radius:2px;background:currentColor;
+  transition:transform .4s var(--ease),width .3s var(--ease),opacity .2s}
+.mb-lines i:nth-child(1){top:0}
+.mb-lines i:nth-child(2){top:6px;width:12px}
+.mb-lines i:nth-child(3){top:12px}
+.menu-btn:hover .mb-lines i:nth-child(2){width:18px}
+.menu-btn[aria-expanded="true"] .mb-lines i:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.menu-btn[aria-expanded="true"] .mb-lines i:nth-child(2){opacity:0;transform:scaleX(0)}
+.menu-btn[aria-expanded="true"] .mb-lines i:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+.mnav{position:fixed;inset:0;z-index:59;padding:84px 8px 24px;overflow-y:auto;overscroll-behavior:contain;
+  background:rgba(22,22,58,.42);backdrop-filter:blur(28px) saturate(1.6);-webkit-backdrop-filter:blur(28px) saturate(1.6);
+  transition:background .35s;animation:mnavIn .3s var(--ease) both}
+/* sobre secciones claras el vidrio se oscurece un poco para que el texto blanco siga leyéndose */
+html[data-sec="light"] .mnav{background:rgba(22,22,58,.66)}
 .mnav[hidden]{display:none}
-.mnav-in{display:flex;flex-direction:column;padding:6px 22px 22px;border-radius:28px;
-  background:rgba(255,255,255,.09);box-shadow:inset 0 0 0 1px rgba(255,255,255,.16),0 30px 60px -30px rgba(0,0,0,.5)}
-.mnav a{display:flex;justify-content:space-between;align-items:center;font-size:24px;font-weight:700;letter-spacing:-.008em;padding:15px 2px;
-  border-bottom:1px solid rgba(255,255,255,.12);text-decoration:none;color:#fff;animation:mnavItem .45s var(--ease) both}
-.mnav a::after{content:"";width:9px;height:9px;border-top:2px solid currentColor;border-right:2px solid currentColor;transform:rotate(45deg);opacity:.45}
-.mnav a:nth-of-type(2){animation-delay:.03s}.mnav a:nth-of-type(3){animation-delay:.06s}.mnav a:nth-of-type(4){animation-delay:.09s}
-.mnav a:nth-of-type(5){animation-delay:.12s}.mnav a:nth-of-type(6){animation-delay:.15s}.mnav a:nth-of-type(7){animation-delay:.18s}
-.mnav a:last-of-type{border-bottom:0}
-.mnav .btn{margin-top:16px;justify-content:center;color:var(--cobalt);animation:mnavItem .45s .2s var(--ease) both}
+.mnav-in{display:flex;flex-direction:column;padding:0 10px;counter-reset:mi}
+.mnav a{display:grid;grid-template-columns:30px minmax(0,1fr) auto;align-items:center;gap:10px;min-height:60px;padding:6px 14px;border-radius:16px;
+  font-size:26px;font-weight:650;letter-spacing:-.01em;text-decoration:none;color:#fff;
+  transition:background .2s;animation:mnavItem .45s var(--ease) both}
+.mnav a::before{counter-increment:mi;content:counter(mi,decimal-leading-zero);font-family:var(--f-voice);font-style:italic;font-weight:400;font-size:15px;color:rgba(255,255,255,.6)}
+.mnav a::after{content:"";width:7px;height:7px;margin-right:4px;border-top:1.8px solid currentColor;border-right:1.8px solid currentColor;transform:rotate(45deg);opacity:.5;transition:transform .25s var(--ease),opacity .2s}
+.mnav a:hover,.mnav a:focus-visible{background:rgba(255,255,255,.1)}
+.mnav a:active{background:rgba(255,255,255,.16)}
+.mnav a:hover::after{opacity:1;transform:translateX(3px) rotate(45deg)}
+.mnav a + a{box-shadow:0 -1px 0 rgba(255,255,255,.14)}
+.mnav a:hover + a,.mnav a:hover{box-shadow:none}
+.mnav a:nth-of-type(1){animation-delay:.04s}.mnav a:nth-of-type(2){animation-delay:.07s}.mnav a:nth-of-type(3){animation-delay:.1s}
+.mnav a:nth-of-type(4){animation-delay:.13s}.mnav a:nth-of-type(5){animation-delay:.16s}.mnav a:nth-of-type(6){animation-delay:.19s}.mnav a:nth-of-type(7){animation-delay:.22s}
+.mnav .btn{margin:22px 4px 0;justify-content:center;min-height:52px;color:var(--cobalt);box-shadow:0 12px 26px -12px rgba(10,10,40,.6);animation:mnavItem .45s .25s var(--ease) both}
+.mnav :focus-visible{outline:2px solid #fff;outline-offset:2px}
 @keyframes mnavIn{from{opacity:0}to{opacity:1}}
-@keyframes mnavItem{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-@media(prefers-reduced-motion:reduce){.mnav,.mnav a,.mnav .btn{animation:none}}
+@keyframes mnavItem{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.mnav,.mnav a,.mnav .btn{animation:none}.mb-lines i{transition:none}}
 .nav.menu-open{background:transparent!important;color:#fff!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
-.nav.menu-open .menu-btn{background:rgba(255,255,255,.14);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.28)}
+.nav.menu-open .menu-btn{background:#fff;color:var(--ink);box-shadow:0 8px 20px -8px rgba(10,10,40,.6)}
 .nav.menu-open .lang button[aria-pressed="true"] span{color:var(--cobalt)}
 html.menu-open{overflow:hidden}
 html.menu-open .guide{display:none}
 @media(max-width:900px){.nav .talk{display:none}.menu-btn{display:grid}}
+@media(min-width:560px) and (max-width:900px){.mnav-in{max-width:520px;margin-left:auto}}
