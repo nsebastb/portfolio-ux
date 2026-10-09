@@ -523,7 +523,11 @@ const GUIDE_AGENT_ID = 'agent_2401m4by69x4e54v5h02b7tqsa6v';
   }
   btn.addEventListener('click', () => conv ? null : start());
   addEventListener('nikkita-stop', () => { if (conv) stop(false) });
-  end.addEventListener('click', () => stop(false));
+  /* en móvil Nikkita queda plegada en un botón de chat; al tocarlo se despliega y la X la vuelve a plegar */
+  const fab = $('.guide-fab', box);
+  const fold = open => { box.classList.toggle('open', open); fab.setAttribute('aria-expanded', String(open)) };
+  fab.addEventListener('click', () => { fold(true); btn.focus() });
+  end.addEventListener('click', () => { if (conv) stop(false); fold(false) });
   setState('idle');
 })();
 
