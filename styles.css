@@ -699,19 +699,31 @@ html[data-sec="dark"] .guide-fab{background:#fff;color:var(--cobalt)}
 /* menos aire entre nombre y apellido en el logo */
 .logo .wm{gap:3px}
 
-/* menú móvil */
-.menu-btn{display:none;width:44px;height:44px;flex:none;border:0;border-radius:50%;place-items:center;background:#fff;color:var(--cobalt);transition:background .35s,color .35s}
+/* menú móvil: panel translúcido fuera de la barra (la barra usa backdrop-filter y encerraría un hijo fijo) */
+.menu-btn{display:none;width:44px;height:44px;flex:none;border:0;border-radius:50%;place-items:center;background:#fff;color:var(--cobalt);transition:background .35s,color .35s,box-shadow .35s}
 .menu-btn svg{width:22px;height:22px}
-.menu-btn path{transition:transform .3s var(--ease);transform-origin:12px 12px}
+.menu-btn path{transition:transform .35s var(--ease);transform-origin:12px 12px}
 .menu-btn[aria-expanded="true"] .m1{transform:translateY(4px) rotate(45deg)}
 .menu-btn[aria-expanded="true"] .m2{transform:translateY(-4px) rotate(-45deg)}
 .nav.solid .menu-btn{background:var(--ink);color:#fff}
-.mnav{position:fixed;inset:68px 0 0 0;background:#16163A;color:#fff;padding:12px 20px 32px;display:flex;flex-direction:column;overflow-y:auto}
+.mnav{position:fixed;inset:0;z-index:59;padding:84px 16px 24px;overflow-y:auto;
+  background:rgba(16,16,44,.55);backdrop-filter:blur(24px) saturate(1.5);-webkit-backdrop-filter:blur(24px) saturate(1.5);
+  animation:mnavIn .35s var(--ease) both}
 .mnav[hidden]{display:none}
-.mnav a{font-size:26px;font-weight:700;letter-spacing:-.008em;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.12);text-decoration:none;color:#fff}
-.mnav .btn{margin-top:28px;align-self:flex-start;color:var(--cobalt)}
-.nav.menu-open{background:#16163A!important;color:#fff!important;box-shadow:none!important;backdrop-filter:none}
-.nav.menu-open .menu-btn{background:#fff;color:var(--cobalt)}
+.mnav-in{display:flex;flex-direction:column;padding:6px 22px 22px;border-radius:28px;
+  background:rgba(255,255,255,.09);box-shadow:inset 0 0 0 1px rgba(255,255,255,.16),0 30px 60px -30px rgba(0,0,0,.5)}
+.mnav a{display:flex;justify-content:space-between;align-items:center;font-size:24px;font-weight:700;letter-spacing:-.008em;padding:15px 2px;
+  border-bottom:1px solid rgba(255,255,255,.12);text-decoration:none;color:#fff;animation:mnavItem .45s var(--ease) both}
+.mnav a::after{content:"";width:9px;height:9px;border-top:2px solid currentColor;border-right:2px solid currentColor;transform:rotate(45deg);opacity:.45}
+.mnav a:nth-of-type(2){animation-delay:.03s}.mnav a:nth-of-type(3){animation-delay:.06s}.mnav a:nth-of-type(4){animation-delay:.09s}
+.mnav a:nth-of-type(5){animation-delay:.12s}.mnav a:nth-of-type(6){animation-delay:.15s}.mnav a:nth-of-type(7){animation-delay:.18s}
+.mnav a:last-of-type{border-bottom:0}
+.mnav .btn{margin-top:16px;justify-content:center;color:var(--cobalt);animation:mnavItem .45s .2s var(--ease) both}
+@keyframes mnavIn{from{opacity:0}to{opacity:1}}
+@keyframes mnavItem{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.mnav,.mnav a,.mnav .btn{animation:none}}
+.nav.menu-open{background:transparent!important;color:#fff!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.nav.menu-open .menu-btn{background:rgba(255,255,255,.14);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.28)}
 .nav.menu-open .lang button[aria-pressed="true"] span{color:var(--cobalt)}
 html.menu-open{overflow:hidden}
 html.menu-open .guide{display:none}
