@@ -684,20 +684,12 @@ html[data-sec="light"] .guide-btn,html:not([data-sec]) .guide-btn{background:var
 .toolbox + .tool-lbl{margin-top:16px}
 
 /* Nikkita en móvil: plegada en un botón de chat, se despliega al tocarlo */
-/* botón de chat: la misma esfera de voz que usa Nikkita en escritorio, con burbuja + ecualizador como el favicon */
-.guide-fab{display:none;position:relative;width:58px;height:58px;border:0;border-radius:50%;place-items:center;color:#fff;
-  background:radial-gradient(circle at 32% 26%,#9C95FF 0,#5B4BFF 42%,#2B2FE0 78%,#1B1DB0 100%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.45),inset 0 0 0 1px rgba(255,255,255,.22),0 16px 32px -12px rgba(43,47,224,.8),0 4px 12px -4px rgba(22,22,58,.35);
-  transition:transform .3s var(--ease),box-shadow .3s}
-.guide-fab svg{width:27px;height:27px;position:relative;z-index:1;filter:drop-shadow(0 1px 1px rgba(22,22,58,.25))}
-.guide-fab::before{content:"";position:absolute;inset:-5px;border-radius:50%;border:1.5px solid rgba(91,75,255,.55);animation:fabRing 2.8s var(--ease) infinite;pointer-events:none}
-.guide-fab::after{content:"";position:absolute;top:3px;right:3px;width:12px;height:12px;border-radius:50%;background:#5CF0B4;box-shadow:0 0 0 2.5px #fff}
-.guide-fab:active{transform:scale(.93)}
-html[data-sec="dark"] .guide-fab{box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 0 0 2px rgba(255,255,255,.9),0 16px 32px -12px rgba(0,0,0,.55)}
-html[data-sec="dark"] .guide-fab::before{border-color:rgba(255,255,255,.5)}
-html[data-sec="dark"] .guide-fab::after{box-shadow:0 0 0 2.5px var(--cobalt)}
-@keyframes fabRing{0%{transform:scale(.92);opacity:.9}70%,100%{transform:scale(1.28);opacity:0}}
-@media(prefers-reduced-motion:reduce){.guide-fab::before{animation:none;opacity:0}}
+/* botón de chat: mismo trato que los demás botones (tinta en claro, blanco en oscuro) con ondas de voz como el favicon */
+.guide-fab{display:none;width:56px;height:56px;border:0;border-radius:50%;place-items:center;background:var(--ink);color:#fff;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.14),0 14px 30px -12px rgba(22,22,58,.6);transition:transform .25s var(--ease),background .35s,color .35s,box-shadow .35s}
+.guide-fab svg{width:24px;height:24px}
+.guide-fab:active{transform:scale(.94)}
+html[data-sec="dark"] .guide-fab{background:#fff;color:var(--cobalt);box-shadow:0 14px 30px -12px rgba(0,0,0,.45)}
 @media(max-width:640px){
   .guide:not(.open):not(.on) > :not(.guide-fab){display:none!important}
   .guide:not(.open):not(.on) .guide-fab{display:grid}
@@ -709,7 +701,7 @@ html[data-sec="dark"] .guide-fab::after{box-shadow:0 0 0 2.5px var(--cobalt)}
 .logo .wm{gap:3px}
 
 /* ============================================================
-   MENÚ MÓVIL · tarjeta de vidrio cobalto que nace del botón
+   MENÚ MÓVIL · pantalla completa de vidrio, sin tarjeta
    (va fuera de la barra: su backdrop-filter encerraría un hijo fijo)
    ============================================================ */
 .menu-btn{display:none;position:relative;width:44px;height:44px;flex:none;border:0;border-radius:50%;place-items:center;background:#fff;color:var(--cobalt);
@@ -727,39 +719,34 @@ html[data-sec="dark"] .guide-fab::after{box-shadow:0 0 0 2.5px var(--cobalt)}
 .menu-btn[aria-expanded="true"] .mb-lines i:nth-child(2){opacity:0;transform:scaleX(0)}
 .menu-btn[aria-expanded="true"] .mb-lines i:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
 
-.mnav{position:fixed;inset:0;z-index:59;padding:78px 12px 16px;overflow-y:auto;overscroll-behavior:contain;
-  background:linear-gradient(180deg,rgba(14,14,40,.62),rgba(14,14,40,.38));
-  backdrop-filter:blur(16px) saturate(1.3);-webkit-backdrop-filter:blur(16px) saturate(1.3);animation:mnavIn .3s var(--ease) both}
+.mnav{position:fixed;inset:0;z-index:59;padding:84px 8px 24px;overflow-y:auto;overscroll-behavior:contain;
+  background:rgba(22,22,58,.42);backdrop-filter:blur(28px) saturate(1.6);-webkit-backdrop-filter:blur(28px) saturate(1.6);
+  transition:background .35s;animation:mnavIn .3s var(--ease) both}
+/* sobre secciones claras el vidrio se oscurece un poco para que el texto blanco siga leyéndose */
+html[data-sec="light"] .mnav{background:rgba(22,22,58,.66)}
 .mnav[hidden]{display:none}
-.mnav-in{position:relative;display:flex;flex-direction:column;padding:10px 10px 12px;border-radius:26px;overflow:hidden;isolation:isolate;
-  counter-reset:mi;transform-origin:calc(100% - 30px) -10px;animation:mnavCard .45s cubic-bezier(.2,.9,.25,1) both;
-  background:linear-gradient(155deg,rgba(84,88,255,.62) 0%,rgba(43,47,224,.55) 45%,rgba(27,29,176,.6) 100%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 0 0 1px rgba(255,255,255,.18),0 30px 60px -24px rgba(10,10,40,.7),0 8px 20px -10px rgba(43,47,224,.5)}
-/* reflejo de luz arriba a la izquierda */
-.mnav-in::before{content:"";position:absolute;z-index:-1;inset:-40% 30% 55% -30%;border-radius:50%;
-  background:radial-gradient(closest-side,rgba(255,255,255,.28),rgba(255,255,255,0));pointer-events:none}
-.mnav a{display:grid;grid-template-columns:28px minmax(0,1fr) auto;align-items:center;gap:10px;min-height:52px;padding:6px 14px;border-radius:16px;
-  font-size:20px;font-weight:650;letter-spacing:-.01em;text-decoration:none;color:#fff;
+.mnav-in{display:flex;flex-direction:column;padding:0 10px;counter-reset:mi}
+.mnav a{display:grid;grid-template-columns:30px minmax(0,1fr) auto;align-items:center;gap:10px;min-height:60px;padding:6px 14px;border-radius:16px;
+  font-size:26px;font-weight:650;letter-spacing:-.01em;text-decoration:none;color:#fff;
   transition:background .2s;animation:mnavItem .45s var(--ease) both}
 .mnav a::before{counter-increment:mi;content:counter(mi,decimal-leading-zero);font-family:var(--f-voice);font-style:italic;font-weight:400;font-size:15px;color:rgba(255,255,255,.6)}
 .mnav a::after{content:"";width:7px;height:7px;margin-right:4px;border-top:1.8px solid currentColor;border-right:1.8px solid currentColor;transform:rotate(45deg);opacity:.5;transition:transform .25s var(--ease),opacity .2s}
-.mnav a:hover,.mnav a:focus-visible{background:rgba(255,255,255,.12)}
-.mnav a:active{background:rgba(255,255,255,.18)}
+.mnav a:hover,.mnav a:focus-visible{background:rgba(255,255,255,.1)}
+.mnav a:active{background:rgba(255,255,255,.16)}
 .mnav a:hover::after{opacity:1;transform:translateX(3px) rotate(45deg)}
-.mnav a + a{box-shadow:0 -1px 0 rgba(255,255,255,.1)}
+.mnav a + a{box-shadow:0 -1px 0 rgba(255,255,255,.14)}
 .mnav a:hover + a,.mnav a:hover{box-shadow:none}
-.mnav a:nth-of-type(1){animation-delay:.06s}.mnav a:nth-of-type(2){animation-delay:.09s}.mnav a:nth-of-type(3){animation-delay:.12s}
-.mnav a:nth-of-type(4){animation-delay:.15s}.mnav a:nth-of-type(5){animation-delay:.18s}.mnav a:nth-of-type(6){animation-delay:.21s}.mnav a:nth-of-type(7){animation-delay:.24s}
-.mnav .btn{margin:10px 4px 0;justify-content:center;min-height:52px;color:var(--cobalt);box-shadow:0 12px 26px -12px rgba(10,10,40,.6);animation:mnavItem .45s .27s var(--ease) both}
+.mnav a:nth-of-type(1){animation-delay:.04s}.mnav a:nth-of-type(2){animation-delay:.07s}.mnav a:nth-of-type(3){animation-delay:.1s}
+.mnav a:nth-of-type(4){animation-delay:.13s}.mnav a:nth-of-type(5){animation-delay:.16s}.mnav a:nth-of-type(6){animation-delay:.19s}.mnav a:nth-of-type(7){animation-delay:.22s}
+.mnav .btn{margin:22px 4px 0;justify-content:center;min-height:52px;color:var(--cobalt);box-shadow:0 12px 26px -12px rgba(10,10,40,.6);animation:mnavItem .45s .25s var(--ease) both}
 .mnav :focus-visible{outline:2px solid #fff;outline-offset:2px}
 @keyframes mnavIn{from{opacity:0}to{opacity:1}}
-@keyframes mnavCard{from{opacity:0;transform:translateY(-10px) scale(.94)}to{opacity:1;transform:none}}
 @keyframes mnavItem{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-@media(prefers-reduced-motion:reduce){.mnav,.mnav-in,.mnav a,.mnav .btn{animation:none}.mb-lines i{transition:none}}
+@media(prefers-reduced-motion:reduce){.mnav,.mnav a,.mnav .btn{animation:none}.mb-lines i{transition:none}}
 .nav.menu-open{background:transparent!important;color:#fff!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
 .nav.menu-open .menu-btn{background:#fff;color:var(--ink);box-shadow:0 8px 20px -8px rgba(10,10,40,.6)}
 .nav.menu-open .lang button[aria-pressed="true"] span{color:var(--cobalt)}
 html.menu-open{overflow:hidden}
 html.menu-open .guide{display:none}
 @media(max-width:900px){.nav .talk{display:none}.menu-btn{display:grid}}
-@media(min-width:560px) and (max-width:900px){.mnav{padding-left:calc(100% - 420px)}}
+@media(min-width:560px) and (max-width:900px){.mnav-in{max-width:520px;margin-left:auto}}
