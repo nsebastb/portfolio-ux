@@ -11,14 +11,17 @@ const L = () => root.dataset.lang === 'en' ? 'en' : 'es';
 const t = o => (o && typeof o === 'object') ? (o[L()] ?? o.es) : (o ?? '');
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
-const TONES = {clarito:'#EE2A1F', telco:'#2B2FE0', pago:'#0B8A7A', energy:'#B85C00', salud:'#0A78AE',
+const TONES = {clarito:'#EE2A1F', banca:'#1F7A4D', telco:'#2B2FE0', pago:'#0B8A7A', energy:'#B85C00', salud:'#0A78AE',
   'research-telco':'#4B3FD1', portabilidad:'#9A2E5E', catering:'#C2386F', veridik:'#6B3FE0'};
 const UI = {
-  role:{es:'Mi rol',en:'My role'}, sector:{es:'Sector',en:'Sector'}, year:{es:'Año',en:'Year'}, tools:{es:'Herramientas',en:'Tools'},
+  role:{es:'Mi rol',en:'My role'}, context:{es:'Contexto',en:'Context'}, sector:{es:'Sector',en:'Sector'}, year:{es:'Año',en:'Year'}, tools:{es:'Herramientas',en:'Tools'},
   glance:{es:'En resumen',en:'At a glance'}, challenge:{es:'El reto',en:'The challenge'}, steps:{es:'El flujo, paso a paso',en:'The flow, step by step'},
   process:{es:'El proceso',en:'The process'}, demo:{es:'Demo real del agente',en:'Real agent demo'},
   sound:{es:'Activa el sonido para escucharlo.',en:'Turn the sound on to hear it.'},
-  emo:{es:'Matriz de emociones',en:'Emotion matrix'}, design:{es:'Diseño',en:'Design'}, friction:{es:'Fricción detectada en el testing',en:'Friction found in testing'},
+  emo:{es:'Matriz de emociones',en:'Emotion matrix'}, emoPart:{es:'Fragmento de la matriz de emociones',en:'Excerpt from the emotion matrix'},
+  problem:{es:'El problema',en:'The problem'}, scope:{es:'Alcance de la demo',en:'Demo scope'}, decisions:{es:'Decisiones de diseño',en:'Design decisions'},
+  decision:{es:'Decisión clave',en:'Key decision'}, result:{es:'Resultado',en:'Outcome'}, out:{es:'Qué quedó fuera del piloto',en:'What stayed out of the pilot'},
+  learned:{es:'Lo que aprendí',en:'What I learned'}, design:{es:'Diseño',en:'Design'}, friction:{es:'Fricción detectada en el testing',en:'Friction found in testing'},
   drivers:{es:'Cinco drivers que habilitan avanzar',en:'Five drivers that unlock progress'},
   prev:{es:'Anterior',en:'Previous'}, next:{es:'Siguiente',en:'Next'}, live:{es:'Pruébalo en vivo',en:'Try it live'},
   talk:{es:'Hablar con Clarito',en:'Talk to Clarito'}, speaking:{es:'hablando',en:'speaking'}, listening:{es:'escuchando',en:'listening'},
@@ -271,39 +274,30 @@ function showEmo(i, instant){
 
 
 /* ---------------- índice de casos ---------------- */
-const indexEl = $('#index'), peek = $('.peek');
-let filter = 'all';
+const indexEl = $('#work'), peek = $('.peek');
+/* casos visibles en el índice (Clarito tiene su propia sección) */
+const LISTED = CASES.filter(c => c.group);
 function renderIndex(){
-  indexEl.innerHTML = CASES.map((c, i) => {
-    const grp = c.kind === 'research' ? 'research' : 'voice';
+  $$('[data-index]', indexEl).forEach(ol => ol.innerHTML = LISTED.filter(c => c.group === ol.dataset.index).map(c => {
+    const i = LISTED.indexOf(c);
     const cls = c.kind === 'red' ? 'red' : c.kind === 'voice' ? 'voice' : '';
-    return `<li class="row${filter !== 'all' && filter !== grp ? ' hidden' : ''}" data-grp="${grp}" style="--tone:${TONES[c.id]}">
+    return `<li class="row" style="--tone:${TONES[c.id]}">
       <button type="button" data-open-case="${c.id}">
         <span class="num">${String(i + 1).padStart(2, '0')}</span>
-        <span class="t">${esc(t(c.title))}<small>${esc(t(c.short))}</small></span>
+        <span class="t">${esc(t(c.topic || c.title))}<small>${esc(t(c.short))}</small></span>
         <span class="sec">${esc(t(c.sector))}</span>
         <span class="kind ${cls}">${esc(t(c.type))}</span>
         <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </button></li>`;
-  }).join('');
+  }).join(''));
 }
-$$('[data-filter]').forEach(b => b.addEventListener('click', () => {
-  filter = b.dataset.filter;
-  $$('[data-filter]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
-  $$('.row', indexEl).forEach(r => {
-    const hide = filter !== 'all' && filter !== r.dataset.grp;
-    if (!reduce && window.gsap){
-      if (hide) gsap.to(r, {opacity:0, height:0, duration:.35, ease:'power2.in', onComplete:() => r.classList.add('hidden')});
-      else { r.classList.remove('hidden'); gsap.fromTo(r, {opacity:0, height:0}, {opacity:1, height:'auto', duration:.45, ease:'power2.out'}) }
-    } else r.classList.toggle('hidden', hide);
-  });
-}));
 /* tono del caso sobre el fondo + vista previa flotante */
 function caseById(id){ return CASES.find(c => c.id === id) }
 function peekHTML(c){
   if (c.id === 'clarito') return `<img src="assets/clarito-store.jpg" alt=""><img src="assets/clarito.webp" alt="" style="position:absolute;inset:auto 0 0 25%;width:50%;height:auto">`;
   if (c.videos) return `<img src="${c.videos[0][1]}" alt="" style="opacity:.25"><div class="wave">${'<b></b>'.repeat(14)}</div>`;
   if (c.shots) return `<img src="${c.shots[c.shots.length > 1 ? 1 : 0]}" alt="" style="object-fit:contain;background:#fff">`;
+  if (c.kind === 'voice') return `<div class="wave">${'<b></b>'.repeat(14)}</div>`;
   return `<div class="wave" style="font-size:44px;font-weight:800;color:#fff;letter-spacing:-.04em">AS-IS → TO-BE</div>`;
 }
 let peekId = null;
@@ -316,6 +310,7 @@ indexEl.addEventListener('pointerover', e => {
     $$('.wave b', peek).forEach((x, i) => x.style.animationDelay = (i * .07) + 's') }
   peek.classList.add('on');
 });
+indexEl.addEventListener('pointerout', e => { if (!e.relatedTarget?.closest?.('[data-open-case]')) { ambLocked = null; peek.classList.remove('on'); if (activeSec) sectionAmb(activeSec) } });
 indexEl.addEventListener('pointerleave', () => { ambLocked = null; peek.classList.remove('on'); if (activeSec) sectionAmb(activeSec) });
 indexEl.addEventListener('focusin', e => {
   const b = e.target.closest('[data-open-case]'); if (!b) return;
@@ -334,10 +329,13 @@ const dlg = $('#caseDlg'), body = $('#csBody'), panel = $('.case-panel', dlg);
 let current = null, lastFocus = null;
 function renderCase(id, scrollTop = true){
   const c = caseById(id); current = id;
-  const i = CASES.indexOf(c), prev = CASES[(i - 1 + CASES.length) % CASES.length], next = CASES[(i + 1) % CASES.length];
+  const i = LISTED.indexOf(c), n = LISTED.length, prev = LISTED[i < 0 ? n - 1 : (i - 1 + n) % n], next = LISTED[(i + 1) % n];
   dlg.style.setProperty('--tone', TONES[id]);
-  $('.crumb', dlg).textContent = `${String(i + 1).padStart(2,'0')} / ${String(CASES.length).padStart(2,'0')} · ${t(c.title)}`;
-  const meta = [[UI.role, t(c.role)], [UI.sector, t(c.sector)], c.tools ? [UI.tools, c.tools] : [UI.year, c.year || '—']];
+  $('.crumb', dlg).textContent = i < 0 ? t(c.title) : `${String(i + 1).padStart(2,'0')} / ${String(n).padStart(2,'0')} · ${t(c.topic || c.title)}`;
+  const meta = c.context ? [[UI.context, t(c.context)], [UI.role, t(c.role)], [UI.sector, t(c.sector)]]
+    : [[UI.role, t(c.role)], [UI.sector, t(c.sector)], c.tools ? [UI.tools, c.tools] : [UI.year, c.year || '—']];
+  const sec = (title, inner) => `<section class="cs-sec"><h3>${title}</h3>${inner}</section>`;
+  const tiles = list => `<div class="tiles">${list.map(([a, b]) => `<div><h4>${esc(t(a))}</h4><p>${t(b)}</p></div>`).join('')}</div>`;
   let h = `<header class="cs-hero">
     <span class="k">${esc(t(c.type))}</span>
     <h2 id="csTitle">${esc(t(c.title))}</h2>
@@ -345,10 +343,13 @@ function renderCase(id, scrollTop = true){
     <p class="lead">${esc(t(c.lead))}</p>
     <dl class="cs-meta">${meta.map(([k, v]) => `<div><dt>${t(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>
     ${c.live ? `<div class="hero-cta"><button class="btn btn-white" type="button" data-open-live style="color:var(--tone)">${t(UI.talk)}</button></div>` : ''}
-  </header>
-  <div class="cs-stats">${c.stats.map(([v, l]) => `<div class="cs-stat"><b>${esc(v)}</b><span>${esc(t(l))}</span></div>`).join('')}</div>
-  <section class="cs-sec"><h3>${t(UI.challenge)}</h3><div class="cs-two"><div><p>${esc(t(c.challenge))}</p><p>${esc(t(c.answer))}</p></div><p class="voice-quote">${esc(t(c.quote))}</p></div></section>
-  <section class="cs-sec"><h3>${t(c.kind === 'research' ? UI.process : UI.steps)}</h3><ol class="steps">${c.steps.map(([a, b, tag]) => `<li><div><h4>${esc(t(a))}</h4><p>${esc(t(b))}</p></div>${tag ? `<code>${esc(tag)}</code>` : '<span></span>'}</li>`).join('')}</ol></section>`;
+  </header>`;
+  if (c.stats) h += `<div class="cs-stats">${c.stats.map(([v, l]) => `<div class="cs-stat"><b>${esc(v)}</b><span>${esc(t(l))}</span></div>`).join('')}</div>`;
+  if (c.challenge) h += sec(t(UI.challenge), `<div class="cs-two"><div><p>${esc(t(c.challenge))}</p><p>${esc(t(c.answer))}</p></div><p class="voice-quote">${esc(t(c.quote))}</p></div>`);
+  if (c.problem) h += sec(t(UI.problem), `<div class="cs-two"><p>${esc(t(c.problem))}</p><div class="cs-scope"><h4>${t(UI.scope)}</h4><p>${esc(t(c.scope))}</p></div></div>`);
+  if (c.decision) h += sec(t(UI.decision), `<p class="voice-quote">${esc(t(c.decision))}</p>`);
+  if (c.decisions) h += sec(t(UI.decisions), tiles(c.decisions));
+  if (c.steps) h += sec(t(c.kind === 'research' ? UI.process : UI.steps), `<ol class="steps">${c.steps.map(([a, b, tag]) => `<li><div><h4>${esc(t(a))}</h4><p>${esc(t(b))}</p></div>${tag ? `<code>${esc(tag)}</code>` : '<span></span>'}</li>`).join('')}</ol>`);
   if (c.videos){
     const phones = c.videos.filter(v => !v[2]), webs = c.videos.filter(v => v[2]);
     h += `<section class="cs-sec"><h3>${t(UI.demo)}</h3><div class="demos${webs.length ? ' mixed' : ''}">`
@@ -359,10 +360,14 @@ function renderCase(id, scrollTop = true){
   if (c.live) h += `<section class="cs-sec"><h3>${t(UI.live)}</h3><div class="stage" style="max-width:820px;margin:0 auto"><img class="logo" src="assets/ntt-logo.png" alt="NTT DATA"><div class="shadow"></div><div class="mascot"><img src="assets/clarito.webp" alt="Clarito"></div></div><div class="hero-cta" style="justify-content:center"><button class="btn btn-red" type="button" data-open-live>${t(UI.talk)}</button></div></section>`;
   if (c.shots) h += `<section class="cs-sec"><h3>${t(UI.design)}</h3><div class="shots${c.shots.length > 1 ? ' three' : ''}">${c.shots.map(s => `<img src="${s}" alt="${esc(t(c.title))}" loading="lazy">`).join('')}</div></section>`;
   if (c.bars) h += `<section class="cs-sec"><h3>${t(UI.friction)}</h3><div class="fbars">${c.bars.map(([l, v, lab]) => `<div class="bar"><span>${esc(t(l))}</span><span class="tr"><i style="--v:${v}"></i></span><b>${esc(t(lab))}</b></div>`).join('')}</div></section>`;
-  if (c.emo) h += `<section class="cs-sec"><h3>${t(UI.emo)}</h3><div class="emo">${c.emo.map(([w, tn, s]) => `<div><span class="when">${esc(t(w))}</span><span class="tone">${esc(t(tn))}</span><q>${esc(t(s))}</q></div>`).join('')}</div></section>`;
+  if (c.emo) h += sec(t(c.decisions ? UI.emoPart : UI.emo), `<div class="emo">${c.emo.map(([w, tn, s]) => `<div><span class="when">${esc(t(w))}</span><span class="tone">${esc(t(tn))}</span><q>${esc(t(s))}</q></div>`).join('')}</div>`);
+  if (c.pilot) h += sec(t(c.pilot.title), `<p class="cs-intro">${esc(t(c.pilot.intro))}</p>${tiles(c.pilot.items)}`);
+  if (c.result) h += sec(t(UI.result), `<p class="cs-intro">${esc(t(c.result))}</p>`);
+  if (c.out) h += sec(t(UI.out), `<p class="cs-intro">${esc(t(c.out))}</p>`);
+  if (c.learned) h += sec(t(UI.learned), `<p class="voice-quote">${esc(t(c.learned))}</p>`);
   if (c.drivers) h += `<section class="cs-sec"><h3>${t(c.driversTitle || UI.drivers)}</h3><div class="toolbox">${c.drivers.map(d => `<span class="k" style="background:var(--tone);font-size:16px;padding:10px 18px">${esc(t(d))}</span>`).join('')}</div></section>`;
-  h += `<section class="cs-sec"><h3>${esc(t(c.tilesTitle))}</h3><div class="tiles">${c.tiles.map(([a, b]) => `<div><h4>${esc(t(a))}</h4><p>${t(b)}</p></div>`).join('')}</div></section>
-  <nav class="cs-next"><button type="button" data-go="${prev.id}"><span>${t(UI.prev)}</span><b>${esc(t(prev.title))}</b></button>
+  if (c.tiles) h += sec(esc(t(c.tilesTitle)), tiles(c.tiles));
+  h += `<nav class="cs-next"><button type="button" data-go="${prev.id}"><span>${t(UI.prev)}</span><b>${esc(t(prev.title))}</b></button>
   <button class="nx" type="button" data-go="${next.id}"><span>${t(UI.next)}</span><b>${esc(t(next.title))}</b></button></nav>`;
   body.innerHTML = h;
   if (scrollTop) panel.scrollTop = 0;
@@ -390,8 +395,8 @@ document.addEventListener('click', e => {
   const g = e.target.closest('[data-go]'); if (g){ renderCase(g.dataset.go); history.replaceState(null,'','#caso-' + g.dataset.go); return }
   if (e.target.closest('[data-close]')) closeCase();
   if (e.target.closest('[data-prev]') || e.target.closest('[data-next]')){
-    const i = CASES.findIndex(c => c.id === current), d = e.target.closest('[data-next]') ? 1 : -1;
-    const id = CASES[(i + d + CASES.length) % CASES.length].id; renderCase(id); history.replaceState(null,'','#caso-' + id);
+    const i = LISTED.findIndex(c => c.id === current), d = e.target.closest('[data-next]') ? 1 : -1, n = LISTED.length;
+    const id = LISTED[i < 0 ? (d > 0 ? 0 : n - 1) : (i + d + n) % n].id; renderCase(id); history.replaceState(null,'','#caso-' + id);
   }
   if (e.target.closest('[data-open-live]')) openLive();
   if (e.target.closest('[data-close-live]')) closeLive();
@@ -474,13 +479,13 @@ const GUIDE_AGENT_ID = 'agent_2401m4by69x4e54v5h02b7tqsa6v';
   if (av.nk && finePointer && !reduce) addEventListener('pointermove', e => { const r = av.el.getBoundingClientRect();
     av.nk.look((e.clientX - (r.left + r.width / 2)) / 400, (e.clientY - (r.top + r.height * .33)) / 400) }, {passive:true});
   const SAY = {es:'¡Hola! Soy Nikkita, la guía de este portfolio. ¿Qué te gustaría conocer de Nicole?', en:'Hi! I’m Nikkita, this portfolio’s guide. What would you like to know about Nicole?'};
-  const SECTIONS = {inicio:'#top', sobre_mi:'#about', competencias:'#skills', clarito:'#clarito', metodo:'#method', emociones:'#play', casos:'#work', experiencia:'#xp', contacto:'#contact'};
+  const SECTIONS = {inicio:'#top', sobre_mi:'#about', competencias:'#skills', clarito:'#clarito', metodo:'#method', emociones:'#play', casos:'#work', research:'#research', experiencia:'#xp', contacto:'#contact'};
   const go = sel => { if (dlg.classList.contains('open')) closeCase(); setTimeout(() => { $(sel)?.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'}); av.point() }, 120) };
   const tools = {
     ir_a_seccion: ({seccion}) => { const s = SECTIONS[seccion]; if (!s) return 'Sección no encontrada'; go(s); return 'Mostrando la sección ' + seccion },
     abrir_caso: ({caso}) => { if (!caseById(caso)) return 'Caso no encontrado'; av.point(); if (live.classList.contains('open')) closeLive(); if (dlg.classList.contains('open')){ renderCase(caso); history.replaceState(null,'','#caso-' + caso) } else openCase(caso); return 'Caso abierto: ' + t(caseById(caso).title) },
     cerrar_caso: () => { if (dlg.classList.contains('open')) closeCase(); return 'Caso cerrado' },
-    filtrar_casos: ({tipo}) => { const f = {todos:'all', voz:'voice', research:'research'}[tipo] || 'all'; go('#work'); setTimeout(() => $(`[data-filter="${f}"]`)?.click(), 700); return 'Lista filtrada: ' + tipo },
+    filtrar_casos: ({tipo}) => { go(tipo === 'research' ? '#research' : '#work'); return 'Mostrando casos: ' + (tipo || 'todos') },
     probar_emocion: ({emocion}) => { const i = EMO_PLAY.findIndex(e => e.k === emocion); if (i < 0) return 'Emoción no encontrada'; go('#play'); setTimeout(() => showEmo(i), 700); return 'Mostrando la respuesta para: ' + t(EMO_PLAY[i].e) },
     mostrar_emocion: ({emocion}) => { const e = {feliz:'happy', sorprendida:'wow', empatica:'empathy', pensativa:'think'}[emocion]; if (!e) return 'Emoción no válida'; av.mood(e, 3500); return 'Mostrando emoción ' + emocion },
     cambiar_idioma: ({idioma}) => { if (idioma !== 'es' && idioma !== 'en') return 'Idioma no válido'; setLang(idioma); return 'Idioma cambiado a ' + idioma }
