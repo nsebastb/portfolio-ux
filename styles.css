@@ -694,3 +694,25 @@ html[data-sec="dark"] .guide-fab{background:#fff;color:var(--cobalt)}
   .guide:not(.open):not(.on) .guide-fab{display:grid}
   .guide.open .guide-end{display:grid}
 }
+.phone img{width:100%;display:block;border-radius:34px;background:#fff}
+.browser img{width:100%;display:block}
+/* menos aire entre nombre y apellido en el logo */
+.logo .wm{gap:3px}
+
+/* menú móvil */
+.menu-btn{display:none;width:44px;height:44px;flex:none;border:0;border-radius:50%;place-items:center;background:#fff;color:var(--cobalt);transition:background .35s,color .35s}
+.menu-btn svg{width:22px;height:22px}
+.menu-btn path{transition:transform .3s var(--ease);transform-origin:12px 12px}
+.menu-btn[aria-expanded="true"] .m1{transform:translateY(4px) rotate(45deg)}
+.menu-btn[aria-expanded="true"] .m2{transform:translateY(-4px) rotate(-45deg)}
+.nav.solid .menu-btn{background:var(--ink);color:#fff}
+.mnav{position:fixed;inset:68px 0 0 0;background:#16163A;color:#fff;padding:12px 20px 32px;display:flex;flex-direction:column;overflow-y:auto}
+.mnav[hidden]{display:none}
+.mnav a{font-size:26px;font-weight:700;letter-spacing:-.008em;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.12);text-decoration:none;color:#fff}
+.mnav .btn{margin-top:28px;align-self:flex-start;color:var(--cobalt)}
+.nav.menu-open{background:#16163A!important;color:#fff!important;box-shadow:none!important;backdrop-filter:none}
+.nav.menu-open .menu-btn{background:#fff;color:var(--cobalt)}
+.nav.menu-open .lang button[aria-pressed="true"] span{color:var(--cobalt)}
+html.menu-open{overflow:hidden}
+html.menu-open .guide{display:none}
+@media(max-width:900px){.nav .talk{display:none}.menu-btn{display:grid}}

@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=202610092100">
+<link rel="stylesheet" href="styles.css?v=202610092300">
 <script>document.documentElement.classList.add('js');try{var l=localStorage.getItem('ns-lang')||((navigator.language||'es').slice(0,2)==='es'?'es':'en');document.documentElement.dataset.lang=l;document.documentElement.lang=l}catch(e){}</script>
 </head>
 <body>
@@ -41,6 +41,22 @@
     <button class="btn talk" type="button" data-open-live data-magnetic>
       <svg class="mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
       <span class="lbl"><span lang="es">Hablar con Clarito</span><span lang="en">Talk to Clarito</span></span>
+    </button>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mnav" aria-label="Menú / Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path class="m1" d="M4 8h16"/><path class="m2" d="M4 16h16"/></svg>
+    </button>
+  </div>
+  <div class="mnav" id="mnav" hidden>
+    <a href="#about"><span lang="es">Sobre mí</span><span lang="en">About</span></a>
+    <a href="#clarito">Clarito</a>
+    <a href="#method"><span lang="es">Método</span><span lang="en">Method</span></a>
+    <a href="#work"><span lang="es">Casos</span><span lang="en">Work</span></a>
+    <a href="#research">Research</a>
+    <a href="#xp"><span lang="es">Experiencia</span><span lang="en">Experience</span></a>
+    <a href="#contact"><span lang="es">Contacto</span><span lang="en">Contact</span></a>
+    <button class="btn btn-white" type="button" data-open-live>
+      <svg class="mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+      <span lang="es">Hablar con Clarito</span><span lang="en">Talk to Clarito</span>
     </button>
   </div>
 </nav>
@@ -170,13 +186,14 @@
         <span class="cl-tag"><i aria-hidden="true"></i><span lang="es">En vivo · 2026</span><span lang="en">Live · 2026</span></span>
         <h2 class="h-xl">Clarito</h2>
         <p class="lead">
-          <span lang="es">Un asesor de voz con cuerpo y personalidad para la experiencia de una tienda de telecomunicaciones. Pulsas un botón y conversas con él, sin menús ni formularios.</span>
-          <span lang="en">A voice advisor with a body and a personality for a telecom store experience. You press one button and talk to it, no menus or forms.</span>
+          <span lang="es">Un asesor de voz con cuerpo y personalidad para un tótem en tienda de Claro. Pulsas un botón y conversas con él, sin menús ni formularios; si decides comprar, registra tu pedido.</span>
+          <span lang="en">A voice advisor with a body and a personality for a kiosk in a Claro store. You press one button and talk to it, no menus or forms; if you decide to buy, it records your order.</span>
         </p>
         <ul class="cl-points">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 12h2M7 8v8M11 5v14M15 8v8M19 11v2"/></svg><span><b lang="es">Voz en tiempo real.</b><b lang="en">Real-time voice.</b> <span lang="es">Conversación natural, no un árbol de opciones.</span><span lang="en">Natural conversation, not an options tree.</span></span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h13"/></svg><span><b lang="es">Transcripción en pantalla.</b><b lang="en">On-screen transcript.</b> <span lang="es">Lo que se dice queda escrito para leerlo.</span><span lang="en">Everything said is written down to read.</span></span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M9 10h.01M15 10h.01M9 15c1.5 1 4.5 1 6 0"/></svg><span><b lang="es">Un personaje.</b><b lang="en">A character.</b> <span lang="es">La mascota da cara a la IA y baja la barrera para hablar.</span><span lang="en">The mascot gives the AI a face and lowers the barrier to talk.</span></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M9 10h.01M15 10h.01M9 15c1.5 1 4.5 1 6 0"/></svg><span><b lang="es">Un personaje.</b><b lang="en">A character.</b> <span lang="es">La mascota da cara a la IA y su boca se mueve con la voz.</span><span lang="en">The mascot gives the AI a face, and its mouth moves with the voice.</span></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 4h14v16H5zM9 9h6M9 13h6M9 17h3"/></svg><span><b lang="es">Pedido registrado.</b><b lang="en">Order recorded.</b> <span lang="es">Si el cliente compra, el pedido llega al panel del personal de tienda.</span><span lang="en">If the customer buys, the order reaches the store staff’s dashboard.</span></span></li>
         </ul>
         <div class="cl-cta">
           <button class="btn btn-white" type="button" data-open-live data-magnetic>
@@ -435,13 +452,13 @@
     <button class="guide-btn" type="button"><span class="g-orb" aria-hidden="true"></span><span class="g-lbl"></span></button>
     <button class="guide-end icon-btn" type="button" aria-label="Terminar conversación"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   </div>
-  <button class="guide-fab" type="button" aria-expanded="false" aria-label="Pregúntale a Nikkita / Ask Nikkita"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.9A8 8 0 1 1 21 12z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></svg></button>
+  <button class="guide-fab" type="button" aria-expanded="false" aria-label="Pregúntale a Nikkita / Ask Nikkita"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4.5h12a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-6.5L7 21.5v-3H6a3 3 0 0 1-3-3v-8a3 3 0 0 1 3-3z"/><circle cx="8.25" cy="11.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="12" cy="11.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="15.75" cy="11.5" r="1.1" fill="currentColor" stroke="none"/></svg></button>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="cases.js?v=202610092100"></script>
-<script src="nikkita.js?v=202610092100"></script>
-<script src="app.js?v=202610092100"></script>
+<script src="cases.js?v=202610092300"></script>
+<script src="nikkita.js?v=202610092300"></script>
+<script src="app.js?v=202610092300"></script>
 </body>
 </html>

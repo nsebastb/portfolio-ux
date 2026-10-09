@@ -100,7 +100,7 @@ window.CASES = [
     [{es:"Riesgo",en:"Risk"},{es:"Serena, urgencia contenida",en:"Calm, contained urgency"},{es:"Tu caso es urgente. Te comunico con un especialista; mantente lejos de la zona.",en:"Your case is urgent. I’m connecting you with a specialist; stay away from the area."}],
     [{es:"Despedida",en:"Goodbye"},{es:"Cálida, con próximo paso",en:"Warm, with a next step"},{es:"Listo, quedó registrado. Si necesitas algo más, aquí estoy.",en:"Done, it’s logged. If you need anything else, I’m here."}]
   ],
-  pilot:{
+  blocks:[{
     title:{es:"Después de la demo: la propuesta de piloto",en:"After the demo: the pilot proposal"},
     intro:{es:"El cliente validó el enfoque y preguntó cómo se integraría el agente a sus sistemas. Respondí con una propuesta de piloto centrada en la falta de suministro, con dos caminos.",
            en:"The client validated the approach and asked how the agent would integrate with their systems. I answered with a pilot proposal focused on loss of supply, with two paths."},
@@ -112,7 +112,7 @@ window.CASES = [
       [{es:"Reglas claras de transferencia",en:"Clear transfer rules"},{es:"Riesgo de vida, de inmediato y con prioridad. Cliente no identificado tras dos intentos. Si no entiende tras dos reformulaciones, transfiere en vez de insistir. Si el cliente pide un asesor, siempre. Y siempre con contexto: quién llama, qué reportó y en qué paso quedó.",en:"Risk to life: immediately and with priority. Customer not identified after two attempts. If it still doesn’t understand after two rephrasings, it transfers instead of insisting. If the customer asks for an advisor, always. And always with context: who is calling, what they reported and which step they reached."}],
       [{es:"Cómo se mediría",en:"How it would be measured"},{es:"Resolución sin asesor, derivaciones con contexto, duplicados evitados y duración de la llamada, con el chatbot de texto del cliente como referencia.",en:"Resolution without an advisor, handovers with context, duplicates avoided and call duration, using the client’s text chatbot as a baseline."}]
     ]
-  },
+  }],
   result:{es:"Las preguntas del cliente se centraron en la integración con sus sistemas. En el agente, el único cambio que pidió fue la voz, que sonaba con un leve acento argentino.",
           en:"The client’s questions focused on integration with their systems. For the agent itself, the only change they asked for was the voice, which had a slight Argentine accent."},
   out:{es:"Trámites comerciales, consultas de recibo y llamadas salientes: quedan en la hoja de ruta.",
@@ -282,31 +282,66 @@ window.CASES = [
   ]
 },
 {
-  id:"clarito", kind:"red", type:{es:"Voz en vivo · Retail",en:"Live voice · Retail"},
-  sector:{es:"Retail telco · tienda",en:"Telco retail · store"}, year:"2026",
+  id:"clarito", kind:"red", type:{es:"Voz en vivo · Tótem",en:"Live voice · Kiosk"},
+  sector:{es:"Claro · tienda",en:"Claro · store"}, year:"2026",
   title:{es:"Clarito, asesor de voz en tienda",en:"Clarito, an in-store voice advisor"},
-  short:{es:"Un personaje que conversa por voz y muestra la conversación en texto.",en:"A character that talks by voice and shows the conversation as text."},
+  short:{es:"Un asesor en tótem que conversa por voz, registra el pedido y lo pasa al personal de tienda.",en:"A kiosk advisor that talks by voice, records the order and passes it to store staff."},
   line:{es:"«Hola, soy Clarito. Pulsa el botón para hablar conmigo.»",en:"“Hi, I’m Clarito. Press the button to talk to me.”"},
-  lead:{es:"Un agente de voz con cuerpo y personalidad propia, pensado para la experiencia de una tienda de telecomunicaciones: el cliente pulsa un botón y conversa con él, sin menús ni formularios.",
-        en:"A voice agent with its own body and personality, designed for a telecom store experience: the customer presses one button and talks to it, no menus or forms."},
-  role:{es:"Diseño conversacional, personaje y experiencia web",en:"Conversational design, character and web experience"},
-  stats:[["1",{es:"Botón para empezar a conversar",en:"Button to start talking"}],["Voz",{es:"Conversación en tiempo real",en:"Real-time conversation"}],["Texto",{es:"Transcripción visible en pantalla",en:"Visible on-screen transcript"}],["En vivo",{es:"Demo pública que puedes probar",en:"Public demo you can try"}]],
-  challenge:{es:"En tienda, el cliente quiere orientación rápida y sin presión. Un chatbot de texto se siente frío; un vendedor no siempre está disponible.",en:"In store, customers want quick guidance without pressure. A text chatbot feels cold; a salesperson isn’t always available."},
-  quote:{es:"Si la IA tiene cara y voz, conversar con ella debe sentirse tan natural como hablar con alguien de la tienda.",en:"If the AI has a face and a voice, talking to it should feel as natural as talking to someone in the store."},
-  answer:{es:"Diseñé a Clarito como un personaje cercano: una mascota que saluda, escucha y responde por voz, con la conversación también en texto para quien prefiera leer.",en:"I designed Clarito as an approachable character: a mascot that greets, listens and answers by voice, with the conversation also shown as text for those who prefer reading."},
+  lead:{es:"Un asesor digital con cuerpo y personalidad para un tótem en tienda de Claro. El cliente pulsa un botón y conversa por voz; si decide comprar, Clarito toma sus datos, registra el pedido y el personal de tienda lo ve en un panel para cobrarlo y entregarlo.",
+        en:"A digital advisor with a body and a personality for a kiosk in a Claro store. The customer presses one button and talks by voice; if they decide to buy, Clarito takes their details, records the order and store staff see it on a dashboard to charge and hand it over."},
+  context:{es:"Asesor digital en tótem para tiendas de Claro",en:"Digital kiosk advisor for Claro stores"},
+  role:{es:"Diseño conversacional, avatar y página, registro de pedidos y dashboard, de principio a fin y por mi cuenta",en:"Conversational design, avatar and web page, order capture and dashboard, end to end and on my own"},
+  stats:[["4",{es:"Piezas que trabajan juntas",en:"Pieces working together"}],["60",{es:"Veces por segundo se redibuja la boca",en:"Times per second the mouth is redrawn"}],["15 s",{es:"Cada cuánto se actualiza el dashboard",en:"How often the dashboard refreshes"}],["1",{es:"Archivo HTML para todo el avatar",en:"HTML file for the whole avatar"}]],
+  problem:{es:"En tienda, el cliente quiere orientación rápida y sin presión, y un vendedor no siempre está libre. Un chatbot de texto en una pantalla se siente frío, y una conversación que no termina en un pedido registrado no le sirve a la tienda.",
+           en:"In store, customers want quick guidance without pressure, and a salesperson isn’t always free. A text chatbot on a screen feels cold, and a conversation that doesn’t end in a recorded order is of no use to the store."},
+  scope:{es:"Conversación por voz con transcripción, avatar animado para tótem vertical y pantallas horizontales, registro de pedidos de celulares, accesorios y planes hogar, y un dashboard para el personal de tienda.",
+         en:"Voice conversation with transcript, an animated avatar for vertical kiosks and landscape screens, order capture for phones, accessories and home plans, and a dashboard for store staff."},
+  stepsTitle:{es:"Cómo funciona: cuatro piezas",en:"How it works: four pieces"},
   steps:[
-    [{es:"Personaje",en:"Character"},{es:"Una mascota con identidad propia que hace la IA cercana.",en:"A mascot with its own identity that makes the AI approachable."},"persona"],
-    [{es:"Entrada en un gesto",en:"One-gesture entry"},{es:"Un solo botón: «Hablar con Clarito».",en:"A single button: “Talk to Clarito”."},"UI"],
-    [{es:"Conversación por voz",en:"Voice conversation"},{es:"Agente conversacional de voz en tiempo real.",en:"Real-time conversational voice agent."},"ElevenLabs"],
-    [{es:"Transcripción",en:"Transcript"},{es:"La conversación queda visible en texto, accesible para todos.",en:"The conversation stays visible as text, accessible to everyone."},"a11y"]
+    [{es:"La página del avatar",en:"The avatar page"},{es:"Lo que ve y escucha el cliente: el fondo de la tienda, el muñeco, la boca animada, los botones y el chat. No piensa: muestra y conecta.",en:"What the customer sees and hears: the store background, the character, the animated mouth, the buttons and the chat. It doesn’t think: it shows and connects."},"HTML"],
+    [{es:"ElevenLabs",en:"ElevenLabs"},{es:"El cerebro y la voz: entiende al cliente, decide la respuesta siguiendo el prompt y el flujo de nodos, y genera la voz de Clarito en tiempo real.",en:"The brain and the voice: it understands the customer, decides the answer following the prompt and node flow, and generates Clarito’s voice in real time."},"WebRTC"],
+    [{es:"n8n y Google Sheets",en:"n8n and Google Sheets"},{es:"Reciben el pedido, revisan que esté completo y bien escrito, y lo guardan como una fila de la hoja de pedidos.",en:"They receive the order, check it’s complete and well formed, and store it as a row in the orders sheet."},"webhooks"],
+    [{es:"El dashboard",en:"The dashboard"},{es:"La pantalla del personal: muestra los pedidos, resume la venta del día y permite cambiar el estado de cada pedido.",en:"The staff screen: it shows orders, summarises the day’s sales and lets staff change each order’s status."},"dashboard"]
   ],
+  decisions:[
+    [{es:"Una página propia, no el widget",en:"A custom page, not the widget"},{es:"Construí la página del avatar desde cero para controlar el diseño, la animación de la boca y los botones.",en:"I built the avatar page from scratch to control the layout, the mouth animation and the buttons."}],
+    [{es:"Una boca que sigue la voz",en:"A mouth that follows the voice"},{es:"El muñeco no tiene boca en la imagen: la dibujo en vivo en una capa SVG. Leo el volumen de la voz de Clarito, calculo cuánto abrirla y suavizo el movimiento para que no tiemble.",en:"The character has no mouth in the image: I draw it live on an SVG layer. I read the volume of Clarito’s voice, work out how far to open it and smooth the movement so it doesn’t jitter."}],
+    [{es:"Decir qué está haciendo",en:"Show what it’s doing"},{es:"Debajo del saludo, Clarito muestra «Escuchando», «Pensando» o «Hablando», para que el cliente sepa cuándo le toca hablar.",en:"Under the greeting, Clarito shows “Listening”, “Thinking” or “Speaking”, so customers know when it’s their turn."}],
+    [{es:"Pensado para tótem",en:"Designed for a kiosk"},{es:"Fondo vertical para tótem y celular, horizontal para pantallas; textos y botones más grandes para leerse de pie, y un balanceo suave para que no se vea estático mientras escucha.",en:"A vertical background for kiosks and phones, a landscape one for screens; larger text and buttons to read standing up, and a gentle sway so it doesn’t look static while listening."}],
+    [{es:"Voz y texto",en:"Voice and text"},{es:"La conversación también queda en un chat, sin las marcas de tono de la voz y con aviso de mensajes no leídos.",en:"The conversation is also kept in a chat, without the voice’s tone tags and with an unread-messages badge."}],
+    [{es:"Reiniciar sin recargar",en:"Reset without reloading"},{es:"El reinicio limpia la conversación sin recargar la página, para que el tótem no vuelva a pedir permiso del micrófono.",en:"Reset clears the conversation without reloading the page, so the kiosk doesn’t ask for microphone permission again."}],
+    [{es:"Piezas desacopladas",en:"Decoupled pieces"},{es:"El avatar y el dashboard nunca se hablan directamente: se comunican a través de la hoja, con n8n en medio. Así cada pieza se puede cambiar sin romper las demás.",en:"The avatar and the dashboard never talk directly: they communicate through the sheet, with n8n in between. Each piece can change without breaking the others."}]
+  ],
+  gallery:[["assets/clarito-chat.jpg",{es:"La conversación en el tótem, también en texto",en:"The conversation on the kiosk, also as text"},"phone"],["assets/clarito-dashboard.jpg",{es:"Dashboard de pedidos (modo demo, datos de ejemplo)",en:"Orders dashboard (demo mode, sample data)"},"web"]],
   live:true,
-  tilesTitle:{es:"Decisiones de diseño",en:"Design decisions"},
-  tiles:[
-    [{es:"Un personaje, no un widget",en:"A character, not a widget"},{es:"La mascota da cara a la IA y baja la barrera para empezar a hablar.",en:"The mascot gives the AI a face and lowers the barrier to start talking."}],
-    [{es:"Voz + texto",en:"Voice + text"},{es:"Hablar es lo natural; leer la transcripción da control y accesibilidad.",en:"Speaking is natural; reading the transcript gives control and accessibility."}],
-    [{es:"Contexto de tienda",en:"Store context"},{es:"El entorno visual sitúa al cliente donde ocurre la decisión de compra.",en:"The visual setting places the customer where the buying decision happens."}]
-  ]
+  blocks:[
+    {title:{es:"Del «lo quiero» a un pedido registrado",en:"From “I want it” to a recorded order"},
+     intro:{es:"Cuando el cliente confirma una compra, el agente usa la herramienta registrar_pedido y envía los datos a n8n. Antes de guardar, n8n revisa el pedido; si falta algo o está mal, le dice a Clarito qué dato falta y Clarito pregunta solo eso.",
+            en:"When the customer confirms a purchase, the agent uses the registrar_pedido tool and sends the details to n8n. Before saving, n8n checks the order; if something is missing or wrong, it tells Clarito which detail is missing and Clarito asks only for that."},
+     items:[
+      [{es:"Datos que se validan",en:"Validated details"},{es:"DNI de 8 dígitos y celular de 9 que empieza con 9, quitando espacios, guiones o el +51. El correo, si viene, debe ser válido.",en:"An 8-digit ID number and a 9-digit mobile starting with 9, stripping spaces, dashes or +51. The email, if given, must be valid."}],
+      [{es:"Precios dichos en voz",en:"Prices said out loud"},{es:"Entiende «1589», «S/ 1,589» y también «mil quinientos ochenta y nueve soles».",en:"It understands “1589”, “S/ 1,589” and also the price spelled out in words."}],
+      [{es:"Variantes a un solo valor",en:"Variants to a single value"},{es:"«A domicilio» se guarda como delivery y «con link» como pago virtual; si el cliente no lo dice, se asume recojo en tienda y pago en caja.",en:"“To my home” is stored as delivery and “with a link” as online payment; if the customer doesn’t say, in-store pickup and payment at the till are assumed."}],
+      [{es:"Sin pedidos duplicados",en:"No duplicate orders"},{es:"Si el mismo cliente pide el mismo producto en menos de 30 minutos, no se guarda otra vez.",en:"If the same customer orders the same product within 30 minutes, it isn’t saved again."}],
+      [{es:"Un código para cada pedido",en:"A code for every order"},{es:"Cada pedido recibe un código con la fecha y el número del día, y Clarito se lo dice al cliente junto con el siguiente paso.",en:"Each order gets a code with the date and the day’s number, and Clarito tells the customer along with the next step."}]
+     ]},
+    {title:{es:"El dashboard del personal de tienda",en:"The store staff dashboard"},
+     intro:{es:"Una segunda página que pide los pedidos cada 15 segundos y resalta los nuevos con un aviso.",en:"A second page that fetches orders every 15 seconds and highlights new ones with a notice."},
+     items:[
+      [{es:"Indicadores",en:"Indicators"},{es:"Pedidos de hoy, venta estimada, pendientes de pago y entregados.",en:"Today’s orders, estimated sales, pending payment and delivered."}],
+      [{es:"Gráficos",en:"Charts"},{es:"Pedidos por categoría, por tipo de operación y los cinco productos más pedidos.",en:"Orders by category, by operation type and the five most-ordered products."}],
+      [{es:"Estados en un toque",en:"Status in one tap"},{es:"Pendiente de pago, pagado, listo para entregar, entregado o cancelado, actualizado directamente en la hoja.",en:"Pending payment, paid, ready, delivered or cancelled, updated straight in the sheet."}],
+      [{es:"Datos protegidos",en:"Protected data"},{es:"El DNI aparece oculto, salvo los tres últimos dígitos.",en:"The ID number is masked except for its last three digits."}]
+     ]},
+    {title:{es:"Siguientes pasos",en:"Next steps"},
+     items:[
+      [{es:"Proteger los webhooks",en:"Secure the webhooks"},{es:"Antes de usarlo con clientes reales, las direcciones de n8n necesitan un token de acceso.",en:"Before use with real customers, the n8n endpoints need an access token."}],
+      [{es:"Resumen por WhatsApp",en:"WhatsApp summary"},{es:"Clarito anuncia un resumen por WhatsApp que todavía falta construir.",en:"Clarito mentions a WhatsApp summary that is still to be built."}],
+      [{es:"Elegir bien el modelo",en:"Choose the model carefully"},{es:"Un modelo pequeño puede fallar al pasar de un nodo a otro del flujo; conviene probar uno más fuerte.",en:"A small model can fail when moving between flow nodes; a stronger one is worth testing."}]
+     ]}
+  ],
+  learned:{es:"Un agente de voz en tienda no termina en la conversación: termina cuando el pedido llega a quien lo va a cobrar y entregar. Diseñar la cara, la voz y el camino de los datos como un solo sistema es lo que lo vuelve útil.",
+           en:"An in-store voice agent doesn’t end with the conversation: it ends when the order reaches whoever will charge and hand it over. Designing the face, the voice and the data path as one system is what makes it useful."}
 }
 ];
 
