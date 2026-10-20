@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nicole Sebastiani · Conversational AI & UX Designer · Voice AI</title>
-<meta name="description" content="Nicole Sebastiani, Conversational AI & UX Designer de agentes de voz con IA: personalidad, matrices de emoción, flujos, prompts y orquestación con ElevenLabs y n8n.">
-<meta property="og:title" content="Nicole Sebastiani · Conversational AI & UX Designer · Voice AI">
+<title>Nicole Sebastiani · Conversational Designer · Voice AI</title>
+<meta name="description" content="Nicole Sebastiani, Conversational Designer de agentes de voz con IA: UX conversacional, matrices de emoción, prompts y orquestación con ElevenLabs y n8n.">
+<meta property="og:title" content="Nicole Sebastiani · Conversational Designer · Voice AI">
 <meta property="og:description" content="Diseño cómo conversa la IA. Agentes de voz para banca, salud, energía, telecomunicaciones y cobranza.">
 <meta property="og:image" content="assets/clarito-store.jpg">
 <meta name="theme-color" content="#2B2FE0">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%232B2FE0%27/%3E%3Cpath d=%27M8 16h2M12 11v10M16 7v18M20 11v10M24 16h0%27 stroke=%27white%27 stroke-width=%272.4%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=202610092600">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=202610200300">
 <script>document.documentElement.classList.add('js');try{var l=localStorage.getItem('ns-lang')||((navigator.language||'es').slice(0,2)==='es'?'es':'en');document.documentElement.dataset.lang=l;document.documentElement.lang=l}catch(e){}</script>
 </head>
 <body>
@@ -38,9 +38,9 @@
       <button type="button" data-set-lang="es" aria-pressed="true"><span>ES</span></button>
       <button type="button" data-set-lang="en" aria-pressed="false"><span>EN</span></button>
     </div>
-    <button class="btn talk" type="button" data-open-live data-magnetic>
+    <button class="btn talk" type="button" data-talk-nikkita data-magnetic>
       <svg class="mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
-      <span class="lbl"><span lang="es">Hablar con Clarito</span><span lang="en">Talk to Clarito</span></span>
+      <span class="lbl"><span lang="es">Habla con Nikkita</span><span lang="en">Talk to Nikkita</span></span>
     </button>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mnav" aria-label="Menú / Menu">
       <span class="mb-lines" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -53,12 +53,11 @@
   <a href="#clarito">Clarito</a>
   <a href="#method"><span lang="es">Método</span><span lang="en">Method</span></a>
   <a href="#work"><span lang="es">Casos</span><span lang="en">Work</span></a>
-  <a href="#research">Research</a>
   <a href="#xp"><span lang="es">Experiencia</span><span lang="en">Experience</span></a>
   <a href="#contact"><span lang="es">Contacto</span><span lang="en">Contact</span></a>
-  <button class="btn btn-white" type="button" data-open-live>
+  <button class="btn btn-white" type="button" data-talk-nikkita>
     <svg class="mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
-    <span lang="es">Hablar con Clarito</span><span lang="en">Talk to Clarito</span>
+    <span lang="es">Habla con Nikkita</span><span lang="en">Talk to Nikkita</span>
   </button>
   </div>
 </div>
@@ -68,7 +67,7 @@
 <header class="hero" id="top" data-theme="dark" data-amb="#2B2FE0,#6A5BFF,#1B1DB0">
   <canvas id="voice" aria-hidden="true"></canvas>
   <div class="wrap">
-    <span class="state"><i class="live-dot" aria-hidden="true"></i><span lang="es">Abierta a roles de Conversational Design, Voice UX y CX conversacional</span><span lang="en">Open to Conversational Design, Voice UX and conversational CX roles</span></span>
+    <span class="state"><i class="live-dot" aria-hidden="true"></i><span lang="es">Abierta a roles de Conversational Design y Voice UX</span><span lang="en">Open to Conversational Design and Voice UX roles</span></span>
     <p class="hero-name"><span lang="es">Hola, soy</span><span lang="en">Hi, I’m</span> <b>Nicole Sebastiani</b></p>
     <h1 data-words>
       <span lang="es">Diseño cómo conversa la IA.</span>
@@ -77,19 +76,19 @@
     <div class="hero-foot">
       <div>
         <p class="lead">
-          <span lang="es">Conversational AI & UX Designer especializada en agentes de voz. Defino cómo suenan, qué emociones atienden y cuándo ceden el control a un humano. Y los construyo con ElevenLabs y n8n.</span>
-          <span lang="en">Conversational AI & UX Designer specialised in voice agents. I define how they sound, which emotions they handle and when they hand over to a human. And I build them with ElevenLabs and n8n.</span>
+          <span lang="es">Conversational Designer de agentes de voz. Defino cómo suenan, qué emociones atienden y cuándo ceden el control a un humano. Y los construyo con ElevenLabs y n8n.</span>
+          <span lang="en">Conversational Designer for voice agents. I define how they sound, which emotions they handle and when they hand over to a human. And I build them with ElevenLabs and n8n.</span>
         </p>
         <div class="hero-cta">
-          <button class="btn btn-white" type="button" data-open-live data-magnetic>
+          <a class="btn btn-white" href="#work" data-magnetic><span lang="es">Ver casos</span><span lang="en">See work</span></a>
+          <button class="btn btn-line" type="button" data-talk-nikkita data-magnetic>
             <svg class="mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
-            <span lang="es">Hablar con Clarito</span><span lang="en">Talk to Clarito</span>
+            <span lang="es">Habla con Nikkita</span><span lang="en">Talk to Nikkita</span>
           </button>
-          <a class="btn btn-line" href="#work" data-magnetic><span lang="es">Ver casos</span><span lang="en">See work</span></a>
         </div>
       </div>
       <dl class="transcript">
-        <div><dt>Demos</dt><dd><b lang="es">5 demos</b><b lang="en">5 demos</b> <span lang="es">presentadas a clientes</span><span lang="en">presented to clients</span></dd></div>
+        <div><dt>Demos</dt><dd><b lang="es">5 demos</b><b lang="en">5 demos</b> <span lang="es">presentadas a clientes y eventos</span><span lang="en">presented to clients and at events</span></dd></div>
         <div><dt><span lang="es">Sectores</span><span lang="en">Sectors</span></dt><dd><b lang="es">5 sectores</b><b lang="en">5 sectors</b> <span lang="es">· banca, salud, energía, telecomunicaciones y cobranza</span><span lang="en">· banking, healthcare, energy, telecom and collections</span></dd></div>
         <div><dt><span lang="es">Ubicación</span><span lang="en">Location</span></dt><dd><b>Lima</b> <span lang="es">· remoto</span><span lang="en">· remote</span></dd></div>
       </dl>
@@ -106,8 +105,8 @@
 
     <div class="about">
       <figure class="portrait" data-parallax>
-        <img src="assets/photo.jpg" alt="Nicole Sebastiani" width="600" height="600">
-        <figcaption><b>Nicole Sebastiani</b><span lang="es">Conversational AI & UX Designer · NTT DATA</span><span lang="en">Conversational AI & UX Designer · NTT DATA</span></figcaption>
+        <img src="assets/photo.jpg?v=3" alt="Nicole Sebastiani" width="1254" height="1254">
+        <figcaption><b>Nicole Sebastiani</b><span>Conversational Designer · Voice AI</span></figcaption>
       </figure>
       <div>
         <h2 class="h-xl"><span lang="es">Hola, soy Nicole.</span><span lang="en">Hi, I’m Nicole.</span></h2>
@@ -131,44 +130,39 @@
       </div>
       <div class="skill-cols">
         <div class="skill-col">
-          <h3><span lang="es">Diseño conversacional</span><span lang="en">Conversational design</span></h3>
+          <h3><span lang="es">UX conversacional</span><span lang="en">Conversational UX</span></h3>
           <ul>
-            <li lang="es">Rol, personalidad y voz del agente</li><li lang="en">Agent role, persona and voice</li>
+            <li lang="es">Research y entrevistas</li><li lang="en">Research and interviews</li>
+            <li lang="es">Journeys y puntos de dolor</li><li lang="en">Journeys and pain points</li>
             <li lang="es">Matrices de emoción por situación</li><li lang="en">Emotion matrices by situation</li>
-            <li lang="es">Flujos, intenciones y triaje</li><li lang="en">Flows, intents and triage</li>
             <li lang="es">Reparación ante confusión o molestia</li><li lang="en">Repair for confusion or frustration</li>
             <li lang="es">Escalamiento seguro a humano</li><li lang="en">Safe handoff to humans</li>
+          </ul>
+        </div>
+        <div class="skill-col">
+          <h3><span lang="es">Datos de entrada</span><span lang="en">Input data</span></h3>
+          <ul>
+            <li lang="es">Convierto lo que el cliente ya tiene en decisiones de diseño</li><li lang="en">I turn what the client already has into design decisions</li>
+            <li lang="es">Categorías de llamadas</li><li lang="en">Call categories</li>
+            <li lang="es">Catálogos</li><li lang="en">Catalogues</li>
+            <li lang="es">Flujos y mensajes actuales</li><li lang="en">Current flows and messages</li>
           </ul>
         </div>
         <div class="skill-col">
           <h3><span lang="es">IA generativa</span><span lang="en">Generative AI</span></h3>
           <ul>
             <li lang="es">Prompts de sistema</li><li lang="en">System prompts</li>
-            <li lang="es">Flujos determinísticos + generativos</li><li lang="en">Deterministic + generative flows</li>
-            <li lang="es">Tool calling y captura de datos</li><li lang="en">Tool calling and data capture</li>
-            <li lang="es">Guardrails de identidad y consentimiento</li><li lang="en">Identity and consent guardrails</li>
-            <li lang="es">Bases de conocimiento organizadas por tema</li><li lang="en">Knowledge bases organised by topic</li>
+            <li lang="es">Reglas estrictas para identidad y consentimiento</li><li lang="en">Strict rules for identity and consent</li>
+            <li lang="es">Bases de datos y herramientas conectadas al agente</li><li lang="en">Databases and tools connected to the agent</li>
           </ul>
         </div>
         <div class="skill-col">
-          <h3><span lang="es">Build y orquestación</span><span lang="en">Build & orchestration</span></h3>
+          <h3><span lang="es">Build y medición</span><span lang="en">Build & measurement</span></h3>
           <ul>
             <li>ElevenLabs Agents</li>
             <li lang="es">n8n y Make</li><li lang="en">n8n and Make</li>
-            <li lang="es">Webhooks y APIs (Postman)</li><li lang="en">Webhooks and APIs (Postman)</li>
-            <li lang="es">Métricas: NPS y desenlace por llamada</li><li lang="en">Metrics: NPS and outcome per call</li>
-            <li lang="es">Dashboards de seguimiento</li><li lang="en">Tracking dashboards</li>
-          </ul>
-        </div>
-        <div class="skill-col">
-          <h3>UX / CX</h3>
-          <ul>
-            <li lang="es">Research y entrevistas</li><li lang="en">Research and interviews</li>
-            <li lang="es">Journeys AS-IS → TO-BE</li><li lang="en">AS-IS → TO-BE journeys</li>
-            <li lang="es">Análisis de funnel, tNPS y voz del cliente</li><li lang="en">Funnel, tNPS and voice-of-customer analysis</li>
-            <li lang="es">Arquitectura de información</li><li lang="en">Information architecture</li>
-            <li lang="es">Usability testing</li><li lang="en">Usability testing</li>
-            <li lang="es">Prototipado en Figma</li><li lang="en">Prototyping in Figma</li>
+            <li lang="es">APIs (Postman)</li><li lang="en">APIs (Postman)</li>
+            <li lang="es">Métricas por llamada: desenlace y NPS</li><li lang="en">Per-call metrics: outcome and NPS</li>
           </ul>
         </div>
       </div>
@@ -185,32 +179,27 @@
 
     <div class="cl-grid">
       <div>
-        <span class="cl-tag"><i aria-hidden="true"></i><span lang="es">En vivo · 2026</span><span lang="en">Live · 2026</span></span>
+        <span class="cl-tag"><i aria-hidden="true"></i><span lang="es">Demo en evento · 2026</span><span lang="en">Event demo · 2026</span></span>
         <h2 class="h-xl">Clarito</h2>
         <p class="lead">
-          <span lang="es">Un asesor de voz con cuerpo y personalidad para un tótem en tienda de Claro. Pulsas un botón y conversas con él, sin menús ni formularios; si decides comprar, registra tu pedido.</span>
-          <span lang="en">A voice advisor with a body and a personality for a kiosk in a Claro store. You press one button and talk to it, no menus or forms; if you decide to buy, it records your order.</span>
+          <span lang="es">Un asesor de voz con nombre y personalidad que ayuda a elegir plan hogar, equipo o accesorios y a coordinar el retiro o la entrega, sin menús ni formularios.</span>
+          <span lang="en">A voice advisor with its own name and personality that helps customers choose a home plan, device or accessories and arranges pickup or delivery, with no menus or forms.</span>
         </p>
         <ul class="cl-points">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 12h2M7 8v8M11 5v14M15 8v8M19 11v2"/></svg><span><b lang="es">Voz en tiempo real.</b><b lang="en">Real-time voice.</b> <span lang="es">Conversación natural, no un árbol de opciones.</span><span lang="en">Natural conversation, not an options tree.</span></span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h13"/></svg><span><b lang="es">Transcripción en pantalla.</b><b lang="en">On-screen transcript.</b> <span lang="es">Lo que se dice queda escrito para leerlo.</span><span lang="en">Everything said is written down to read.</span></span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M9 10h.01M15 10h.01M9 15c1.5 1 4.5 1 6 0"/></svg><span><b lang="es">Un personaje.</b><b lang="en">A character.</b> <span lang="es">La mascota da cara a la IA y su boca se mueve con la voz.</span><span lang="en">The mascot gives the AI a face, and its mouth moves with the voice.</span></span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 4h14v16H5zM9 9h6M9 13h6M9 17h3"/></svg><span><b lang="es">Pedido registrado.</b><b lang="en">Order recorded.</b> <span lang="es">Si el cliente compra, el pedido llega al panel del personal de tienda.</span><span lang="en">If the customer buys, the order reaches the store staff’s dashboard.</span></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 4h14v16H5zM9 9h6M9 13h6M9 17h3"/></svg><span><b lang="es">Un próximo paso claro.</b><b lang="en">A clear next step.</b> <span lang="es">Cada conversación cierra coordinando el retiro o la entrega.</span><span lang="en">Every conversation closes by arranging pickup or delivery.</span></span></li>
         </ul>
+        <p class="cl-note"><span lang="es">Demo presentada en vivo en un evento de experiencia de cliente, creada por NTT DATA.</span><span lang="en">Live demo presented at a customer experience event, created by NTT DATA.</span></p>
         <div class="cl-cta">
-          <button class="btn btn-white" type="button" data-open-live data-magnetic>
-            <svg class="mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
-            <span lang="es">Hablar con Clarito ahora</span><span lang="en">Talk to Clarito now</span>
-          </button>
-          <button class="btn btn-line" type="button" data-open-case="clarito" data-magnetic><span lang="es">Ver el caso</span><span lang="en">Read the case</span></button>
+          <button class="btn btn-white" type="button" data-open-case="clarito" data-magnetic><span lang="es">Ver el caso</span><span lang="en">Read the case</span></button>
         </div>
       </div>
-      <div class="stage" data-tilt>
-        <img class="logo" src="assets/ntt-logo.png" alt="NTT DATA">
-        <p class="say" aria-hidden="true"><small>Clarito</small><span lang="es">«Hola, soy Clarito. Pulsa el botón para hablar conmigo.»</span><span lang="en">“Hi, I’m Clarito. Press the button to talk to me.”</span></p>
-        <div class="shadow" aria-hidden="true"></div>
-        <div class="mascot"><img src="assets/clarito.webp" alt="Clarito, mascota 3D roja" width="900" height="900"></div>
-      </div>
+      <figure class="cl-video">
+        <div class="device"><div class="screen"><video src="assets/clarito-demo.mp4" poster="assets/clarito-demo-poster.jpg" controls playsinline preload="none" aria-label="Grabación de la demo de Clarito / Clarito demo recording"></video></div></div>
+        <figcaption class="cap"><span lang="es">Grabación de la demo · activa el sonido</span><span lang="en">Demo recording · turn the sound on</span></figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -223,16 +212,16 @@
       <span class="txt"><span lang="es">¿Cómo diseñas un agente de voz?</span><span lang="en">How do you design a voice agent?</span></span></div></div>
     <div class="method-top">
       <h2 class="h-xl"><span lang="es">Cómo diseño un agente de voz.</span><span lang="en">How I design a voice agent.</span></h2>
-      <p><span lang="es">Seis pasos, cada uno con un ejemplo real. Desliza para recorrerlos.</span><span lang="en">Six steps, each with a real example. Scroll through them.</span></p>
+      <p><span lang="es">Seis pasos, cada uno con una decisión real. Desliza para recorrerlos.</span><span lang="en">Six steps, each with a real decision. Scroll through them.</span></p>
     </div>
   </div>
   <div class="track-outer">
     <ol class="track" style="list-style:none;margin:0">
       <li class="mstep"><span class="n">1</span>
-        <h3><span lang="es">Escuchar el journey real</span><span lang="en">Listen to the real journey</span></h3>
-        <p><span lang="es">Research con usuarios y expertos: dónde dudan, abandonan o se frustran hoy, y cómo resuelve hoy el cliente ese proceso en sus otros canales.</span><span lang="en">Research with users and experts: where they hesitate, drop off or get frustrated today, and how the client handles that process in its other channels.</span></p>
-        <p class="practice"><b lang="es">En la práctica:</b><b lang="en">In practice:</b> <span lang="es">Entrevisto a quien atiende las llamadas antes de escribir una sola frase.</span><span lang="en">I interview the people who take the calls before writing a single line.</span></p>
-        <div class="out"><span lang="es">entrevistas</span><span lang="en">interviews</span><span>pain points</span><span>journey</span></div></li>
+        <h3><span lang="es">Escuchar los datos del cliente</span><span lang="en">Listen to the client’s data</span></h3>
+        <p><span lang="es">Categorías de llamadas, catálogos, flujos y mensajes actuales: qué pasa hoy y dónde se pierde la gente.</span><span lang="en">Call categories, catalogues, current flows and messages: what happens today and where people get lost.</span></p>
+        <p class="practice"><b lang="es">En la práctica:</b><b lang="en">In practice:</b> <span lang="es">Con las categorías de llamadas de un banco prioricé las fallas más frecuentes.</span><span lang="en">With a bank’s call categories, I prioritised the most frequent failures.</span></p>
+        <div class="out"><span lang="es">categorías</span><span lang="en">categories</span><span lang="es">catálogos</span><span lang="en">catalogues</span><span lang="es">mensajes</span><span lang="en">messages</span></div></li>
       <li class="mstep"><span class="n">2</span>
         <h3><span lang="es">Definir rol y personalidad</span><span lang="en">Define role & persona</span></h3>
         <p><span lang="es">Quién es el agente, cómo suena la marca y qué no puede hacer.</span><span lang="en">Who the agent is, how the brand sounds and what it can’t do.</span></p>
@@ -244,8 +233,8 @@
         <p class="practice"><b lang="es">En la práctica:</b><b lang="en">In practice:</b> <span lang="es">Ante un cliente molesto, el agente baja el ritmo y reconoce el problema antes de pedir datos.</span><span lang="en">With an upset customer, the agent slows down and acknowledges the problem before asking for details.</span></p>
         <div class="out"><span lang="es">situación → tono → frase</span><span lang="en">situation → tone → line</span></div></li>
       <li class="mstep"><span class="n">4</span>
-        <h3><span lang="es">Diseñar el flujo</span><span lang="en">Design the flow</span></h3>
-        <p><span lang="es">Intenciones, rutas, reparación cuando algo falla y escalamiento a un humano cuando hay riesgo.</span><span lang="en">Intents, routes, repair when something fails and handoff to a human when there’s risk.</span></p>
+        <h3><span lang="es">Diseñar el flujo con salida a un humano</span><span lang="en">Design the flow with a way out to a human</span></h3>
+        <p><span lang="es">Reparación cuando algo falla y escalamiento cuando hay riesgo.</span><span lang="en">Repair when something fails and handoff when there’s risk.</span></p>
         <p class="practice"><b lang="es">En la práctica:</b><b lang="en">In practice:</b> <span lang="es">Todo flujo tiene salida a una persona.</span><span lang="en">Every flow has a way out to a person.</span></p>
         <div class="out"><span lang="es">intenciones</span><span lang="en">intents</span><span lang="es">rutas</span><span lang="en">routes</span><span>handoff</span></div></li>
       <li class="mstep"><span class="n">5</span>
@@ -294,16 +283,11 @@
       <span class="typing" aria-hidden="true"><i></i><i></i><i></i></span>
       <span class="txt"><span lang="es">¿Qué más has construido?</span><span lang="en">What else have you built?</span></span></div></div>
     <div class="work-head">
-      <h2 class="h-xl"><span lang="es">Cinco agentes de voz, cinco sectores.</span><span lang="en">Five voice agents, five sectors.</span></h2>
-      <p><span lang="es">Demos presentadas a clientes. Cada una con su personalidad, sus reglas y su forma de derivar a una persona.</span><span lang="en">Demos presented to clients. Each with its own personality, its own rules and its own way of handing over to a person.</span></p>
+      <h2 class="h-xl"><span lang="es">Cinco sectores, un mismo enfoque: escuchar primero.</span><span lang="en">Five sectors, one approach: listen first.</span></h2>
+      <p><span lang="es">Demos de agentes de voz presentadas a clientes y en eventos. Cada caso muestra qué decidí, por qué, cómo se mide y qué resultado obtuve.</span><span lang="en">Voice-agent demos presented to clients and at events. Each case shows what I decided, why, how it’s measured and what came out of it.</span></p>
     </div>
     <ol class="index" id="index" data-index="voice"></ol>
-
-    <div class="work-head sub" id="research">
-      <h2 class="h-l"><span lang="es">Del dato a la decisión.</span><span lang="en">From data to decision.</span></h2>
-      <p><span lang="es">Research de journeys en la tienda online de un operador de telecomunicaciones.</span><span lang="en">Journey research for a telecom operator’s online store.</span></p>
-    </div>
-    <ol class="index" data-index="research"></ol>
+    <p class="work-note"><span lang="es">Son demos, no agentes en producción. Los casos no nombran clientes.</span><span lang="en">These are demos, not production agents. The cases don’t name clients.</span></p>
 
     <div class="work-head sub">
       <h2 class="h-l"><span lang="es">Más proyectos de UX/UI.</span><span lang="en">More UX/UI projects.</span></h2>
@@ -324,19 +308,17 @@
         <li class="job">
           <time><span lang="es">2026 — hoy</span><span lang="en">2026 — now</span></time>
           <div>
-            <h3>Conversational AI & UX Designer</h3>
+            <h3>Conversational Designer</h3>
             <div class="org">NTT DATA</div>
             <ul>
-              <li lang="es">Diseñé y presenté demos funcionales de agentes de voz para banca, salud, energía, telecomunicaciones y cobranza, en ElevenLabs y orquestados con n8n. La de energía derivó en una propuesta de piloto con dos niveles de integración.</li>
-              <li lang="en">Designed and presented working voice-agent demos for banking, healthcare, energy, telecom and collections, built in ElevenLabs and orchestrated with n8n. The energy demo led to a pilot proposal with two levels of integration.</li>
-              <li lang="es">Definí rol, personalidad y matrices de emoción, y flujos con reparación y escalamiento a humano.</li>
-              <li lang="en">Defined role, persona and emotion matrices, and flows with repair and human handoff.</li>
-              <li lang="es">Separé identidad y consentimiento en reglas estrictas y dejé la conversación en prompts, para poder auditar cada paso.</li>
-              <li lang="en">Put identity and consent in strict rules and left the conversation in prompts, so every step can be audited.</li>
-              <li lang="es">Traduje procesos existentes del cliente a flujos conversacionales, como las reglas de agendamiento de imágenes de una clínica.</li>
-              <li lang="en">Translated clients’ existing processes into conversational flows, such as a clinic’s imaging booking rules.</li>
-              <li lang="es">UX Research para Claro: journey de portabilidad cruzando funnel, tNPS y voz del cliente, y research de e-commerce con 20 referentes, 4 expertos y 10 usuarios.</li>
-              <li lang="en">UX Research for Claro: a portability journey crossing funnel, tNPS and voice of customer, and e-commerce research with 20 benchmarks, 4 experts and 10 users.</li>
+              <li lang="es">Diseñé y presenté demos de agentes de voz para telecomunicaciones, banca, salud, energía y cobranza, en ElevenLabs y orquestados con n8n.</li>
+              <li lang="en">Designed and presented voice-agent demos for telecom, banking, healthcare, energy and collections, built in ElevenLabs and orchestrated with n8n.</li>
+              <li lang="es">Convertí los datos de cada cliente (categorías de llamadas, catálogos, flujos y mensajes) en reglas y decisiones de diseño.</li>
+              <li lang="en">Turned each client’s data (call categories, catalogues, flows and messages) into rules and design decisions.</li>
+              <li lang="es">Presenté una de las demos en vivo en un evento de cliente, y llevé otra a un piloto acotado.</li>
+              <li lang="en">Presented one of the demos live at a client event, and took another to a scoped pilot.</li>
+              <li lang="es">UX research para e-commerce: benchmark, entrevistas con expertos y usuarios, y journeys.</li>
+              <li lang="en">UX research for e-commerce: benchmarking, expert and user interviews, and journeys.</li>
             </ul>
           </div>
         </li>
@@ -383,7 +365,7 @@
           <h3><span lang="es">Herramientas</span><span lang="en">Tools</span></h3>
           <p class="tool-lbl"><span lang="es">Uso diario</span><span lang="en">Daily</span></p>
           <div class="toolbox">
-            <span class="k">ElevenLabs</span><span class="k">n8n</span><span class="k">Figma</span><span class="k">Postman</span><span class="k">Make</span><span class="k">Miro</span>
+            <span class="k">ElevenLabs</span><span class="k">n8n</span><span class="k">Figma</span><span class="k">Postman</span><span class="k">Make</span><span class="k">Miro</span><span class="k" lang="es">Bases de datos</span><span class="k" lang="en">Databases</span>
           </div>
           <p class="tool-lbl"><span lang="es">También uso</span><span lang="en">Also</span></p>
           <div class="toolbox">
@@ -410,11 +392,11 @@
     <div class="contact-cta">
       <a class="btn btn-white" href="mailto:nicolesebastiani15@gmail.com" data-magnetic>nicolesebastiani15@gmail.com</a>
       <a class="btn btn-line" href="https://www.linkedin.com/in/nicole-sebastiani/" target="_blank" rel="noopener" data-magnetic>LinkedIn</a>
-      <button class="btn btn-line" type="button" data-open-live data-magnetic><span lang="es">O habla con Clarito</span><span lang="en">Or talk to Clarito</span></button>
+      <button class="btn btn-line" type="button" data-talk-nikkita data-magnetic><span lang="es">O habla con Nikkita</span><span lang="en">Or talk to Nikkita</span></button>
     </div>
     <div class="foot">
       <span>© 2026 Nicole Sebastiani</span>
-      <span>Lima, Perú · Conversational AI & UX Design · Voice AI</span>
+      <span>Lima, Perú · Conversational Design · Voice AI</span>
     </div>
   </div>
 </section>
@@ -434,18 +416,6 @@
   </div>
 </div>
 
-<!-- ================= CLARITO EN VIVO ================= -->
-<div class="live" id="live" role="dialog" aria-modal="true" aria-label="Clarito en vivo" hidden>
-  <div class="scrim" data-close-live></div>
-  <div class="live-box">
-    <div class="live-bar">
-      <a href="https://nsebastb.github.io/agentes/clarito.html" target="_blank" rel="noopener"><span lang="es">Abrir en pestaña nueva</span><span lang="en">Open in new tab</span></a>
-      <button class="icon-btn" type="button" data-close-live aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-    </div>
-    <iframe title="Clarito, agente de voz" data-src="https://nsebastb.github.io/agentes/clarito.html" allow="microphone; autoplay"></iframe>
-  </div>
-</div>
-
 <!-- ================= AGENTE GUÍA ================= -->
 <div class="guide" hidden>
   <div class="nikkita" hidden aria-hidden="true"></div>
@@ -459,8 +429,8 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="cases.js?v=202610092600"></script>
-<script src="nikkita.js?v=202610092600"></script>
-<script src="app.js?v=202610092600"></script>
+<script src="cases.js?v=202610200300"></script>
+<script src="nikkita.js?v=202610200300"></script>
+<script src="app.js?v=202610200300"></script>
 </body>
 </html>

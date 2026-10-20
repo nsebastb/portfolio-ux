@@ -11,20 +11,18 @@ const L = () => root.dataset.lang === 'en' ? 'en' : 'es';
 const t = o => (o && typeof o === 'object') ? (o[L()] ?? o.es) : (o ?? '');
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
-const TONES = {clarito:'#EE2A1F', banca:'#1F7A4D', telco:'#2B2FE0', pago:'#0B8A7A', energy:'#B85C00', salud:'#0A78AE',
-  'research-telco':'#4B3FD1', portabilidad:'#9A2E5E', catering:'#C2386F', veridik:'#6B3FE0'};
+const TONES = {clarito:'#EE2A1F', banca:'#1F7A4D', pago:'#0B8A7A', energy:'#B85C00', salud:'#0A78AE', veridik:'#6B3FE0'};
 const UI = {
   role:{es:'Mi rol',en:'My role'}, context:{es:'Contexto',en:'Context'}, sector:{es:'Sector',en:'Sector'}, year:{es:'Año',en:'Year'}, tools:{es:'Herramientas',en:'Tools'},
-  glance:{es:'En resumen',en:'At a glance'}, challenge:{es:'El reto',en:'The challenge'}, steps:{es:'El flujo, paso a paso',en:'The flow, step by step'},
-  process:{es:'El proceso',en:'The process'}, demo:{es:'Demo real del agente',en:'Real agent demo'},
+  challenge:{es:'El reto',en:'The challenge'}, uxChallenge:{es:'El reto de UX',en:'The UX challenge'},
+  demo:{es:'Demo real del agente',en:'Real agent demo'}, recording:{es:'Grabación de la demo',en:'Demo recording'},
   sound:{es:'Activa el sonido para escucharlo.',en:'Turn the sound on to hear it.'},
-  emo:{es:'Matriz de emociones',en:'Emotion matrix'}, emoPart:{es:'Fragmento de la matriz de emociones',en:'Excerpt from the emotion matrix'},
-  problem:{es:'El problema',en:'The problem'}, scope:{es:'Alcance de la demo',en:'Demo scope'}, decisions:{es:'Decisiones de diseño',en:'Design decisions'},
-  decision:{es:'Decisión clave',en:'Key decision'}, result:{es:'Resultado',en:'Outcome'}, out:{es:'Qué quedó fuera del piloto',en:'What stayed out of the pilot'},
-  learned:{es:'Lo que aprendí',en:'What I learned'}, screens:{es:'Así se ve',en:'What it looks like'}, design:{es:'Diseño',en:'Design'}, friction:{es:'Fricción detectada en el testing',en:'Friction found in testing'},
-  drivers:{es:'Cinco drivers que habilitan avanzar',en:'Five drivers that unlock progress'},
-  prev:{es:'Anterior',en:'Previous'}, next:{es:'Siguiente',en:'Next'}, live:{es:'Pruébalo en vivo',en:'Try it live'},
-  talk:{es:'Hablar con Clarito',en:'Talk to Clarito'}, speaking:{es:'hablando',en:'speaking'}, listening:{es:'escuchando',en:'listening'},
+  decisions:{es:'Qué decidí y por qué',en:'What I decided and why'}, because:{es:'Por qué',en:'Why'},
+  metrics:{es:'Cómo se mide',en:'How it’s measured'}, measure:{es:'Qué mido',en:'What I measure'},
+  results:{es:'Resultados',en:'Outcomes'},
+  learned:{es:'Lo que aprendí',en:'What I learned'}, design:{es:'Diseño',en:'Design'},
+  others:{es:'Otras funciones',en:'Other functions'},
+  prev:{es:'Anterior',en:'Previous'}, next:{es:'Siguiente',en:'Next'},
   from:{es:'Fuente: agente de',en:'Source: agent for'},
   srcName:{telco:{es:'telco',en:'telco'},energy:{es:'energía',en:'energy'},salud:{es:'salud',en:'healthcare'}}
 };
@@ -122,7 +120,7 @@ function voiceField(canvas, opts = {}){
         }
         x ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
       }
-      ctx.strokeStyle = `rgba(255,255,255,${.12 + near * .38})`;
+      ctx.strokeStyle = `rgba(255,255,255,${(.12 + near * .38) * (opts.dim || 1)})`;
       ctx.lineWidth = 1 + near * .6;
       ctx.stroke();
     }
@@ -133,7 +131,9 @@ function voiceField(canvas, opts = {}){
   if (reduce) draw(); else loop();
   return st;
 }
-const heroField = voiceField($('#voice'), {energy:.35, gap:24});
+/* en móvil, menos líneas y más tenues para que el texto respire */
+const narrow = matchMedia('(max-width:600px)').matches;
+const heroField = voiceField($('#voice'), narrow ? {energy:.25, gap:52, dim:.5} : {energy:.35, gap:24});
 voiceField($('#voice2'), {energy:.25, gap:30});
 
 /* el campo de voz se intensifica mientras aparece el titular */
@@ -190,7 +190,7 @@ if (window.gsap && window.ScrollTrigger && !reduce){
     gsap.from('.mstep', {y:60, opacity:0, stagger:.08, duration:.8, ease:'power3.out', scrollTrigger:{trigger:outer, start:'top 80%'}});
   });
   gsap.to('[data-parallax] img', {yPercent:-8, scale:1.08, ease:'none', scrollTrigger:{trigger:'[data-parallax]', scrub:true}});
-  gsap.from('.stage', {y:80, rotate:-2, opacity:0, duration:1.1, ease:'power3.out', scrollTrigger:{trigger:'.stage', start:'top 85%'}});
+  gsap.from('.cl-video', {y:80, rotate:-2, opacity:0, duration:1.1, ease:'power3.out', scrollTrigger:{trigger:'.cl-video', start:'top 85%'}});
   gsap.from('.skill-col', {y:40, opacity:0, stagger:.1, duration:.8, ease:'power3.out', scrollTrigger:{trigger:'.skill-cols', start:'top 85%'}});
   gsap.from('.contact h2', {yPercent:40, opacity:0, duration:1.1, ease:'power4.out', scrollTrigger:{trigger:'.contact h2', start:'top 90%'}});
 }
@@ -286,7 +286,7 @@ function showEmo(i, instant){
 
 /* ---------------- índice de casos ---------------- */
 const indexEl = $('#work'), peek = $('.peek');
-/* casos visibles en el índice (Clarito tiene su propia sección) */
+/* casos visibles en el índice, en el orden de CASES */
 const LISTED = CASES.filter(c => c.group);
 function renderIndex(){
   $$('[data-index]', indexEl).forEach(ol => ol.innerHTML = LISTED.filter(c => c.group === ol.dataset.index).map(c => {
@@ -295,8 +295,8 @@ function renderIndex(){
     return `<li class="row" style="--tone:${TONES[c.id]}">
       <button type="button" data-open-case="${c.id}">
         <span class="num">${String(i + 1).padStart(2, '0')}</span>
-        <span class="t">${esc(t(c.topic || c.title))}<small>${esc(t(c.short))}</small></span>
-        <span class="sec">${esc(t(c.sector))}</span>
+        <span class="t">${esc(t(c.group === 'voice' ? c.sector : c.title))}<small>${esc(t(c.short))}</small></span>
+        <span class="sec">${esc(t(c.group === 'voice' ? c.topic : c.sector))}</span>
         <span class="kind ${cls}">${esc(t(c.type))}</span>
         <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </button></li>`;
@@ -353,34 +353,21 @@ function renderCase(id, scrollTop = true){
     <p class="line">${esc(t(c.line))}</p>
     <p class="lead">${esc(t(c.lead))}</p>
     <dl class="cs-meta">${meta.map(([k, v]) => `<div><dt>${t(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>
-    ${c.live ? `<div class="hero-cta"><button class="btn btn-white" type="button" data-open-live style="color:var(--tone)">${t(UI.talk)}</button></div>` : ''}
   </header>`;
   if (c.stats) h += `<div class="cs-stats">${c.stats.map(([v, l]) => `<div class="cs-stat"><b>${esc(v)}</b><span>${esc(t(l))}</span></div>`).join('')}</div>`;
-  if (c.challenge) h += sec(t(UI.challenge), `<div class="cs-two"><div><p>${esc(t(c.challenge))}</p><p>${esc(t(c.answer))}</p></div><p class="voice-quote">${esc(t(c.quote))}</p></div>`);
-  if (c.problem) h += sec(t(UI.problem), `<div class="cs-two"><p>${esc(t(c.problem))}</p><div class="cs-scope"><h4>${t(UI.scope)}</h4><p>${esc(t(c.scope))}</p></div></div>`);
-  if (c.decision) h += sec(t(UI.decision), `<p class="voice-quote">${esc(t(c.decision))}</p>`);
-  if (c.steps) h += sec(t(c.stepsTitle || (c.kind === 'research' ? UI.process : UI.steps)), `<ol class="steps">${c.steps.map(([a, b, tag]) => `<li><div><h4>${esc(t(a))}</h4><p>${esc(t(b))}</p></div>${tag ? `<code>${esc(tag)}</code>` : '<span></span>'}</li>`).join('')}</ol>`);
-  if (c.videos){
-    const phones = c.videos.filter(v => !v[2]), webs = c.videos.filter(v => v[2]);
-    h += `<section class="cs-sec"><h3>${t(UI.demo)}</h3><div class="demos${webs.length ? ' mixed' : ''}">`
-      + phones.map(([s, p]) => `<figure class="phone-wrap"><div class="phone"><video src="${s}" poster="${p}" controls playsinline preload="none"></video></div><figcaption class="cap">${t(UI.sound)}</figcaption></figure>`).join('')
-      + webs.map(([s, p, lab]) => `<figure class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span class="url">${esc(t(lab))}</span></div><video src="${s}" poster="${p}" autoplay muted loop playsinline preload="metadata" data-ambient aria-label="${esc(t(lab))}"></video></figure>`).join('')
-      + `</div></section>`;
-  }
-  if (c.decisions) h += sec(t(UI.decisions), tiles(c.decisions));
-  if (c.gallery) h += sec(t(UI.screens), `<div class="demos mixed">${c.gallery.map(([src, cap, kind]) => kind === 'phone'
-    ? `<figure class="phone-wrap"><div class="phone"><img src="${src}" alt="${esc(t(cap))}" loading="lazy"></div><figcaption class="cap">${esc(t(cap))}</figcaption></figure>`
-    : `<figure class="browser"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span class="url">${esc(t(cap))}</span></div><img src="${src}" alt="${esc(t(cap))}" loading="lazy"></figure>`).join('')}</div>`);
-  if (c.live) h += `<section class="cs-sec"><h3>${t(UI.live)}</h3><div class="stage" style="max-width:820px;margin:0 auto"><img class="logo" src="assets/ntt-logo.png" alt="NTT DATA"><div class="shadow"></div><div class="mascot"><img src="assets/clarito.webp" alt="Clarito"></div></div><div class="hero-cta" style="justify-content:center"><button class="btn btn-red" type="button" data-open-live>${t(UI.talk)}</button></div></section>`;
-  if (c.shots) h += `<section class="cs-sec"><h3>${t(UI.design)}</h3><div class="shots${c.shots.length > 1 ? ' three' : ''}">${c.shots.map(s => `<img src="${s}" alt="${esc(t(c.title))}" loading="lazy">`).join('')}</div></section>`;
-  if (c.bars) h += `<section class="cs-sec"><h3>${t(UI.friction)}</h3><div class="fbars">${c.bars.map(([l, v, lab]) => `<div class="bar"><span>${esc(t(l))}</span><span class="tr"><i style="--v:${v}"></i></span><b>${esc(t(lab))}</b></div>`).join('')}</div></section>`;
-  if (c.emo) h += sec(t(c.decisions ? UI.emoPart : UI.emo), `<div class="emo">${c.emo.map(([w, tn, s]) => `<div><span class="when">${esc(t(w))}</span><span class="tone">${esc(t(tn))}</span><q>${esc(t(s))}</q></div>`).join('')}</div>`);
-  (c.blocks || []).forEach(b => h += sec(t(b.title), `${b.intro ? `<p class="cs-intro">${esc(t(b.intro))}</p>` : ''}${tiles(b.items)}`));
-  if (c.result) h += sec(t(UI.result), `<p class="cs-intro">${esc(t(c.result))}</p>`);
-  if (c.out) h += sec(t(UI.out), `<p class="cs-intro">${esc(t(c.out))}</p>`);
-  if (c.learned) h += sec(t(UI.learned), `<p class="voice-quote">${esc(t(c.learned))}</p>`);
-  if (c.drivers) h += `<section class="cs-sec"><h3>${t(c.driversTitle || UI.drivers)}</h3><div class="toolbox">${c.drivers.map(d => `<span class="k" style="background:var(--tone);font-size:16px;padding:10px 18px">${esc(t(d))}</span>`).join('')}</div></section>`;
+  if (c.note) h += `<p class="cs-note">${esc(t(c.note))}</p>`;
+  if (c.quote) h += sec(t(UI.challenge), `<div class="cs-two"><div><p>${esc(t(c.challenge))}</p><p>${esc(t(c.answer))}</p></div><p class="voice-quote">${esc(t(c.quote))}</p></div>`);
+  else if (c.challenge) h += sec(t(UI.uxChallenge), `<p class="voice-quote">${esc(t(c.challenge))}</p>`);
+  if (c.videos) h += `<section class="cs-sec"><h3>${t(c.recording ? UI.recording : UI.demo)}</h3><div class="demos">`
+    + c.videos.map(([s, p, ar]) => `<figure class="phone-wrap"><div class="phone"><video src="${s}" poster="${p}" controls playsinline preload="none"${ar ? ` style="aspect-ratio:${ar};object-fit:cover"` : ''}></video></div><figcaption class="cap">${t(UI.sound)}</figcaption></figure>`).join('')
+    + `</div></section>`;
+  if (c.decisions) h += sec(t(UI.decisions), `<div class="why">${c.decisions.map(([a, b, w]) => `<div><h4>${esc(t(a))}</h4><p>${esc(t(b))}</p><p class="because"><b>${t(UI.because)}:</b> ${esc(t(w))}</p></div>`).join('')}</div>`);
+  if (c.metrics) h += sec(t(UI.metrics), `<div class="cs-table" role="table"><div class="tr th" role="row"><span role="columnheader">${t(UI.measure)}</span><span role="columnheader">${t(UI.because)}</span></div>${c.metrics.map(([a, b]) => `<div class="tr" role="row"><b role="cell">${esc(t(a))}</b><span role="cell">${esc(t(b))}</span></div>`).join('')}</div>`);
+  if (c.results) h += sec(t(UI.results), `<div class="cs-results">${c.results.map(([a, b]) => `<div><span>${esc(t(a))}</span><b>${esc(t(b))}</b></div>`).join('')}</div>`);
   if (c.tiles) h += sec(esc(t(c.tilesTitle)), tiles(c.tiles));
+  if (c.shots) h += `<section class="cs-sec"><h3>${t(UI.design)}</h3><div class="shots${c.shots.length > 1 ? ' three' : ''}">${c.shots.map(s => `<img src="${s}" alt="${esc(t(c.title))}" loading="lazy">`).join('')}</div></section>`;
+  if (c.learned) h += sec(t(UI.learned), `<p class="voice-quote">${esc(t(c.learned))}</p>`);
+  if (c.others) h += sec(t(UI.others), `<ul class="cs-others">${c.others.map(o => `<li>${esc(t(o))}</li>`).join('')}</ul>`);
   h += `<nav class="cs-next"><button type="button" data-go="${prev.id}"><span>${t(UI.prev)}</span><b>${esc(t(prev.title))}</b></button>
   <button class="nx" type="button" data-go="${next.id}"><span>${t(UI.next)}</span><b>${esc(t(next.title))}</b></button></nav>`;
   body.innerHTML = h;
@@ -412,43 +399,27 @@ document.addEventListener('click', e => {
     const i = LISTED.findIndex(c => c.id === current), d = e.target.closest('[data-next]') ? 1 : -1, n = LISTED.length;
     const id = LISTED[i < 0 ? (d > 0 ? 0 : n - 1) : (i + d + n) % n].id; renderCase(id); history.replaceState(null,'','#caso-' + id);
   }
-  if (e.target.closest('[data-open-live]')) openLive();
-  if (e.target.closest('[data-close-live]')) closeLive();
+  if (e.target.closest('[data-talk-nikkita]')) window.dispatchEvent(new Event('nikkita-start'));
 });
 /* pausar otros videos */
-document.addEventListener('play', e => { if (e.target.hasAttribute('data-ambient')) return; $$('video:not([data-ambient])').forEach(v => v !== e.target && v.pause()) }, true);
+document.addEventListener('play', e => { $$('video').forEach(v => v !== e.target && v.pause()) }, true);
 
-/* ---------------- Clarito en vivo ---------------- */
-const live = $('#live'), frame = $('iframe', live);
-let liveFocus = null;
-function openLive(){
-  window.dispatchEvent(new Event('nikkita-stop'));
-  liveFocus = document.activeElement;
-  if (!frame.src) frame.src = frame.dataset.src;
-  live.hidden = false; live.classList.add('open'); document.body.style.overflow = 'hidden';
-  setTimeout(() => $('[data-close-live].icon-btn', live).focus(), 60);
-}
-function closeLive(){
-  live.classList.remove('open'); live.hidden = true; frame.src = '';
-  if (!dlg.classList.contains('open')) document.body.style.overflow = '';
-  liveFocus && liveFocus.focus();
-}
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape'){ if (live.classList.contains('open')) closeLive(); else if (dlg.classList.contains('open')) closeCase() }
-  if (dlg.classList.contains('open') && !live.classList.contains('open')){
+  if (e.key === 'Escape' && dlg.classList.contains('open')) closeCase();
+  if (dlg.classList.contains('open')){
     if (e.key === 'ArrowRight' && !e.target.closest('video')) $('[data-next]', dlg).click();
     if (e.key === 'ArrowLeft' && !e.target.closest('video')) $('[data-prev]', dlg).click();
   }
   if (e.key === 'Tab'){
-    const box = live.classList.contains('open') ? live : dlg.classList.contains('open') ? dlg : null; if (!box) return;
-    const f = $$('a[href],button:not([disabled]),video,iframe,[tabindex]:not([tabindex="-1"])', box).filter(x => x.offsetParent !== null);
+    const box = dlg.classList.contains('open') ? dlg : null; if (!box) return;
+    const f = $$('a[href],button:not([disabled]),video,[tabindex]:not([tabindex="-1"])', box).filter(x => x.offsetParent !== null);
     if (!f.length) return;
     if (e.shiftKey && document.activeElement === f[0]){ e.preventDefault(); f[f.length - 1].focus() }
     else if (!e.shiftKey && document.activeElement === f[f.length - 1]){ e.preventDefault(); f[0].focus() }
   }
 });
 
-/* ---------------- botones magnéticos, tilt y cursor ---------------- */
+/* ---------------- botones magnéticos y cursor ---------------- */
 if (finePointer && !reduce){
   root.classList.add('has-cursor');
   $$('[data-magnetic]').forEach(b => {
@@ -456,20 +427,12 @@ if (finePointer && !reduce){
       b.style.transform = `translate(${(e.clientX - r.left - r.width/2) * .22}px,${(e.clientY - r.top - r.height/2) * .3}px)` });
     b.addEventListener('pointerleave', () => b.style.transform = '');
   });
-  const stage = $('#clarito .stage');
-  stage.addEventListener('pointermove', e => { const r = stage.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-    stage.style.transform = `perspective(1000px) rotateY(${x * 7}deg) rotateX(${-y * 7}deg)`;
-    $('.mascot', stage).style.translate = `${x * 24}px ${y * 10}px` });
-  stage.addEventListener('pointerleave', () => { stage.style.transform = ''; $('.mascot', stage).style.translate = '' });
-  stage.style.transition = 'transform .4s cubic-bezier(.2,.7,.1,1)';
   const label = $('em', cursor);
   document.addEventListener('pointerover', e => {
-    const row = e.target.closest('[data-open-case]'), talk = e.target.closest('#clarito .stage');
-    cursor.classList.toggle('big', !!(row || talk));
-    label.textContent = row ? (L() === 'es' ? 'Ver' : 'View') : talk ? (L() === 'es' ? 'Hola' : 'Hi') : '';
+    const row = e.target.closest('[data-open-case]');
+    cursor.classList.toggle('big', !!row);
+    label.textContent = row ? (L() === 'es' ? 'Ver' : 'View') : '';
   });
-  $('#clarito .stage').addEventListener('click', openLive);
 }
 
 /* ---------------- agente guía (ElevenLabs) ---------------- */
@@ -493,13 +456,13 @@ const GUIDE_AGENT_ID = 'agent_2401m4by69x4e54v5h02b7tqsa6v';
   if (av.nk && finePointer && !reduce) addEventListener('pointermove', e => { const r = av.el.getBoundingClientRect();
     av.nk.look((e.clientX - (r.left + r.width / 2)) / 400, (e.clientY - (r.top + r.height * .33)) / 400) }, {passive:true});
   const SAY = {es:'¡Hola! Soy Nikkita, la guía de este portfolio. ¿Qué te gustaría conocer de Nicole?', en:'Hi! I’m Nikkita, this portfolio’s guide. What would you like to know about Nicole?'};
-  const SECTIONS = {inicio:'#top', sobre_mi:'#about', competencias:'#skills', clarito:'#clarito', metodo:'#method', emociones:'#play', casos:'#work', research:'#research', experiencia:'#xp', contacto:'#contact'};
+  const SECTIONS = {inicio:'#top', sobre_mi:'#about', competencias:'#skills', clarito:'#clarito', metodo:'#method', emociones:'#play', casos:'#work', research:'#work', experiencia:'#xp', contacto:'#contact'};
   const go = sel => { if (dlg.classList.contains('open')) closeCase(); setTimeout(() => { $(sel)?.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'}); av.point() }, 120) };
   const tools = {
     ir_a_seccion: ({seccion}) => { const s = SECTIONS[seccion]; if (!s) return 'Sección no encontrada'; go(s); return 'Mostrando la sección ' + seccion },
-    abrir_caso: ({caso}) => { if (!caseById(caso)) return 'Caso no encontrado'; av.point(); if (live.classList.contains('open')) closeLive(); if (dlg.classList.contains('open')){ renderCase(caso); history.replaceState(null,'','#caso-' + caso) } else openCase(caso); return 'Caso abierto: ' + t(caseById(caso).title) },
+    abrir_caso: ({caso}) => { caso = {telco:'clarito'}[caso] || caso; if (!caseById(caso)) return 'Caso no encontrado'; av.point(); if (dlg.classList.contains('open')){ renderCase(caso); history.replaceState(null,'','#caso-' + caso) } else openCase(caso); return 'Caso abierto: ' + t(caseById(caso).title) },
     cerrar_caso: () => { if (dlg.classList.contains('open')) closeCase(); return 'Caso cerrado' },
-    filtrar_casos: ({tipo}) => { go(tipo === 'research' ? '#research' : '#work'); return 'Mostrando casos: ' + (tipo || 'todos') },
+    filtrar_casos: ({tipo}) => { go('#work'); return 'Mostrando casos: ' + (tipo || 'todos') },
     probar_emocion: ({emocion}) => { const i = EMO_PLAY.findIndex(e => e.k === emocion); if (i < 0) return 'Emoción no encontrada'; go('#play'); setTimeout(() => showEmo(i), 700); return 'Mostrando la respuesta para: ' + t(EMO_PLAY[i].e) },
     mostrar_emocion: ({emocion}) => { const e = {feliz:'happy', sorprendida:'wow', empatica:'empathy', pensativa:'think'}[emocion]; if (!e) return 'Emoción no válida'; av.mood(e, 3500); return 'Mostrando emoción ' + emocion },
     cambiar_idioma: ({idioma}) => { if (idioma !== 'es' && idioma !== 'en') return 'Idioma no válido'; setLang(idioma); return 'Idioma cambiado a ' + idioma }
@@ -513,7 +476,6 @@ const GUIDE_AGENT_ID = 'agent_2401m4by69x4e54v5h02b7tqsa6v';
     orb.style.transform = `scale(${1 + Math.min(.6, v * 1.4)})`; let o = 0; try{ o = conv?.getOutputVolume?.() || 0 }catch(e){} av.set('level', Math.round(Math.min(1, o * 2.2) * 100)); raf = requestAnimationFrame(pulse) }
   async function start(){
     if (conv) return;
-    if (live.classList.contains('open')) closeLive();
     setState('connecting');
     try{
       sdk = sdk || (await import('https://esm.sh/@elevenlabs/client')).Conversation;
@@ -536,10 +498,11 @@ const GUIDE_AGENT_ID = 'agent_2401m4by69x4e54v5h02b7tqsa6v';
     box.classList.remove('on'); cap.textContent = ''; setState('idle');
   }
   btn.addEventListener('click', () => conv ? null : start());
-  addEventListener('nikkita-stop', () => { if (conv) stop(false) });
   /* en móvil Nikkita queda plegada en un botón de chat; al tocarlo se despliega y la X la vuelve a plegar */
   const fab = $('.guide-fab', box);
   const fold = open => { box.classList.toggle('open', open); fab.setAttribute('aria-expanded', String(open)) };
+  /* los botones «Habla con Nikkita» del sitio abren la guía y empiezan la conversación */
+  addEventListener('nikkita-start', () => { fold(true); btn.focus(); if (!conv) start() });
   fab.addEventListener('click', () => { fold(true); btn.focus() });
   end.addEventListener('click', () => { if (conv) stop(false); fold(false) });
   setState('idle');
